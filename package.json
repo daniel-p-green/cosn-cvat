@@ -1,0 +1,13 @@
+{
+  "name": "cosn-cvat",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent educator-friendly adaptation of CoSN K-12CVAT Lite 4.1",
+  "license": "CC-BY-NC-SA-4.0",
+  "scripts": {
+    "start": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
+    "extract": "python3 scripts/extract-source.py",
+    "check": "node --check dist/app.js && node --check dist/model.js && node --check dist/kit.js && node --check dist/explanations.js && python3 scripts/verify-source.py && node scripts/verify-model.mjs"
+  }
+}

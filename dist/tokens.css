@@ -1,0 +1,25 @@
+/* CoSN CVAT independent kit. Provisional institutional palette, not MSBA branding.
+   Semantic token names make a future shadcn/React port straightforward. */
+:root {
+  --background: #f6f8fa;
+  --foreground: #182e43;
+  --card: #ffffff;
+  --card-foreground: #182e43;
+  --primary: #173d66;
+  --primary-foreground: #ffffff;
+  --secondary: #eef3f8;
+  --secondary-foreground: #173d66;
+  --muted-foreground: #526373;
+  --border: #d4dde5;
+  --input: #9aaebb;
+  --ring: #a15a00;
+  --destructive: #883822;
+  --radius: 5px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+}

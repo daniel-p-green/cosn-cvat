@@ -1,0 +1,1202 @@
+{
+  "title": "CoSN K-12 Community Vendor Assessment Tool (CVAT) - Lite",
+  "version": "4.1",
+  "url": "https://www.cosn.org/wp-content/uploads/2022/11/CoSN-K-12CVAT-Lite-V4.1-2.xlsx",
+  "sha256": "1aad4422dc8ba231f4c8ba499311be8a7b8f55ed37081053dd54a535caa94f7d",
+  "retrieved": "2026-10-21",
+  "sections": [
+    "General Information",
+    "Documentation",
+    "Company Overview",
+    "Application/Service Security",
+    "Authentication, Authorization, and Accounting",
+    "Business Continuity Plan",
+    "Change Management",
+    "Data",
+    "Database",
+    "Datacenter",
+    "Disaster Recovery Plan",
+    "Firewalls, IDS, IPS, and Networking",
+    "Physical Security",
+    "Policies, Procedures, and Processes",
+    "Systems Management & Configuration",
+    "Vulnerability Scanning"
+  ],
+  "questions": [
+    {
+      "id": "DATE-01",
+      "text": "Date",
+      "section": "General Information",
+      "row": 3,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-01",
+      "text": "Vendor Name",
+      "section": "General Information",
+      "row": 7,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-02",
+      "text": "Product Name",
+      "section": "General Information",
+      "row": 8,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-03",
+      "text": "Product Description",
+      "section": "General Information",
+      "row": 9,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-04",
+      "text": "Web Link to Product Privacy Notice",
+      "section": "General Information",
+      "row": 10,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-05",
+      "text": "Vendor Contact Name",
+      "section": "General Information",
+      "row": 11,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-06",
+      "text": "Vendor Contact Title",
+      "section": "General Information",
+      "row": 12,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-07",
+      "text": "Vendor Contact Email",
+      "section": "General Information",
+      "row": 13,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-08",
+      "text": "Vendor Contact Phone Number",
+      "section": "General Information",
+      "row": 14,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-09",
+      "text": "Vendor Data Zone",
+      "section": "General Information",
+      "row": 15,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-10",
+      "text": "Institution Data Zone",
+      "section": "General Information",
+      "row": 16,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-11",
+      "text": "School Organization Security Analyst/Engineer",
+      "section": "General Information",
+      "row": 18,
+      "kind": "text",
+      "owner": "District IT",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "GNRL-12",
+      "text": "Assessment Contact",
+      "section": "General Information",
+      "row": 19,
+      "kind": "text",
+      "owner": "District IT",
+      "guidance": "",
+      "reason": "",
+      "followup": "",
+      "crosswalk": {}
+    },
+    {
+      "id": "DOCU-01",
+      "text": "Have you undergone a SSAE 18 audit?",
+      "section": "Documentation",
+      "row": 23,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Standard documentation, relevant to institutions requiring a vendor to undergo SSAE 16 audits.",
+      "followup": "Follow-up inquiries for SSAE 16 content will be institution/implementation specific. ",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1",
+        "NIST SP 800-53r4": "SA-9"
+      }
+    },
+    {
+      "id": "DOCU-02",
+      "text": "Have you completed the Cloud Security Alliance (CSA) self assessment or CAIQ?",
+      "section": "Documentation",
+      "row": 24,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Many vendors have populated a CAIQ or at least a self-assessment. Although lacking in some areas important to Higher Ed, these documents are useful for supplemental assessment.",
+      "followup": "Follow-up inquiries for CSA content will be institution/implementation specific.",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1",
+        "NIST SP 800-53r4": "PE-2, PE-3, PE-5, PE-11, PE-13, PE-14, SA-9"
+      }
+    },
+    {
+      "id": "DOCU-03",
+      "text": "Have you received the Cloud Security Alliance STAR certification?",
+      "section": "Documentation",
+      "row": 25,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "If a vendor is STAR certified, vendor responses can theoretically be more trusted since CSA has verified their responses. Trust, but verify for yourself, as needed.",
+      "followup": "If STAR certification is important to your institution you may have specific follow-up details for documentation purposes.",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1",
+        "NIST SP 800-53r4": "PE-2, PE-3, PE-5, PE-11, PE-13, PE-14, SA-9"
+      }
+    },
+    {
+      "id": "DOCU-04",
+      "text": "Do you conform with a specific industry standard security framework? (e.g. NIST Cybersecurity Framework, ISO 27001, etc.) Please identify which one under \"additional information\"",
+      "section": "Documentation",
+      "row": 26,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The details of the standard are not the focus here, it is the fact that a vendor builds their environment around a standard and that they continually evaluate and assess their security programs.",
+      "followup": "In an ideal world, a vendor will conform to an industry framework that is adopted by an institution. When this synergy does not exist, the interpretation of the vendor's responses must be interpreted in the context of the institution's environment. Follow-up inquires for industry frameworks (and levels of adoption) will be institution/implementation specific.",
+      "crosswalk": {
+        "ISO 27002:2013": "18.1.1",
+        "NIST SP 800-53r4": "SA-9"
+      }
+    },
+    {
+      "id": "DOCU-05",
+      "text": "Are you compliant with FISMA standards?",
+      "section": "Documentation",
+      "row": 27,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "For institutions that collaborate with the United States government, FISMA compliance may be required. ",
+      "followup": "Follow-up inquiries for FISMA compliance will be institution/implementation specific. ",
+      "crosswalk": {
+        "ISO 27002:2013": "18.1.1",
+        "NIST SP 800-53r4": "SA-9"
+      }
+    },
+    {
+      "id": "DOCU-06",
+      "text": "Would you sign the Student Data Privacy Consortium statement for the state in which our district is located? (https://sdpc.a4l.org/) ",
+      "section": "Documentation",
+      "row": 28,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Managing and protecting institution data is the reason organizations perform security and risk assessments. Privacy policies outline how vendors will obtain, use, share, and protect institutional data and as such, should be robust in its language. Beware of vaguely worded privacy policies.",
+      "followup": "Inquire about any privacy language the vendor may have. It may not be ideal but there may be something available to assess or enough to have your legal counsel or policy/privacy professionals review.",
+      "crosswalk": {
+        "HIPAA": "§164.308(a)(1)(i)",
+        "ISO 27002:2013": "18.1.4",
+        "NIST Cybersecurity Framework": "ID.GV-3",
+        "NIST SP 800-171r1": "ID.GV-3",
+        "NIST SP 800-53r4": "SA-9"
+      }
+    },
+    {
+      "id": "COMP-01",
+      "text": "Describe your organization’s business background and ownership structure, including all parent and subsidiary relationships.",
+      "section": "Company Overview",
+      "row": 30,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "Include circumstances that may involve off-shoring or multi-national agreements.",
+      "reason": "Defining scale of company (support, resources, skillsets), General information about the organization that may be concerning.",
+      "followup": "Follow-up responses to this one are normally unique to their response. Vague answers here usually result in some footprinting of a vendor to determine their \"reputation\".",
+      "crosswalk": {}
+    },
+    {
+      "id": "COMP-02",
+      "text": "Describe how long your organization has conducted business in this product area.",
+      "section": "Company Overview",
+      "row": 31,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "Include the number of years and in what capacity.",
+      "reason": "We want to establish longevity of a solution and whether or not a vendor is new to the HE space.",
+      "followup": "Normally a vendor will state their overall longevity but not talk about the software/service/product under evaluation. Follow-up's includes specific questions about the origins of the software/service/product and references will be requested.",
+      "crosswalk": {}
+    },
+    {
+      "id": "COMP-03",
+      "text": "Do you have existing K-12 customers?",
+      "section": "Company Overview",
+      "row": 32,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "K23 Education is a unique vertical. A vendor's response to this question can help an analyst set the context for all vendor responses. Established and/or mature software/product/services are more likely to have current K-12 customers, and therefore understand the environment that we operate in.",
+      "followup": "A simple \"Yes\" without any references or supporting information should be questioned. Question the size of institutions that are using the software/product/service and the scope of their implementations.",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1"
+      }
+    },
+    {
+      "id": "COMP-04",
+      "text": "Have you had a significant cybersecurity incident that has disrupted availability for longer than 8 hours? ",
+      "section": "Company Overview",
+      "row": 33,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "We want transparency from the vendor and an honest answer to this question, regardless of the response, is a good step in building trust. ",
+      "followup": "If a vendor says \"No\", it is taken at face value. If you organization is capable of conducting reconnaissance, it is encouraged. If a vendor has experienced a data disruption that impacted service delivery, evaluate the circumstances of the incident and what they did to restore services. ",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.2"
+      }
+    },
+    {
+      "id": "COMP-05",
+      "text": "Have you had a security event in the last 5 years that impacted privacy, operations, data, customers, what steps did you take to handle the incident? ",
+      "section": "Company Overview",
+      "row": 34,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "We want transparency from the vendor and an honest answer to this question, regardless of the response, is a good step in building trust. ",
+      "followup": "If a vendor says \"No\", it is taken at face value. If you organization is capable of conducting reconnaissance, it is encouraged. If a vendor has experienced a breach, evaluate the circumstance of the incident and what the vendor has done in response to the breach.",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1"
+      }
+    },
+    {
+      "id": "COMP-06",
+      "text": "Do you have a formal risk management and cybersecurity program in place?",
+      "section": "Company Overview",
+      "row": 35,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Understanding the security program size (and capabilities) of a vendor has a significant impact on their ability to respond effectively to a security incident. The size of a vendor will determine their SO size, or lack thereof. Use the knowledge of this response when evaluating other vendor statements.",
+      "followup": "Vague responses to this question should be investigated further. Vendors without dedicated security personnel commonly have no security or security is embedded or dual-homed within operations (administrators). Ask about separation of duties, principle of least privilege, etc. - there are many ways to get additional program state information from the vendor.",
+      "crosswalk": {
+        "ISO 27002:2013": "14.2.1",
+        "NIST SP 800-53r4": "SA-3, SA-15, SC-2, PM-2, PM-10, SI-5,PM-3 "
+      }
+    },
+    {
+      "id": "COMP-07",
+      "text": "If applicable, do you have dedicated customer support and product management? ",
+      "section": "Company Overview",
+      "row": 36,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Understanding the support team size (and capabilities) of a vendor has a significant impact on their ability to respond to support requests. The size of a vendor will determine the availability of trained support and product management. Use the knowledge of this response when evaluating other vendor statements.",
+      "followup": "Follow-up inquiries for vendor team strategies will be unique to your institution and may depend on the underlying infrastructures needed to support a system for your specific use case.",
+      "crosswalk": {}
+    },
+    {
+      "id": "COMP-08",
+      "text": "If applicable, do you have dedicated software and systems development teams? ",
+      "section": "Company Overview",
+      "row": 37,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Understanding the development team size (and capabilities) of a vendor has a significant impact on their ability to produce and maintain code, adhering to secure coding best practices. The size of a vendor will determine their use of dedicated development teams, or lack thereof. Use the knowledge of this response when evaluating other vendor statements.",
+      "followup": "Follow-up inquiries for vendor team strategies will be unique to your institution and may depend on the underlying infrastructures needed to support a system for your specific use case.",
+      "crosswalk": {
+        "ISO 27002:2013": "15.2.1"
+      }
+    },
+    {
+      "id": "COMP-09",
+      "text": "Use this area to share information about your environment that will assist those who are assessing your company data security program.",
+      "section": "Company Overview",
+      "row": 38,
+      "kind": "text",
+      "owner": "Vendor",
+      "guidance": "Share any details that would help information security analysts assess your product.",
+      "reason": "For the vendors that K-12CVAT may not  cover, this gives the vendor a chance to support their other responses. Beware when this area is populated with sales hype or other non-relevant information. Thorough documentation, supporting evidence, and/or robust responses go a long way in building trust in this assessment process.",
+      "followup": "This is a freebie to help the vendor state their \"case\". If a vendor does not add anything here (or it is just sales stuff), we can assume it was filled out by a sales engineer and questions will be evaluated with higher scrutiny.",
+      "crosswalk": {}
+    },
+    {
+      "id": "HLAP-01",
+      "text": "Does you system support various permission levels (for example, role based access control) for end users?",
+      "section": "Application/Service Security",
+      "row": 40,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Understanding access control capabilities allows us to estimate the type of maintenance efforts will be involved to manage a system. Depending on the users, concerns may or not be elevated. The value of this question is largely determined by the deployment strategy and use case of the software/product/service under review. This question is specific to end-users.",
+      "followup": "Ask the vendor to summarize the best practices to restrict/control the access given to the institution's end-users without the use of RBAC. Make sure to understand the administrative requirements/overhead introduced in the vendor's environment.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 14",
+        "ISO 27002:2013": "9.2.2",
+        "NIST Cybersecurity Framework": "PR.AC-4",
+        "NIST SP 800-171r1": "3.1.1, 3.1.2, 3.1.7",
+        "NIST SP 800-53r4": "AC-2, AC-3, AC-6"
+      }
+    },
+    {
+      "id": "HLAP-02",
+      "text": "Do you enforce additional security controls for privileged access users (e.g. system administrators)? ",
+      "section": "Application/Service Security",
+      "row": 41,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Managing a software/product/service may rely on various professionals to administrate a system. This question is focused on how administration, and the segregation of functions, can be implemented within the system. Securing the administration portion of a system has additional implications (e.g. logging, administration, etc.) beyond that of end-users.",
+      "followup": "Ask the vendor to summarize the best practices for securing their system(s) administratively without the use of RBAC. Make sure to understand the administrative requirements/overhead introduced in the vendor's environment.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "9.1.1",
+        "NIST Cybersecurity Framework": "PR.AC-4, PR.PT-3",
+        "NIST SP 800-171r1": "3.4.9",
+        "NIST SP 800-53r4": "CM-11"
+      }
+    },
+    {
+      "id": "HLAP-03",
+      "text": "Can employees access protected or sensitive data remotely?",
+      "section": "Application/Service Security",
+      "row": 42,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Telecommuting in the IT world is common - an institution should know that proper safeguards are in place, if remote access is allowed. Vendor responses vary greatly on this so confirm the context of the response if it is not clear. Many cloud services can only be managed remotely so there is often a gray area to interpret for this response.",
+      "followup": "Ask the vendor to summarize the reasoning behind this business process and request additional documentation that outlines the security controls implemented to safeguard institutional data.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 12",
+        "ISO 27002:2013": "6.2",
+        "NIST Cybersecurity Framework": "PR.PT-3",
+        "NIST SP 800-171r1": "3.1.12, 3.1.13, 3.1.14, 3.1.15, 3.1.8, 3.1.20, 3.7.5, 3.8.2, 3.13.7",
+        "NIST SP 800-53r4": "AC-3, CM-7; NIST SP 800-46"
+      }
+    },
+    {
+      "id": "HLAP-04",
+      "text": "Is an audit log of access maintained by the system?",
+      "section": "Application/Service Security",
+      "row": 43,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "An audit log of access maintained by the system can be an important component of accountability and ensuring that access can be accounted for. ",
+      "followup": "Ask the vendor to describe the level of auditing of access available in the system.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 2",
+        "ISO 27002:2013": "12.1.1",
+        "NIST Cybersecurity Framework": "ID.AM-1, ID.AM-2, ID.AM-4",
+        "NIST SP 800-53r4": "CA-9, SC-4"
+      }
+    },
+    {
+      "id": "HLAP-05",
+      "text": "If necessary would you be willing to share systems schematics, diagrams, data flow diagrams, etc. ? ",
+      "section": "Application/Service Security",
+      "row": 44,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Many systems can be used a variety of ways. We want these implementation type diagrams so that we can understand the \"real\" use of the product.",
+      "followup": "Additional requests for documentation are made when other parts of the K-12CVAT are insufficient. Although helpful, many vendors do not provide supporting documentation. We try to be specific with our follow-up questions so that vendors understand we are not looking for 20-50 page whitepapers (sales documentation).",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "14.2.5",
+        "NIST Cybersecurity Framework": "PR.DS-6"
+      }
+    },
+    {
+      "id": "HLAP-06",
+      "text": "Has your system been tested for input validation errors and do you have appropriate error messaging? ",
+      "section": "Application/Service Security",
+      "row": 45,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Input validation is a secure coding best practices so confirming its implementation is normally a high priority. Error messages (to the system and user) can be used to detect abnormal use and to better protect institutional data. Depending on the criticality of data and the flow of said data, an institution's risk tolerance will be unique to their environment. ",
+      "followup": "Inquire about any planned improvements to these capabilities. Ask about their product(s) roadmap and try to understand how they prioritize security concerns in their environment.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 12",
+        "ISO 27002:2013": "14.2.5",
+        "NIST SP 800-53r4": "RA-2"
+      }
+    },
+    {
+      "id": "HLAP-07",
+      "text": "Is district data appropriately segmented and secured from other organization's data or access and can you demonstrate through reports? ",
+      "section": "Application/Service Security",
+      "row": 46,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "A vendor's response to this question can reveal a system's infrastructure quickly. Off-point responses are common here so general follow-up is often needed. Understanding how a vendor segments its customers data (or doesn't) affects various other controls, including network settings, use of encryption, access, etc.). A vendor's response here will influence potential follow-up inquiries for other K-12CVAT questions.",
+      "followup": "Ask the vendor to summarize how a data segmentation is enforced in the  environment/strategy is implemented and what compensating controls they have in place to ensure appropriate levels of confidentiality and integrity.",
+      "crosswalk": {}
+    },
+    {
+      "id": "HLAP-08",
+      "text": "Do you have a quality multi tenancy environment with good reporting? ",
+      "section": "Application/Service Security",
+      "row": 47,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "A vendor's response to this question can reveal a system's infrastructure quickly. Off-point responses are common here so general follow-up is often needed. Understanding how a vendor manages a multi tenancy environment and can report on management of data segmentation.",
+      "followup": "Ask the vendor to summarize why a multi-tenant (or other) environment/strategy is implemented and what compensating controls they have in place to ensure appropriate levels of confidentiality and integrity.",
+      "crosswalk": {}
+    },
+    {
+      "id": "HLAA-01",
+      "text": "Do you have strong authentication in place including MFA and additional controls for privileged access accounts?",
+      "section": "Authentication, Authorization, and Accounting",
+      "row": 49,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is primarily focused on account management capabilities that are built into a system. Although aging is not always required, a system that lacks commodity functionality may be lacking in other areas as well. Use the vendor's response to this question as a way to pivot to other questions, as needed.",
+      "followup": "The value of this question depends on your institution's policy on passwords, its use of two factor or multi factor authentication, or any number of factors. Follow-ups for this question are unique to the institution.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "9.2.3, 9.3.1, 9.4.3",
+        "NIST Cybersecurity Framework": "PR.AC-1",
+        "NIST SP 800-171r1": "3.5.7",
+        "NIST SP 800-53r4": "IA-5(1)"
+      }
+    },
+    {
+      "id": "HLAA-02",
+      "text": "Does your web-based interface support authentication, including standards-based single-sign-on? (e.g. SAMAL, OAuth, ClassLink, etc.)",
+      "section": "Authentication, Authorization, and Accounting",
+      "row": 50,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is to set account management expectations for the institution. A system that can integrate with existing, vetted solutions, has its advantages and may have less administrative overhead. Also, adherence to standards here gives credit to other standards-oriented questions/responses.",
+      "followup": "If a vendor indicates that a system is standalone and cannot integrate with community standards, follow-up with maturity questions and ask about other commodity type functions or other system requirements your institution may have.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "9.1.1, 9.2.3, 9.3.1, 9.4.3",
+        "NIST Cybersecurity Framework": "PR.AC-1",
+        "NIST SP 800-171r1": "3.5.1",
+        "NIST SP 800-53r4": "IA-2, IA-5"
+      }
+    },
+    {
+      "id": "HLAA-03",
+      "text": "Does the system (servers/infrastructure) support external authentication services (e.g. Active Directory, LDAP) in place of local authentication?",
+      "section": "Authentication, Authorization, and Accounting",
+      "row": 51,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "System (technical and security) administration is complex and it is important to understand a system's capabilities to integrate with existing security and access systems. Having to maintain additional accounts increases overhead and may impact your institution's risk footprint.",
+      "followup": "Follow-up inquiries for system authentication will be unique to your institution (e.g. policy, infrastructure, etc.)",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "9.4.3",
+        "NIST Cybersecurity Framework": "PR.AC-1, PR.AC-4"
+      }
+    },
+    {
+      "id": "HLAA-04",
+      "text": "Do K-12 district staff have access to audit logs that allow them to see actions and activities taken by their users?",
+      "section": "Authentication, Authorization, and Accounting",
+      "row": 52,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Strong logging capabilities are vital to the proper management of a system. Implementing an immature system that lacks sufficient logging capabilities exposes your institution to great risk. Depending on your risk tolerance and the use case, your institution may or may not be concerned.",
+      "followup": "If a weak response is given to this answer, it is an indicator that a sales representative populated the document and response scrutiny should be increased. \nIf a vendor does not answer appropriately, a follow-up request to have the question fully-answered is appropriate.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 16",
+        "ISO 27002:2013": "9.4.3",
+        "NIST Cybersecurity Framework": "PR.AC-1, PR.AC-4"
+      }
+    },
+    {
+      "id": "HLBC-01",
+      "text": "Do you have a documented Business Continuity Plan (BCP)?",
+      "section": "Business Continuity Plan",
+      "row": 54,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIA triad, this question is focused on availability and is often in need of a follow-up. Understanding the maturing of a vendor's BCP can shed light on many other aspects of a vendor's overall security state. ",
+      "followup": "A vendor may have a number of BCP elements defined so the vendor's response may not be binary. Assess the components of the plan and ask about timelines, follow-up commitments, etc. \nIf the vendor does not have a BCP, point them to https://www.sans.org/reading-room/whitepapers/recovery/business-continuity-planning-concept-operations-1653",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.1",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.12.2",
+        "NIST SP 800-53r4": "AU-7, AU-9, IR-4, AC-5, CP-4, CP-10; NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLBC-02",
+      "text": "Is there a documented communication plan in your BCP for impacted clients?",
+      "section": "Business Continuity Plan",
+      "row": 55,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Notification expectations should be set earlier in the contract/assessment process. Timelines, correspondence medium, and playbook details are all aspects to keep in mind when assessing this response.",
+      "followup": "If the vendor's response does not cover the details outlined in the reasoning, follow-up and get specific responses for each, as needed.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.2",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.12.2",
+        "NIST SP 800-53r4": "AU-7, AU-9, IR-4, AC-5, CP-4, CP-10; NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLBC-03",
+      "text": "Are all components of the BCP reviewed at least annually and updated as needed to reflect change? ",
+      "section": "Business Continuity Plan",
+      "row": 56,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "It is expected that a vendor will maintain an accurate BCP to be tested at a regular interval. Any variance to this should be clearly explained. A vendor's response to this question can reveal the value that they place on testing their BCP (and possibly other aspects of their programs).",
+      "followup": "If the vendor does not have a BCP, point them to https://www.sans.org/reading-room/whitepapers/recovery/business-continuity-planning-concept-operations-1653",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.2",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.12.2",
+        "NIST SP 800-53r4": "AU-7, AU-9, IR-4, AC-5, CP-4, CP-10; NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLBC-04",
+      "text": "Does your organization regularly test the failover or recovery of production environment for the purposes of BCP and continuity? ",
+      "section": "Business Continuity Plan",
+      "row": 57,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Testing a BCP is an important action that improves the efficiency and accuracy of a vendor's continuity plans. Vague responses to this question should be met with concern and appropriate follow-up, based on your institutions risk tolerance.",
+      "followup": "If the vendor does not have a BCP, point them to https://www.sans.org/reading-room/whitepapers/recovery/business-continuity-planning-concept-operations-1653",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.3",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-53r4": "AC-5, CP-4, CP-10; NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLCH-01",
+      "text": "Do you have a documented and currently followed change management process (CMP) for standard and emergency changes? ",
+      "section": "Change Management",
+      "row": 59,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The lack of a Change Management program is indicative of immature program processes - answers to this question can provide insight into how well their responses (on the K-12CVAT) represent their actual environment(s).",
+      "followup": "If a weak response is given to this answer, response scrutiny should be increased. Questions about configuration management, system authority, and documentation are appropriate.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "12.1.2",
+        "NIST Cybersecurity Framework": "PR.IP-3",
+        "NIST SP 800-171r1": "3.4.3, 3.4.4",
+        "NIST SP 800-53r4": "CM-3, CM-4, CM-5"
+      }
+    },
+    {
+      "id": "HLCH-02",
+      "text": "Will the district be notified of  changes to your environment that could impact the district's security posture or service availability?",
+      "section": "Change Management",
+      "row": 60,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Notification expectations should be set earlier in the contract/assessment process. Timelines, correspondence medium, and playbook details are all aspects to keep in mind when assessing this response.",
+      "followup": "If the vendor's response does not cover the details outlined in the reasoning, follow-up and get specific responses for each, as needed.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "12.1.2",
+        "NIST SP 800-53r4": "CM-3, CM-4, CM-5"
+      }
+    },
+    {
+      "id": "HLCH-03",
+      "text": "Do you have policy and procedure, currently implemented, guiding how known vulnerabilities and zero day attack risks are mitigated until patches are available and applied?",
+      "section": "Change Management",
+      "row": 61,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "New vulnerabilities are published every day and vendors have a responsibility to maintain their software(s). The fundamental nature of operation will expose some risks to the system but it is crucial that a vendor recognize their responsibilities and have a plan to implement them, when this time arrives.",
+      "followup": "Follow-up inquiries for the vendors patching practices will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "HIPAA": "§164.308(a)(1)(ii)(B)",
+        "ISO 27002:2013": "12.6.1",
+        "NIST SP 800-53r4": "CM-3, CM-4, CM-5"
+      }
+    },
+    {
+      "id": "HLDA-01",
+      "text": "Do you  logically separate institution's data from that of other customers?",
+      "section": "Data",
+      "row": 63,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "A vendor's response to this question can reveal a system's infrastructure quickly. Off-point responses are common here so general follow-up is often needed. Understanding how a vendor segments its customers data (or doesn't) affects various other controls, including network settings, use of encryption, access, etc.). A vendor's response here will influence potential follow-up inquiries for other K-12CVAT questions.",
+      "followup": "Follow-up inquiries for the vendors infrastructure will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 12",
+        "NIST Cybersecurity Framework": "PR.AC-2, PR.IP-5",
+        "NIST SP 800-171r1": "3.1.3, 3.8.1",
+        "NIST SP 800-53r4": "AC-4, MP-2, MP-4"
+      }
+    },
+    {
+      "id": "HLDA-02",
+      "text": "Is sensitive data encrypted in transport? (e.g. system-to-client)",
+      "section": "Data",
+      "row": 64,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The need for encryption in transport is unique to your institution's implementation of a system. In particular, system components, architectures, and data flows, all factor into the need for this control.",
+      "followup": "Follow-up inquiries for data encryption in transport will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "8.2.3, 10.1.1",
+        "NIST Cybersecurity Framework": "PR.DS-1, PR.DS-2",
+        "NIST SP 800-171r1": "3.1.19, 3.8.1",
+        "NIST SP 800-53r4": "MP-2, AC-19(5)"
+      }
+    },
+    {
+      "id": "HLDA-03",
+      "text": "Is sensitive data encrypted in storage (e.g. disk encryption, at-rest)?",
+      "section": "Data",
+      "row": 65,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The need for encryption at-rest is unique to your institution's implementation of a system. In particular, system components, architectures, and data flows, all factor into the need for this control.",
+      "followup": "Follow-up inquiries for data encryption at-rest will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "8.2.3, 10.1.1",
+        "NIST Cybersecurity Framework": "PR.DS-1",
+        "NIST SP 800-171r1": "3.1.19, 3.8.1",
+        "NIST SP 800-53r4": "MP-2, AC-19(5)"
+      }
+    },
+    {
+      "id": "HLDA-04",
+      "text": "Do backups containing institution data ever leave the United States, either physically or via network routing?",
+      "section": "Data",
+      "row": 66,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Data exposure is a risk if sensitive data is in any way transported (physically or electronically) into a data zone that is not authorized by the institution. Depending on the criticality of data and institution policy, full control of data confidentiality may be highly valued.",
+      "followup": "Follow-up inquiries for data backup procedures/practices will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "12.3.1",
+        "NIST SP 800-171r1": "3.8.9",
+        "NIST SP 800-53r4": "CP-9, MP-5"
+      }
+    },
+    {
+      "id": "HLDA-05",
+      "text": "Do you have a media handling process, that is documented and currently implemented, including end-of-life, repurposing, and data sanitization procedures?",
+      "section": "Data",
+      "row": 67,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Managing media (and the data within) throughout its lifecycle is crucial to the protection of institutional data. The focus of this question is confidentiality, ensuring that media that may store institutional data is protected by well-established policy and procedure. ",
+      "followup": "Vague responses to this question should be investigated further. Ask for additional documentation and verify that procedure (and possibly training) exists to ensure proper media handling activity.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "8.3.1",
+        "NIST Cybersecurity Framework": "PR.DS-3",
+        "NIST SP 800-171r1": "3.7.1, 3.7.2, 3.8.3",
+        "NIST SP 800-53r4": "CP-9 MP-6, NIST SP 800-60, NIST SP 800-88, AC-2, AC-6, IA-4, PM-2, PM-10, SI-5, MA-2, MA-3, MP-6"
+      }
+    },
+    {
+      "id": "HLDA-06",
+      "text": "Is any institution data visible in system administration modules/tools?",
+      "section": "Data",
+      "row": 68,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Confidentiality is the focus of this question. Based on the capabilities of administrators (vendor), the institution may require additional safeguards to protect the confidentiality of data stored by/shared with a vendor (e.g. additional layer of encryption, etc.). ",
+      "followup": "If institutional data is visible by [vendor] system administrators, follow-up with the vendor to understand the scope of visibility, process/procedure that administrators follow, and use cases when administrators are allowed to access (view) institutional data.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13, CSC 14",
+        "ISO 27002:2013": "14.2.5",
+        "NIST Cybersecurity Framework": "PR.AC-4"
+      }
+    },
+    {
+      "id": "HLDB-01",
+      "text": "Does the database implement encryption of specified data elements in storage consistent with current encryption standards?",
+      "section": "Database",
+      "row": 70,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Depending on the use case, full database encryption may not always be required, or ideal. The ability to encrypt specific fields (data elements) can be advantageous to a system. Performance is sometimes an issue, based on the use case, and this granular approach to encryption provides an institution more options.",
+      "followup": "Follow-up inquiries for database field encryption will be institution/implementation specific. Questions may include a timeline for this capability, performance metrics, and/or architectures that compensate for this level of encryption granularity.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "10.1.1",
+        "NIST Cybersecurity Framework": "PR.DS-1"
+      }
+    },
+    {
+      "id": "HLDC-01",
+      "text": "Will any institution data leave the United States?",
+      "section": "Datacenter",
+      "row": 72,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Data exposure is a risk if sensitive data is in any way transported (physically or electronically) into a data zone that is not authorized by the institution. Depending on the criticality of data and institution policy, full control of data confidentiality may be highly valued.",
+      "followup": "Follow-up inquiries for data backup procedures/practices will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 12",
+        "ISO 27002:2013": "11.2.1"
+      }
+    },
+    {
+      "id": "HLDC-02",
+      "text": "Does your company own the physical data center where the institution's data will reside?",
+      "section": "Datacenter",
+      "row": 73,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Data ownership, availability, and the use of third-parties are all somewhat connected to the response of this question. ",
+      "followup": "Simple responses without supporting documentation should be me with concern. Follow-up with a vendor and request supporting documentation if the answer is in any way dismissive or off-point.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 14",
+        "ISO 27002:2013": "11.1.1",
+        "NIST Cybersecurity Framework": "PR.AC-2, PR.IP-5"
+      }
+    },
+    {
+      "id": "HLDC-03",
+      "text": "Does the hosting provider have a SOC 2 Type 2 report available?",
+      "section": "Datacenter",
+      "row": 74,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is relative to the response above. Understanding the ownership structure of the facility that will host institutional data is important for setting availability expectations and ensure proper contract terms are in place to protect the institution due to use of third-parties. If a vendor uses a third-party vendor to provide datacenter solutions, having that vendor's SOC 2 Type 2 provides additional insight. The ability to assess these \"forth-party\" vendors is based on your institution's resources. The vendor is responsible for providing this information - ensure that they handle their vendors properly.",
+      "followup": "Follow-up inquiries for additional vendor's SOC 2 Type 2 reports will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "11.1.1"
+      }
+    },
+    {
+      "id": "HLDR-01",
+      "text": "Do you have a Disaster Recovery Plan (DRP)?",
+      "section": "Disaster Recovery Plan",
+      "row": 76,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIA triad, this question is focused on availability and is often in need of a follow-up. Understanding the maturing of a vendor's DRP can shed light on many other aspects of a vendor's overall security state. ",
+      "followup": "A vendor may have a number of BCP elements defined so the vendor's response may not be binary. Assess the components of the plan and ask about timelines, follow-up commitments, etc. If the vendor does not have a DRP, point them to https://www.sans.org/reading-room/whitepapers/recovery/disaster-recovery-plan-1164",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.1",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.12.2",
+        "NIST SP 800-53r4": "AC-5, CP-4, CP-10, NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLDR-02",
+      "text": "Are any disaster recovery locations outside the institution's of the United States?",
+      "section": "Disaster Recovery Plan",
+      "row": 77,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Data exposure is a risk if sensitive data is in any way transported (physically or electronically) into a data zone that is not authorized by the institution. Depending on the criticality of data and institution policy, full control of data confidentiality may be highly valued.",
+      "followup": "Follow-up inquiries for data backup procedures/practices will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10, CSC 12",
+        "ISO 27002:2013": "17.1.1",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-53r4": "AC-5, CP-4, CP-10, NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLDR-03",
+      "text": "Are all components of the DRP reviewed at least annually and updated as needed to reflect change? ",
+      "section": "Disaster Recovery Plan",
+      "row": 78,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Testing a DRP is an important action that improves the efficiency and accuracy of a vendor's recovery plans. Vague responses to this question should be met with concern and appropriate follow-up, based on your institutions risk tolerance.",
+      "followup": "If the vendor does not have a DRP, point them to https://www.sans.org/reading-room/whitepapers/recovery/disaster-recovery-plan-1164",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 10",
+        "ISO 27002:2013": "17.1.1",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.12.2",
+        "NIST SP 800-53r4": "AC-5, CP-4, CP-10, NIST SP 800-34"
+      }
+    },
+    {
+      "id": "HLFI-01",
+      "text": "Are you utilizing a web application firewall (WAF) and/or a stateful packet inspection (SPI) firewall?",
+      "section": "Firewalls, IDS, IPS, and Networking",
+      "row": 80,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The use case, vendor infrastructure, and types of services offered will greatly affect the need for various firewalling devices. The focus of this question is integrity, ensuring that the systems hosting institutional data are limited in need-only communications. The use of a WAF is important in systems in which a vendor has limited access to the to code infrastructure. ",
+      "followup": "If a vendors states that they outsource their code development and do not run a Web Application Firewall (WAF), there is elevated reason for concern. Verify how code is tested, monitored, and controlled in production environments.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 9",
+        "ISO 27002:2013": "13.1.1",
+        "NIST Cybersecurity Framework": "PR.DS-5"
+      }
+    },
+    {
+      "id": "HLFI-02",
+      "text": "Do you have a documented policy for firewall change requests?",
+      "section": "Firewalls, IDS, IPS, and Networking",
+      "row": 81,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIA triad, this question is focused on system integrity, ensuring that system changes are only executed by authorized users. Any change to a verified, known, secure environment should be carefully evaluated by stakeholders in a structured manner.",
+      "followup": "Follow-up inquiries for firewall change requests will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 9",
+        "ISO 27002:2013": "12.1.2",
+        "NIST Cybersecurity Framework": "PR.AC-5"
+      }
+    },
+    {
+      "id": "HLFI-03",
+      "text": "Do you have automated  threat monitoring and notification systems enabled? (for example, SEIM, EDPM, etc.)",
+      "section": "Firewalls, IDS, IPS, and Networking",
+      "row": 82,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is primarily focused on the maturity of a vendor's security program. Technologies are rapidly introduced and the toolsets needed to monitor, manage, and secure them need to keep up. Vendor responses to this question can give an institution insight into the maturity and overall state of a vendor's security. ",
+      "followup": "Follow-up inquiries for NGPT monitoring will be institution/implementation specific.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 19",
+        "ISO 27002:2013": "12.4.1",
+        "NIST SP 800-171r1": "3.6.1, 3.14.6, 3.14.7",
+        "NIST SP 800-53r4": "IR-2, IR-4, IR-9"
+      }
+    },
+    {
+      "id": "HLFI-04",
+      "text": "Is there a 24x7x365 monitoring and response process in place for intrusions?",
+      "section": "Firewalls, IDS, IPS, and Networking",
+      "row": 83,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is primarily focused on the maturity of a vendor's monitoring and incident response process.  Lack of 24x7x365 monitoring indicates a risk that an incident could occur with significant lag time to response.",
+      "followup": "If the vendor states they have a 24x7x365 monitoring capability, follow up questions may be level of monitoring and expected time of response.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 19",
+        "ISO 27002:2013": "12.4.1",
+        "NIST Cybersecurity Framework": "DE.CM-1, DE.CM-2, DE.CM-7",
+        "NIST SP 800-171r1": "3.6.1, 3.14.6, 3.14.7",
+        "NIST SP 800-53r4": "IR-2, IR-4, IR-10"
+      }
+    },
+    {
+      "id": "HLPH-01",
+      "text": "Does your organization have physical security controls and policies in place?",
+      "section": "Physical Security",
+      "row": 85,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "This question is primarily focused on system(s) integrity. If institutional data is stored in a system that is not physically secured from unauthorized access, the need for compensating controls is often higher. This question also encompasses office (and other) spaces used by the vendor to conduct operations. ",
+      "followup": "If a weak response is given to this answer, response scrutiny should be increased. Inquiry about the size of an organization, how it is physically deployed, how employees interact with each other and verify each others credibility. Any follow-up question related to physical integrity of institutional data is relevant here.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 3",
+        "ISO 27002:2013": "11.1.1",
+        "NIST Cybersecurity Framework": "PR.AC-2, PR.AT-5, PR.IP-5, DE.CM-2",
+        "NIST SP 800-171r1": "3.8.2, 3.10.1, 3.10.2, 3.10.5, 3.10.6, 3.12.1",
+        "NIST SP 800-53r4": "MP-4, PE-2, PE-5, PE-6, PE-17"
+      }
+    },
+    {
+      "id": "HLPH-02",
+      "text": "Are employees allowed to access or transport customer data, copy or store customer data on personally owned devices, or physically remove data from the protected infrastructure of your organization? ",
+      "section": "Physical Security",
+      "row": 86,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIA triad, this question is focused on confidentiality. Printed documents, mobile device use, and remote access are all relevant to this question. A vendor's response to this question will provide insight into their overall business process. Vendor business activity that pose additional security risks should be met with increased concern.",
+      "followup": "Vague responses to this question should be investigated further. Ask for additional documentation and verify that procedure (and possibly training) exists to ensure proper customer data handling activity.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "8.2.3",
+        "NIST Cybersecurity Framework": "PR.AC-2, PR.AC-4, PR.DS-1, PR.DS-3, PR.DS-5",
+        "NIST SP 800-171r1": "3.8.1, 3.8.5, 3.8.7",
+        "NIST SP 800-53r4": "MP-2, MP-5, MP-7"
+      }
+    },
+    {
+      "id": "HLPP-01",
+      "text": "Can you share the organization chart, mission statement, and policies for your information security unit?",
+      "section": "Policies, Procedures, and Processes",
+      "row": 88,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Understanding the security program size (and capabilities) of a vendor has a significant impact on their ability to respond effectively to a security incident. Vendor's will  share organizational charts and additional documentation of their security program, if needed. The point of this question is to verify vendor security program maturity or confirm other findings and/or assessments.",
+      "followup": "Vague responses to this question should be investigated further. Vendors unwilling to share additional supporting documentation decrease the trust established with other responses. ",
+      "crosswalk": {
+        "ISO 27002:2013": "5.1.1",
+        "NIST Cybersecurity Framework": "ID.GV-2",
+        "NIST SP 800-171r1": "3.9.1, 3.9.2",
+        "NIST SP 800-53r4": "PM-2, PM-10, SI-5, CA-5, PM-1"
+      }
+    },
+    {
+      "id": "HLPP-02",
+      "text": "Are information security principles designed into the product lifecycle (e.g. are you incorporating and upgrading security as an essential design element)?",
+      "section": "Policies, Procedures, and Processes",
+      "row": 89,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The adherence to secure coding best practices better positions a vendor to maintain the CIA triad. Use the knowledge of this response when evaluating other vendor statements, particularly those focused on development and the protection of communications.",
+      "followup": "If information security principles are not designed into the product lifecycle, point the vendor to OWASP's Secure Coding Practices - Quick Reference Guide at https://www.owasp.org/index.php/OWASP_Secure_Coding_Practices_-_Quick_Reference_Guide",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 4",
+        "ISO 27002:2013": "14.2.1",
+        "NIST Cybersecurity Framework": "PR.IP-2",
+        "NIST SP 800-171r1": "3.13.2",
+        "NIST SP 800-53r4": "CA-5, CM-3, PM-1, SA-15, SA-3, SA-8, SC-2"
+      }
+    },
+    {
+      "id": "HLPP-03",
+      "text": "Do you have a formal, documented incident response plan that covers physical and cyber incident response and defined severity levels?",
+      "section": "Policies, Procedures, and Processes",
+      "row": 90,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "The ability for the vendor to respond effectively (and quickly) to a security incident is of the utmost importance. The size of a vendor's security office will determine their capabilities during a security incident but the incident response plan will oftentimes determine their effectiveness. Use the knowledge of this response when evaluating other vendor statements, particularly when discussing degraded operation states.",
+      "followup": "If the vendor does not have an incident response plan, point them to the NIST Computer Security Incident Handling Guide at https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 19",
+        "ISO 27002:2013": "16.1.5",
+        "NIST Cybersecurity Framework": "PR.IP-9",
+        "NIST SP 800-171r1": "3.6.1, 3.12.2",
+        "NIST SP 800-53r4": "CA-5, PM-1, IR-4, IR-5, IR-7, IR-8"
+      }
+    },
+    {
+      "id": "HLPP-04",
+      "text": "Do you have a documented information security policy?",
+      "section": "Policies, Procedures, and Processes",
+      "row": 91,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "A shared security [responsibility] environment is expected of vendors in today's world. Security office's cannot solely protect an institution's data. Information security, engrained in an organization, is the best case scenario for the protection of institutional data. Security awareness and practice start in a vendor's policies.",
+      "followup": "If the vendor does not have document information security policy, follow-up questions about training, company practices, awareness efforts, auditing, and system protection practices are appropriate.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 17",
+        "HIPAA": "§164.308(a)(1)(i)",
+        "ISO 27002:2013": "5.1.1",
+        "NIST Cybersecurity Framework": "ID.GV-3",
+        "NIST SP 800-53r4": "CA-5, PM-1"
+      }
+    },
+    {
+      "id": "HLSY-01",
+      "text": "Do you employ network and administrative segmentation in the management of this service? (for example, systems supporting the service managed via a separate management network, separate administrative controls and access, etc.)",
+      "section": "Systems Management & Configuration",
+      "row": 93,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Management networks and end-user networks are often exclusive, with the intent of limiting access to elevated authorization tools. When a vendor states these networks are merged in operation, it should be met with elevated levels of concern. The focus of this question is to verify a common best practice in system management, allowing an institution to gain insight into a vendor's operating environment.",
+      "followup": "Verify if the vendor's practice is constrained by a technology or if it is just a best practice that is not adopted. In the case of constraints, ask for additional best practice implementation strategies that may compensate for the elevated risk(s).",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 12",
+        "ISO 27002:2013": "13.1.1",
+        "NIST Cybersecurity Framework": "PR.PT-4",
+        "NIST SP 800-171r1": "3.1.3",
+        "NIST SP 800-53r4": "AC-4"
+      }
+    },
+    {
+      "id": "HLSY-02",
+      "text": "Do you have standard hardened configurations for severs, appliances and mobile devices?",
+      "section": "Systems Management & Configuration",
+      "row": 94,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIS Top 18, this question is focused on the limiting of risk through the use of secure configurations. ",
+      "followup": "Follow up with questions about the standard(s) to which the vendor hardens their configurations. ",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 3"
+      }
+    },
+    {
+      "id": "HLSY-03",
+      "text": "Do you encrypt company owned mobile devices?",
+      "section": "Systems Management & Configuration",
+      "row": 95,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "In the context of the CIA triad, this question is focused on system integrity, ensuring that system changes are only executed by authorized users. Additionally, it is expected that devices (for administrators, vendor staff, and affiliates)that are used to access the vendor's systems are properly managed and secured. ",
+      "followup": "Follow-up with a robust question set if the vendor cannot clearly state full-control of the integrity of their system(s). Questions about administrator access on end-user devices and other maintenance and patching type questions are appropriate.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 13",
+        "ISO 27002:2013": "12.1.1",
+        "NIST Cybersecurity Framework": "PR.IP-1, PR.IP-2",
+        "NIST SP 800-171r1": "3.1.18, 3.7.1, 3.13.13",
+        "NIST SP 800-53r4": "CM-2, CM-6, CM-3, AC-19, MA-2"
+      }
+    },
+    {
+      "id": "HLVU-01",
+      "text": "Have your systems and applications had a third party security assessment completed in the last year?",
+      "section": "Vulnerability Scanning",
+      "row": 97,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "External verification of security controls in important when managing a system. Trust, but verify, is the focus of this question. K-12CVAT responses are taken at face-value, and verified within reason, in most cases. When a vendor can attest to, and provide externally-provided evidence supporting that attestation, it goes a long way in building trust that the vendor will appropriately protect institutional data.",
+      "followup": "If \"No\", inquiry is there has ever been a vulnerability scan. A short lapse in external assessment validity can be understood (if there is a planned assessment) but a significant time lapse or none whatsoever is cause for elevated levels of concern. Be sure that the vendor answers for both systems AND applications. Do not let good practices in one overshadow deficiencies in the other.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 4",
+        "ISO 27002:2013": "12.6.1",
+        "NIST Cybersecurity Framework": "DE.CM-8",
+        "NIST SP 800-171r1": "3.11.1, 3.11.2, 3.11.3",
+        "NIST SP 800-53r4": "SI-2"
+      }
+    },
+    {
+      "id": "HLVU-02",
+      "text": "Are your applications scanned for vulnerabilities [that are remediated]?                            ",
+      "section": "Vulnerability Scanning",
+      "row": 98,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Modern technologies allow for rapid deployment of features and with them, come changes to an established code environment. The focus of this question is to verify a vendor's practice of regression testing their code and verifying that previously non-existent risks are introduced into a known, secured environment.",
+      "followup": "If \"No\", inquiry if there are plans to implement these processes. Ask the vendor to summarize their decision behind not scanning their assets for vulnerabilities. Be sure that the vendor answers for both systems AND applications. Do not let good practices in one overshadow deficiencies in the other.",
+      "crosswalk": {
+        "CIS Critical Security Controls v6.1": "CSC 4",
+        "NIST Cybersecurity Framework": "DE.CM-8",
+        "NIST SP 800-171r1": "3.11.1, 3.11.2, 3.11.3",
+        "NIST SP 800-53r4": "SI-2"
+      }
+    },
+    {
+      "id": "HLVU-03",
+      "text": "Are your systems scanned for vulnerabilities [that are remediated]?                            ",
+      "section": "Vulnerability Scanning",
+      "row": 99,
+      "kind": "choice",
+      "owner": "Vendor",
+      "guidance": "",
+      "reason": "Modern systems require frequent patching and management.  Rapid updates of operating systems and software elements are essential to maintaining the systems.  The focus of this question is to verify a vendor's practice of patching systems timely.",
+      "followup": "If \"No\", inquiry if there are plans to implement these processes. Ask the vendor to summarize their decision behind not routinely scanning for vulnerabilities and ensuring patching levels. Be sure that the vendor answers for both systems AND applications. Do not let good practices in one overshadow deficiencies in the other.",
+      "crosswalk": {}
+    }
+  ]
+}

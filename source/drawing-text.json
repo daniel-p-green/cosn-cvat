@@ -1,0 +1,40 @@
+{
+  "xl/drawings/drawing1.xml": [
+    "What is the CoSN K-12CVAT?",
+    "",
+    "For K-12 Schools and Districts",
+    "",
+    "The CoSN K-12 Community Vendor Assessment Tool or CoSN K-12CVAT, is a questionnaire framework specifically designed for K-12 schools, districts and education service districts to measure vendor risk. Before you purchase a third-party solution, ask the solution provider to complete a CoSN K-12CVAT tool to confirm that information, data, and cybersecurity policies are in place to protect your sensitive school system information and constituents' PII.\u00a0 It is recommended that you use the CoSN K-12CVAT as part of procurement processes, including having potential solution providers complete the questionnaire as part of RFP processes and purchase evaluations.",
+    "",
+    "For K-12 Solution Providers",
+    "",
+    "The CoSN K-12CVAT offers a consistent and single questionnaire for solution providers to complete for potential and current K-12 organization clients to support evaluation and understanding of the risks and opportunities of your product.\u00a0 The advantage of the CoSN K-12CVAT is that, once completed, your assessment can be used by multiple K-12 organizations to streamline procurement processes with your K-12 clients",
+    "",
+    "The CoSN K-12CVAT is based off the Educause Higher Education Community Vendor Assessment Tool - Lite (HECVAT-Lite), however, the questions are geared specifically towards K-12 education.\u00a0 Please make sure to use the K-12 questionnaire for your K-12 clients.",
+    "Using the K-12CVAT Directions https://www.cosn.org/tools-and-resources/resource/using-the-k-12cvat-directions/ ",
+    "\u00a0",
+    ""
+  ],
+  "xl/drawings/drawing2.xml": [
+    "Shared Assessments Introduction",
+    "\u00a0",
+    "K-12 education environments are rapidly changing and the speed of cloud service adoption is increasing. \u00a0Institutions looking for ways to do more with less see cloud services as a good way to save resources. As school systems deploy or identify cloud services, they must ensure the cloud services are appropriately assessed for managing the risks to the confidentiality, integrity and availability of sensitive institutional information and the PII of constituents. Many school systems have established a cloud security assessment methodology and resources to review cloud services for privacy and security controls. \u00a0Other school systems don\u2019t have sufficient resources to assess their cloud services in this manner. \u00a0On the vendor side, many cloud services providers spend significant time responding to the individualized security assessment requests made by K-12 school system customers, often answering similar questions repeatedly. \u00a0Both the provider and consumer of cloud services are wasting precious time creating, responding, and reviewing such assessments.",
+    "The CoSN K-12 Community Vendor Assessment Toolkit (CoSN K-12CVAT), based off the Educause Higher Education Community Vendor Assessment Tool (or HECVAT), attempts to generalize K-12 education system information security and data protections and issues for consistency and ease of use. Some school systems may have specific issues that must be addressed in addition to the general questions sets provided in the toolkit. It is anticipated that the K-12CVAT will be revised over time to account for changes in services provisioning and the information security and data protection needs of K-12 education institutions.",
+    "The CoSN K-12 Community Vendor Assessment Toolkit:",
+    "\u25cf Helps K-12 school systems ensure that vendor services are appropriately assessed for security and privacy needs, including some that are unique to K-12 education",
+    "\u25cf Allows a consistent, easily-adopted methodology for campuses wishing to reduce costs through vendor services without increasing risks",
+    "\u25cf Reduces the burden that service providers face in responding to requests for security assessments from higher education institutions",
+    "",
+    "The CoSN K-12 Community Vendor Assessment Lite is a lightweight questionnaire used to a) expedite the process and b) begin to establish the process and build the muscle of assessing vendor risk.  ",
+    "The CoSN K-12 Community Vendor Assessment  Lite (and Toolkit) was adapted by the Consortium of School Networking (COSN) Cybersecurity Advisory Team for use in K-12 school systems with permission from Educause.  The original HECVAT and toolkit was created by the Higher Education Information Security Council Shared Assessments Working Group. \u00a0Its purpose is to provide a starting point for the assessment of vendor provided services and resources. \u00a0",
+    "Credit to Educause for the original HECVAT toolkit from which this K-12 School System version is adapted.",
+    "(C) EDUCAUSE 2019",
+    "This work is licensed under a Creative Commons Attribution-Noncommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)."
+  ],
+  "xl/drawings/drawing3.xml": [],
+  "xl/drawings/drawing4.xml": [],
+  "xl/drawings/drawing5.xml": [],
+  "xl/drawings/drawing6.xml": [],
+  "xl/drawings/drawing7.xml": [],
+  "xl/drawings/drawing8.xml": []
+}
