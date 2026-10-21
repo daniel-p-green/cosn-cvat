@@ -1,78 +1,148 @@
 // Independent explanations. Canonical wording lives separately in questions.json.
-export const explanations={
-'DATE-01':'Record the date this set of vendor responses was prepared.',
-'GNRL-01':'Name the company providing the tool. An educator can help identify it; ask the vendor to confirm the legal company name.',
-'GNRL-02':'Name the exact tool and version being reviewed. Different products from one company can handle data differently.',
-'GNRL-03':'Describe what the tool does and how your school would use it. Educators can contribute classroom context; the vendor confirms product details.',
-'GNRL-04':'Record the link to the privacy notice for this product. Finding a notice does not mean its terms meet district requirements.',
-'GNRL-05':'Record a business contact at the vendor who can coordinate the response.',
-'GNRL-06':'Record that vendor contact’s job title.',
-'GNRL-07':'Use the vendor contact’s work email address. Do not enter student or family contact information.',
-'GNRL-08':'Use a business telephone number for the vendor contact.',
-'GNRL-09':'Identify the countries or regions where the vendor is headquartered or serves this product. If practices are the same everywhere, the source instructions say to use “All”.',
-'GNRL-10':'Identify your institution’s country or region and the context the vendor is answering for. District IT should confirm the applicable requirements.',
-'GNRL-11':'District IT or the security office identifies the analyst responsible for reviewing the vendor’s responses.',
-'GNRL-12':'District IT provides the assessment contact or tracking address used for the review.',
-'DOCU-01':'Ask whether the vendor has undergone the audit named in the original question. District IT should request and review the relevant report and its scope.',
-'DOCU-02':'Ask whether the vendor has completed the named cloud-security questionnaire or self-assessment. Ask for the document, its date and the product it covers.',
-'DOCU-03':'Ask the vendor for evidence of the certification named here. District IT must check its scope and validity; selecting Yes does not verify certification.',
-'DOCU-04':'Ask which security framework guides the vendor’s work. Record the framework and scope in Additional information.',
-'DOCU-05':'Ask the vendor to explain its response to the named federal security standard. Your district’s specialists decide whether it applies to this purchase.',
-'DOCU-06':'Ask whether the vendor will sign the student-data privacy statement for your state. District privacy or legal staff should review the actual terms.',
-'COMP-01':'Ask who owns the company, including parent companies and subsidiaries. Include international relationships where relevant.',
-'COMP-02':'Ask how long the vendor has offered this kind of product, rather than only how long the company has existed.',
-'COMP-03':'Ask whether other K–12 institutions use the product and request references appropriate to your school’s needs.',
-'COMP-04':'Ask about significant cyber incidents that interrupted service for more than eight hours. Record the vendor’s explanation and recovery actions.',
-'COMP-05':'Ask about security events in the last five years and how the vendor responded. Use Additional information for the explanation, without student details.',
-'COMP-06':'Ask who manages cybersecurity risks and how the vendor’s security program works.',
-'COMP-07':'Ask whether the vendor has people specifically responsible for customer support and product management, when applicable.',
-'COMP-08':'Ask whether dedicated teams develop and maintain the software and its supporting systems, when applicable.',
-'COMP-09':'Give the vendor space to explain relevant safeguards or context that the other questions do not cover.',
-'HLAP-01':'Ask whether different users can have different permissions, such as a teacher seeing only the classes they teach.',
-'HLAP-02':'Ask what extra protections apply to administrator accounts, which can have broad access to the system.',
-'HLAP-03':'Ask whether vendor employees can reach sensitive school data from outside the workplace and what protects that access.',
-'HLAP-04':'Ask whether the system keeps a record of who accessed it. District IT should review what those records include.',
-'HLAP-05':'Ask whether the vendor can provide diagrams showing the system and where school data moves.',
-'HLAP-06':'Ask how the vendor tests information entered into the system and handles errors safely.',
-'HLAP-07':'Ask how the vendor keeps your district’s data separate from other customers’ data, and what evidence demonstrates this.',
-'HLAP-08':'Ask how the vendor manages and reports on a shared service used by multiple customers. IT should clarify what the vendor means by a quality environment.',
-'HLAA-01':'Ask whether signing in requires strong verification, including multi-factor authentication, and whether administrators have extra protections.',
-'HLAA-02':'Ask whether staff can sign in through a district-approved single sign-on service. IT should confirm compatibility and configuration.',
-'HLAA-03':'Ask whether the underlying systems can use a district directory or other external sign-in service instead of separate local accounts.',
-'HLAA-04':'Ask whether authorized district staff can inspect records of user actions and activity.',
-'HLBC-01':'Ask for a written plan for keeping essential services running during disruption.',
-'HLBC-02':'Ask how the vendor will communicate with your district when a disruption affects the service.',
-'HLBC-03':'Ask when the continuity plan was last reviewed and how it is kept up to date.',
-'HLBC-04':'Ask whether the vendor actually tests switching to backup systems and restoring normal service.',
-'HLCH-01':'Ask how routine and emergency changes are reviewed, approved and recorded.',
-'HLCH-02':'Ask how the vendor will tell the district about changes that may affect service availability or security.',
-'HLCH-03':'Ask how the vendor reduces exposure to newly discovered security weaknesses while waiting for a fix.',
-'HLDA-01':'Ask how your institution’s information is kept separate from other customers’ information.',
-'HLDA-02':'Ask whether sensitive information is encrypted while moving between systems or devices.',
-'HLDA-03':'Ask whether sensitive information is encrypted while it is stored.',
-'HLDA-04':'Ask whether backup copies ever travel outside the United States, including through network routes. District IT determines what locations are acceptable.',
-'HLDA-05':'Ask how the vendor securely handles, reuses and disposes of devices or storage media that have held school data.',
-'HLDA-06':'Ask what school information vendor administrators can see in management tools.',
-'HLDB-01':'Ask how sensitive information is encrypted inside the database. IT should review the technical details.',
-'HLDC-01':'Ask whether any school data travels or is stored outside the United States. Include all relevant locations in the vendor’s explanation.',
-'HLDC-02':'Ask who owns the data center holding school information. Ownership alone does not establish security.',
-'HLDC-03':'Ask whether the hosting provider can supply the named independent report. IT should review its date, scope and findings.',
-'HLDR-01':'Ask for a written plan to restore systems and data after a major disruption.',
-'HLDR-02':'Ask whether recovery sites are outside the United States. The source question has a wording error; district IT should confirm the intended geographic requirement.',
-'HLDR-03':'Ask when the recovery plan was last reviewed and updated.',
-'HLFI-01':'Ask which firewall protections guard the service. District IT should evaluate whether they fit the product’s architecture.',
-'HLFI-02':'Ask how firewall changes are requested, reviewed and approved.',
-'HLFI-03':'Ask whether automated tools detect potential threats and notify the people responsible for responding.',
-'HLFI-04':'Ask whether people and processes can monitor and respond to intrusions at all hours, every day of the year.',
-'HLPH-01':'Ask how the vendor protects physical spaces and equipment from unauthorized access.',
-'HLPH-02':'Ask whether staff can move customer data onto personal devices or take it outside the protected environment. Record the rules and safeguards.',
-'HLPP-01':'Ask who is responsible for information security and request the organization chart, mission and relevant policies.',
-'HLPP-02':'Ask whether security is built into product design, development and updates.',
-'HLPP-03':'Ask for a written plan explaining how the vendor handles security incidents and decides how serious they are.',
-'HLPP-04':'Ask for the vendor’s written information-security policy.',
-'HLSY-01':'Ask how the vendor separates management access and networks from ordinary use of the service.',
-'HLSY-02':'Ask whether servers, appliances and mobile devices use standard security settings. The original question’s spelling is retained above.',
-'HLSY-03':'Ask whether company-owned mobile devices are encrypted.',
-'HLVU-01':'Ask whether an independent specialist assessed both the systems and applications in the past year, and request supporting evidence.',
-'HLVU-02':'Ask whether the vendor checks applications for security weaknesses and fixes what it finds.',
-'HLVU-03':'Ask whether the vendor checks the underlying systems for security weaknesses and fixes what it finds.'};
+export const explanations = {
+  "DATE-01": "Record the date this set of vendor responses was prepared.",
+  "GNRL-01":
+    "Name the company providing the tool. An educator can help identify it; ask the vendor to confirm the legal company name.",
+  "GNRL-02":
+    "Name the exact tool and version being reviewed. Different products from one company can handle data differently.",
+  "GNRL-03":
+    "Describe what the tool does and how your school would use it. Educators can contribute classroom context; the vendor confirms product details.",
+  "GNRL-04":
+    "Record the link to the privacy notice for this product. Finding a notice does not mean its terms meet district requirements.",
+  "GNRL-05":
+    "Record a business contact at the vendor who can coordinate the response.",
+  "GNRL-06": "Record that vendor contact’s job title.",
+  "GNRL-07":
+    "Use the vendor contact’s work email address. Do not enter student or family contact information.",
+  "GNRL-08": "Use a business telephone number for the vendor contact.",
+  "GNRL-09":
+    "Identify the countries or regions where the vendor is headquartered or serves this product. If practices are the same everywhere, the source instructions say to use “All”.",
+  "GNRL-10":
+    "Identify your institution’s country or region and the context the vendor is answering for. District IT should confirm the applicable requirements.",
+  "GNRL-11":
+    "District IT or the security office identifies the analyst responsible for reviewing the vendor’s responses.",
+  "GNRL-12":
+    "District IT provides the assessment contact or tracking address used for the review.",
+  "DOCU-01":
+    "Ask whether the vendor has undergone the audit named in the original question. District IT should request and review the relevant report and its scope.",
+  "DOCU-02":
+    "Ask whether the vendor has completed the named cloud-security questionnaire or self-assessment. Ask for the document, its date and the product it covers.",
+  "DOCU-03":
+    "Ask the vendor for evidence of the certification named here. District IT must check its scope and validity; selecting Yes does not verify certification.",
+  "DOCU-04":
+    "Ask which security framework guides the vendor’s work. Record the framework and scope in Additional information.",
+  "DOCU-05":
+    "Ask the vendor to explain its response to the named federal security standard. Your district’s specialists decide whether it applies to this purchase.",
+  "DOCU-06":
+    "Ask whether the vendor will sign the student-data privacy statement for your state. District privacy or legal staff should review the actual terms.",
+  "COMP-01":
+    "Ask who owns the company, including parent companies and subsidiaries. Include international relationships where relevant.",
+  "COMP-02":
+    "Ask how long the vendor has offered this kind of product, rather than only how long the company has existed.",
+  "COMP-03":
+    "Ask whether other K–12 institutions use the product and request references appropriate to your school’s needs.",
+  "COMP-04":
+    "Ask about significant cyber incidents that interrupted service for more than eight hours. Record the vendor’s explanation and recovery actions.",
+  "COMP-05":
+    "Ask about security events in the last five years and how the vendor responded. Use Additional information for the explanation, without student details.",
+  "COMP-06":
+    "Ask who manages cybersecurity risks and how the vendor’s security program works.",
+  "COMP-07":
+    "Ask whether the vendor has people specifically responsible for customer support and product management, when applicable.",
+  "COMP-08":
+    "Ask whether dedicated teams develop and maintain the software and its supporting systems, when applicable.",
+  "COMP-09":
+    "Give the vendor space to explain relevant safeguards or context that the other questions do not cover.",
+  "HLAP-01":
+    "Ask whether different users can have different permissions, such as a teacher seeing only the classes they teach.",
+  "HLAP-02":
+    "Ask what extra protections apply to administrator accounts, which can have broad access to the system.",
+  "HLAP-03":
+    "Ask whether vendor employees can reach sensitive school data from outside the workplace and what protects that access.",
+  "HLAP-04":
+    "Ask whether the system keeps a record of who accessed it. District IT should review what those records include.",
+  "HLAP-05":
+    "Ask whether the vendor can provide diagrams showing the system and where school data moves.",
+  "HLAP-06":
+    "Ask how the vendor tests information entered into the system and handles errors safely.",
+  "HLAP-07":
+    "Ask how the vendor keeps your district’s data separate from other customers’ data, and what evidence demonstrates this.",
+  "HLAP-08":
+    "Ask how the vendor manages and reports on a shared service used by multiple customers. IT should clarify what the vendor means by a quality environment.",
+  "HLAA-01":
+    "Ask whether signing in requires strong verification, including multi-factor authentication, and whether administrators have extra protections.",
+  "HLAA-02":
+    "Ask whether staff can sign in through a district-approved single sign-on service. IT should confirm compatibility and configuration.",
+  "HLAA-03":
+    "Ask whether the underlying systems can use a district directory or other external sign-in service instead of separate local accounts.",
+  "HLAA-04":
+    "Ask whether authorized district staff can inspect records of user actions and activity.",
+  "HLBC-01":
+    "Ask for a written plan for keeping essential services running during disruption.",
+  "HLBC-02":
+    "Ask how the vendor will communicate with your district when a disruption affects the service.",
+  "HLBC-03":
+    "Ask when the continuity plan was last reviewed and how it is kept up to date.",
+  "HLBC-04":
+    "Ask whether the vendor actually tests switching to backup systems and restoring normal service.",
+  "HLCH-01":
+    "Ask how routine and emergency changes are reviewed, approved and recorded.",
+  "HLCH-02":
+    "Ask how the vendor will tell the district about changes that may affect service availability or security.",
+  "HLCH-03":
+    "Ask how the vendor reduces exposure to newly discovered security weaknesses while waiting for a fix.",
+  "HLDA-01":
+    "Ask how your institution’s information is kept separate from other customers’ information.",
+  "HLDA-02":
+    "Ask whether sensitive information is encrypted while moving between systems or devices.",
+  "HLDA-03":
+    "Ask whether sensitive information is encrypted while it is stored.",
+  "HLDA-04":
+    "Ask whether backup copies ever travel outside the United States, including through network routes. District IT determines what locations are acceptable.",
+  "HLDA-05":
+    "Ask how the vendor securely handles, reuses and disposes of devices or storage media that have held school data.",
+  "HLDA-06":
+    "Ask what school information vendor administrators can see in management tools.",
+  "HLDB-01":
+    "Ask how sensitive information is encrypted inside the database. IT should review the technical details.",
+  "HLDC-01":
+    "Ask whether any school data travels or is stored outside the United States. Include all relevant locations in the vendor’s explanation.",
+  "HLDC-02":
+    "Ask who owns the data center holding school information. Ownership alone does not establish security.",
+  "HLDC-03":
+    "Ask whether the hosting provider can supply the named independent report. IT should review its date, scope and findings.",
+  "HLDR-01":
+    "Ask for a written plan to restore systems and data after a major disruption.",
+  "HLDR-02":
+    "Ask whether recovery sites are outside the United States. The source question has a wording error; district IT should confirm the intended geographic requirement.",
+  "HLDR-03": "Ask when the recovery plan was last reviewed and updated.",
+  "HLFI-01":
+    "Ask which firewall protections guard the service. District IT should evaluate whether they fit the product’s architecture.",
+  "HLFI-02": "Ask how firewall changes are requested, reviewed and approved.",
+  "HLFI-03":
+    "Ask whether automated tools detect potential threats and notify the people responsible for responding.",
+  "HLFI-04":
+    "Ask whether people and processes can monitor and respond to intrusions at all hours, every day of the year.",
+  "HLPH-01":
+    "Ask how the vendor protects physical spaces and equipment from unauthorized access.",
+  "HLPH-02":
+    "Ask whether staff can move customer data onto personal devices or take it outside the protected environment. Record the rules and safeguards.",
+  "HLPP-01":
+    "Ask who is responsible for information security and request the organization chart, mission and relevant policies.",
+  "HLPP-02":
+    "Ask whether security is built into product design, development and updates.",
+  "HLPP-03":
+    "Ask for a written plan explaining how the vendor handles security incidents and decides how serious they are.",
+  "HLPP-04": "Ask for the vendor’s written information-security policy.",
+  "HLSY-01":
+    "Ask how the vendor separates management access and networks from ordinary use of the service.",
+  "HLSY-02":
+    "Ask whether servers, appliances and mobile devices use standard security settings. The original question’s spelling is retained above.",
+  "HLSY-03": "Ask whether company-owned mobile devices are encrypted.",
+  "HLVU-01":
+    "Ask whether an independent specialist assessed both the systems and applications in the past year, and request supporting evidence.",
+  "HLVU-02":
+    "Ask whether the vendor checks applications for security weaknesses and fixes what it finds.",
+  "HLVU-03":
+    "Ask whether the vendor checks the underlying systems for security weaknesses and fixes what it finds.",
+};
