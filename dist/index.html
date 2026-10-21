@@ -8,9 +8,10 @@
       name="description"
       content="An independent educator-friendly guide to CoSN K-12CVAT Lite 4.1. Gather vendor responses, track evidence and prepare a district IT review."
     />
-    <title>CoSN CVAT — Vendor assessment workspace</title>
+    <title>CoSN CVAT — A classroom idea, ready for review</title>
     <link rel="stylesheet" href="tokens.css" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="teacher.css" />
     <link rel="icon" href="data:," />
   </head>
   <body>
@@ -28,13 +29,22 @@
     <div class="shell">
       <aside class="rail">
         <nav aria-label="Assessment navigation">
-          <a class="nav-step" href="#start"><span>1</span> Get oriented</a
-          ><a class="nav-step" href="#questions"
-            ><span>2</span> Gather responses</a
-          ><a class="nav-step" href="#review"
-            ><span>3</span> Prepare the handoff</a
+          <a class="nav-step" href="#start"
+            ><span>1</span> Your classroom idea</a
+          >
+          <a class="nav-step" href="#handoff"><span>2</span> Your handoff</a>
+          <a class="nav-step specialist-nav" href="#questions"
+            ><span aria-hidden="true">+</span> Vendor & IT review</a
           >
         </nav>
+        <div class="rail-teacher-note">
+          <h2>Start with what you know.</h2>
+          <p>
+            A tool name and a little classroom context are enough to start the
+            conversation.
+          </p>
+          <p>The vendor and IT team take care of the specialist questions.</p>
+        </div>
         <div class="rail-progress">
           <div>
             <strong id="progress-count">0 of 76</strong

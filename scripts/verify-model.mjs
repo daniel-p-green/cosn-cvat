@@ -42,3 +42,24 @@ assert(exportCSV(q, d).includes('"\'=1+1"'));
 console.log(
   "PASS: 76 independent explanations; unknown/unanswered distinction; 7 malformed imports rejected; 76 exported records; formula injection escaped.",
 );
+const teacherDraft = blank();
+teacherDraft.intake.tool = "Synthetic reading tool";
+teacherDraft.intake.use = "Reading practice";
+const teacherRoundTrip = validateDraft(
+  JSON.parse(JSON.stringify(teacherDraft)),
+  q,
+);
+assert.equal(teacherRoundTrip.intake.tool, "Synthetic reading tool");
+assert.equal(Object.keys(teacherRoundTrip.records).length, 0);
+assert.equal(teacherRoundTrip.intake.dataUnknown, true);
+assert.throws(() => validateDraft({ ...teacherDraft, intake: { tool: 3 } }, q));
+assert.throws(() =>
+  validateDraft({ ...teacherDraft, intake: { dataUnknown: "yes" } }, q),
+);
+assert.equal(
+  validateDraft({ ...blank(), intake: undefined }, q).intake.tool,
+  "",
+);
+console.log(
+  "PASS: classroom context round-trips separately, explicit unknown preserved, no vendor answers inferred, malformed intake rejected, old drafts import.",
+);

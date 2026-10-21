@@ -4,6 +4,7 @@ export const blank = () => ({
   schemaVersion: 1,
   workbookVersion: "4.1",
   records: {},
+  intake: { tool: "", use: "", data: "", help: "", dataUnknown: true },
   updatedAt: null,
 });
 export const responseState = (r) =>
@@ -78,6 +79,32 @@ export function validateDraft(input, questions) {
     clean.unknown = !clean.answer && !!r.unknown;
     clean.flag = !!r.flag;
     draft.records[id] = clean;
+  }
+  if (input.intake !== undefined) {
+    if (
+      !input.intake ||
+      typeof input.intake !== "object" ||
+      Array.isArray(input.intake)
+    )
+      throw Error("The classroom intake is invalid. Nothing was imported.");
+    for (const key of ["tool", "use", "data", "help"]) {
+      const value = input.intake[key];
+      if (
+        value !== undefined &&
+        (typeof value !== "string" || value.length > 20000)
+      )
+        throw Error(
+          "A classroom intake field is invalid or too long. Nothing was imported.",
+        );
+      draft.intake[key] = value || "";
+    }
+    if (
+      input.intake.dataUnknown !== undefined &&
+      typeof input.intake.dataUnknown !== "boolean"
+    )
+      throw Error("The classroom data state is invalid. Nothing was imported.");
+    draft.intake.dataUnknown =
+      input.intake.dataUnknown ?? !draft.intake.data.trim();
   }
   draft.updatedAt = new Date().toISOString();
   return draft;

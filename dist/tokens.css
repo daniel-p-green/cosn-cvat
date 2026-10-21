@@ -1,20 +1,19 @@
-/* CoSN CVAT independent kit. Provisional institutional palette, not MSBA branding.
-   Semantic token names make a future shadcn/React port straightforward. */
+/* Independent educator palette. No claim of official CoSN or MSBA branding. */
 :root {
-  --background: #f6f8fa;
-  --foreground: #182e43;
-  --card: #ffffff;
-  --card-foreground: #182e43;
-  --primary: #173d66;
+  --background: #f7f4ee;
+  --foreground: #263b42;
+  --card: #fffefa;
+  --card-foreground: #263b42;
+  --primary: #244e5e;
   --primary-foreground: #ffffff;
-  --secondary: #eef3f8;
-  --secondary-foreground: #173d66;
-  --muted-foreground: #526373;
-  --border: #d4dde5;
-  --input: #9aaebb;
-  --ring: #a15a00;
+  --secondary: #e9f0ed;
+  --secondary-foreground: #244e5e;
+  --muted-foreground: #586a6d;
+  --border: #dcded5;
+  --input: #a8b8b5;
+  --ring: #956b1f;
   --destructive: #883822;
-  --radius: 5px;
+  --radius: 8px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;

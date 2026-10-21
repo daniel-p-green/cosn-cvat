@@ -1,3 +1,5 @@
+import { IntakeView, HandoffView, handoffText } from "./intake.js";
+import { bindWritingFields, isComposing, DictationHelp } from "./writing.js";
 import { Button, TextAreaField, CheckField, Stat, escapeHTML } from "./kit.js";
 import { explanations } from "./explanations.js";
 import {
@@ -23,7 +25,8 @@ let data,
   filter = "all",
   query = "",
   showList = false,
-  noticeTimer;
+  noticeTimer,
+  saveTimer;
 try {
   const raw = localStorage.getItem(KEY);
   if (raw) {
@@ -44,7 +47,12 @@ function notify(message) {
   noticeTimer = setTimeout(() => ($("#notice").textContent = ""), 5500);
 }
 function save() {
+  clearTimeout(saveTimer);
+  saveTimer = null;
   dirty = true;
+  if (isComposing()) return;
+  if ($("#notice").textContent.startsWith("Finish this text entry"))
+    $("#notice").textContent = "";
   draft.updatedAt = new Date().toISOString();
   if (persist) {
     try {
@@ -58,7 +66,25 @@ function save() {
       );
     }
   } else $("#draft-status").textContent = "Draft in this tab";
+  const writingStatus = $("#writing-status");
+  if (writingStatus)
+    writingStatus.textContent = persist
+      ? "Saved on this device"
+      : "Kept in this tab · export before closing";
   updateProgress();
+}
+function queueSave(composing = false) {
+  dirty = true;
+  clearTimeout(saveTimer);
+  saveTimer = null;
+  if (!composing) saveTimer = setTimeout(save, 350);
+}
+function flushSave() {
+  if (saveTimer) {
+    clearTimeout(saveTimer);
+    saveTimer = null;
+    save();
+  }
 }
 function rec(q) {
   return draft.records[q.id] || {};
@@ -68,15 +94,22 @@ function updateProgress() {
   const c = counts(questions, draft);
   $("#progress-count").textContent = c.recorded + " of " + questions.length;
   $("#progress").value = c.recorded;
-  $("#sections").innerHTML = data.sections
+  const sectionsHTML = data.sections
     .map((s, i) => {
       const qs = questions.filter((q) => q.section === s),
         n = counts(qs, draft).recorded;
       return `<a href="#question/${qs[0].id}" ${mode === "questions" && questions[active]?.section === s ? 'aria-current="page"' : ""}>${escape(s)}<span>${n}/${qs.length}</span></a>`;
     })
     .join("");
+  if ($("#sections").innerHTML !== sectionsHTML)
+    $("#sections").innerHTML = sectionsHTML;
 }
 function navigate() {
+  if (isComposing()) {
+    notify("Finish this entry before changing pages.");
+    return;
+  }
+  flushSave();
   const hash = location.hash.slice(1);
   const oldMode = mode;
   if (hash.startsWith("question/")) {
@@ -86,12 +119,15 @@ function navigate() {
     query = "";
     filter = "all";
     showList = false;
-  } else if (["start", "questions", "review", "about"].includes(hash))
+  } else if (
+    ["start", "handoff", "questions", "review", "about"].includes(hash)
+  )
     mode = hash;
   else mode = "start";
   document.querySelectorAll(".nav-step").forEach((a) => {
     a.removeAttribute("aria-current");
-    if (a.hash === "#" + mode) a.setAttribute("aria-current", "page");
+    if (a.hash === "#" + mode || (mode === "review" && a.hash === "#questions"))
+      a.setAttribute("aria-current", "page");
   });
   if (innerWidth < 768 && (oldMode !== mode || hash.startsWith("question/")))
     $(".section-menu").open = false;
@@ -102,6 +138,11 @@ function navigate() {
   }
 }
 function render() {
+  const teacher = mode === "start" || mode === "handoff";
+  document.body.classList.toggle("teacher-mode", teacher);
+  const headerLink = $(".top-actions a");
+  headerLink.href = teacher ? "#handoff" : "#review";
+  headerLink.textContent = teacher ? "Your handoff" : "Review & export";
   updateProgress();
   $("#draft-status").textContent = persist
     ? "Saved on this device"
@@ -109,11 +150,73 @@ function render() {
   if (mode === "start") renderStart();
   else if (mode === "questions") renderQuestions();
   else if (mode === "review") renderReview();
+  else if (mode === "handoff") renderHandoff();
   else renderAbout();
 }
+function bindIntakeWriting() {
+  bindWritingFields($("#view"), {
+    onInput: (field, value, composing) => {
+      const key = field.id.replace("intake-", "");
+      draft.intake[key] = value;
+      if (key === "data" && value.trim()) {
+        draft.intake.dataUnknown = false;
+        $("#data-unknown").checked = false;
+      }
+      queueSave(composing);
+    },
+    onCommit: () => save(),
+  });
+}
 function renderStart() {
-  $("#view").innerHTML =
-    `<section class="welcome"><div><h1>Know what to ask.<br>Know what needs review.</h1><p class="intro">A practical workspace for reviewing a digital tool before it handles school data. Work through CoSN’s vendor questions, gather evidence, and prepare a clear handoff to district IT.</p><div class="actions"><a class="button primary" href="#questions">${Object.keys(draft.records).length ? "Continue assessment" : "Start assessment"}</a><a href="#about">Read about the source</a></div><p class="source-line">63 assessment questions · 13 general/date fields · Lite 4.1</p></div><aside class="welcome-aside"><h2>You don’t need to be a security expert.</h2><p>Educators bring the classroom context. Vendors provide the security answers. District IT reviews the evidence and decides what is acceptable.</p></aside></section><div class="workflow"><div class="workflow-row"><span>01</span><h2>Gather responses</h2><p>Keep the original question beside a plain-language explanation. Work in workbook order, one question at a time.</p></div><div class="workflow-row"><span>02</span><h2>Keep track of gaps</h2><p>Use “Not yet known” when you need help. Add a document reference or a follow-up note without guessing an answer.</p></div><div class="workflow-row"><span>03</span><h2>Hand it to the right people</h2><p>Review missing responses and evidence, then export your work for the vendor and your district’s IT or security team.</p></div></div><section class="privacy-band"><h2>Your draft stays with you.</h2><p>Responses stay in this browser tab unless you choose to save on this device. There are no response uploads or analytics. Do not enter student names, records, passwords, or confidential reports.</p><label class="check"><input id="persist" type="checkbox" ${persist ? "checked" : ""} ${!storageAvailable ? "disabled" : ""}>Save this draft on this device${!storageAvailable ? " (storage unavailable)" : ""}</label><small>Use a private device. You can export or erase your draft in Review & export.</small></section>`;
+  $("#view").innerHTML = IntakeView(draft, persist, storageAvailable);
+  document
+    .querySelectorAll("[data-writing-field]")
+    .forEach((field) =>
+      field.setAttribute(
+        "aria-describedby",
+        "hint-" + field.id.replace("intake-", ""),
+      ),
+    );
+  $("#data-unknown").onchange = (e) => {
+    draft.intake.dataUnknown = e.target.checked;
+    save();
+  };
+  bindIntakeWriting();
+  bindPersist();
+}
+function exportJSON() {
+  flushSave();
+  download(
+    JSON.stringify(
+      { ...draft, sourceURL, exportedAt: new Date().toISOString() },
+      null,
+      2,
+    ),
+    "application/json",
+    fileName("json"),
+  );
+  dirty = false;
+  notify(
+    "Draft exported. It includes classroom context and separately recorded vendor responses.",
+  );
+}
+function renderHandoff() {
+  $("#view").innerHTML = HandoffView(draft, questions);
+  $("#persist").checked = persist;
+  $("#export-handoff").onclick = () => {
+    flushSave();
+    download(
+      handoffText(draft, questions),
+      "text/plain;charset=utf-8",
+      fileName("txt"),
+    );
+    notify(
+      "Handoff downloaded. Share it through your district’s usual process. Nothing was sent automatically.",
+    );
+  };
+  $("#teacher-json").onclick = exportJSON;
+  $("#teacher-print").onclick = () => window.print();
+  $("#import").onchange = importDraft;
   bindPersist();
 }
 function bindPersist() {
@@ -123,7 +226,6 @@ function bindPersist() {
     persist = el.checked;
     if (persist) {
       save();
-      notify("Draft saving enabled on this device.");
     } else {
       try {
         localStorage.removeItem(KEY);
@@ -216,7 +318,7 @@ function renderQuestion(holder, qs) {
   const q = questions[active],
     r = rec(q),
     pos = qs.indexOf(q);
-  holder.innerHTML = `<p class="section-title">${escape(q.section)}</p><article class="question-sheet"><div class="question-meta"><span class="question-id">${q.id} <span class="source-badge">· Original workbook wording</span></span><span class="question-count">${active + 1} / ${questions.length}</span></div><h2 id="question-title">${escape(q.text)}</h2><div class="explanation"><strong>In plain language · adaptation</strong><p>${escape(explanations[q.id])}</p></div><p class="who"><strong>${q.owner === "District IT" ? "District IT completes this field." : "Vendor provides this response."}</strong> ${q.owner === "District IT" ? "The workbook assigns this field to the institution’s IT or security office." : q.id.startsWith("GNRL") || q.id === "DATE-01" ? "Educators can gather public product details; ask the vendor to confirm them." : "Educators can record the vendor’s answer and ask for evidence. Do not infer a security answer from classroom use."}</p>${q.kind === "choice" ? `<fieldset><legend>Vendor answer</legend><div class="responses">${["Yes", "No"].map((a) => `<label class="response"><input type="radio" name="answer" value="${a}" ${r.answer === a ? "checked" : ""}>${a}</label>`).join("")}<label class="response unknown"><input type="radio" name="answer" value="unknown" ${r.unknown && !r.answer ? "checked" : ""}>Not yet known</label></div><p class="help-line">“Not yet known” tracks a missing response. It is not a workbook answer or a pass/fail result.</p></fieldset>` : `<div class="answer-block"><label class="field-label" for="answer">${q.owner === "District IT" ? "Institution response" : "Vendor response"}</label><textarea id="answer" name="answer" maxlength="20000" autocomplete="off">${escape(r.answer || "")}</textarea><label class="check"><input id="unknown" type="checkbox" ${r.unknown && !r.answer ? "checked" : ""}>Response not yet known</label></div>`}
+  holder.innerHTML = `<div class="vendor-workspace-note"><a href="#start">Just gathering a classroom idea?</a><span>The short intake is for teachers. This complete questionnaire is for vendor responses and district review.</span></div><p class="section-title">${escape(q.section)}</p><article class="question-sheet"><div class="question-meta"><span class="question-id">${q.id} <span class="source-badge">· Original workbook wording</span></span><span class="question-count">${active + 1} / ${questions.length}</span></div><h2 id="question-title">${escape(q.text)}</h2><div class="explanation"><strong>In plain language · adaptation</strong><p>${escape(explanations[q.id])}</p></div><p class="who"><strong>${q.owner === "District IT" ? "District IT completes this field." : "Vendor provides this response."}</strong> ${q.owner === "District IT" ? "The workbook assigns this field to the institution’s IT or security office." : q.id.startsWith("GNRL") || q.id === "DATE-01" ? "Educators can gather public product details; ask the vendor to confirm them." : "Educators can record the vendor’s answer and ask for evidence. Do not infer a security answer from classroom use."}</p>${DictationHelp()}${q.kind === "choice" ? `<fieldset><legend>Vendor answer</legend><div class="responses">${["Yes", "No"].map((a) => `<label class="response"><input type="radio" name="answer" value="${a}" ${r.answer === a ? "checked" : ""}>${a}</label>`).join("")}<label class="response unknown"><input type="radio" name="answer" value="unknown" ${r.unknown && !r.answer ? "checked" : ""}>Not yet known</label></div><p class="help-line">“Not yet known” tracks a missing response. It is not a workbook answer or a pass/fail result.</p></fieldset>` : `<div class="answer-block"><label class="field-label" for="answer">${q.owner === "District IT" ? "Institution response" : "Vendor response"}</label><div class="writing-field"><textarea data-writing-field id="answer" name="answer" rows="4" spellcheck="true" autocapitalize="sentences" enterkeyhint="next" maxlength="20000" autocomplete="off">${escape(r.answer || "")}</textarea><div class="field-foot"><span class="writing-state">Writing here</span><button type="button" class="field-next" data-next-field="answer">Next writing field</button></div></div><label class="check"><input id="unknown" type="checkbox" ${r.unknown && !r.answer ? "checked" : ""}>Response not yet known</label></div>`}
 ${q.guidance ? `<p class="help-line"><strong>Workbook guidance:</strong> ${escape(q.guidance)}</p>` : ""}<div class="evidence">${TextAreaField({ id: "additional", label: "Additional information", value: r.additional, placeholder: "Vendor explanation or details…" })}${TextAreaField({ id: "evidence", label: "Evidence reference / notes", value: r.evidence, placeholder: "Document title, date, link or follow-up question…" })}</div><p class="help-line">Use references to documents held in your district’s approved system. Do not paste confidential reports or student personal data.</p><div class="evidence" style="margin-top:16px;padding-top:16px"><label><span class="field-label">Response provided by</span><select id="provider" name="provider"><option value="">Not recorded</option><option>Vendor</option><option>District IT</option><option>Educator / public source</option></select></label>${CheckField({ id: "flag", label: "Mark for follow-up with vendor / IT", checked: r.flag })}</div>${Button({ id: "clear-answer", label: "Clear response", variant: "link" })}${
     q.reason || q.followup || Object.keys(q.crosswalk).length
       ? `<details><summary>Workbook analyst reference & crosswalk</summary><div class="reference-body"><p class="muted">Original reference text from Lite 4.1. Historical references may need district IT review; mappings do not establish compliance.</p>${q.reason ? `<h3>Reason for question</h3><p>${escape(q.reason)}</p>` : ""}${q.followup ? `<h3>Follow-up inquiries / responses</h3><p>${escape(q.followup)}</p>` : ""}${
@@ -250,16 +352,6 @@ ${q.guidance ? `<p class="help-line"><strong>Workbook guidance:</strong> ${escap
         }),
     );
   } else {
-    $("#answer").oninput = (e) => {
-      draft.records[q.id] = {
-        ...rec(q),
-        answer: e.target.value,
-        unknown: false,
-      };
-      $("#unknown").checked = false;
-      save();
-      $("#response-status").textContent = labels[responseState(rec(q))];
-    };
     $("#unknown").onchange = async (e) => {
       if (e.target.checked && rec(q).answer) {
         const ok = await confirmAction(
@@ -281,8 +373,19 @@ ${q.guidance ? `<p class="help-line"><strong>Workbook guidance:</strong> ${escap
       renderContent();
     };
   }
-  for (const key of ["additional", "evidence"])
-    $("#" + key).oninput = (e) => set(key, e.target.value);
+  bindWritingFields(holder, {
+    onInput: (field, value, composing) => {
+      const key = field.id;
+      draft.records[q.id] = { ...rec(q), [key]: value };
+      if (key === "answer") {
+        draft.records[q.id].unknown = false;
+        $("#unknown").checked = false;
+      }
+      queueSave(composing);
+      $("#response-status").textContent = labels[responseState(rec(q))];
+    },
+    onCommit: () => save(),
+  });
   $("#provider").onchange = (e) => set("provider", e.target.value);
   $("#flag").onchange = (e) => set("flag", e.target.checked);
   $("#clear-answer").onclick = async () => {
@@ -304,6 +407,8 @@ ${q.guidance ? `<p class="help-line"><strong>Workbook guidance:</strong> ${escap
     pos === qs.length - 1 ? (location.hash = "review") : step(qs, pos + 1);
 }
 function step(qs, pos) {
+  if (isComposing()) return;
+  flushSave();
   active = questions.indexOf(qs[pos]);
   renderContent();
   updateProgress();
@@ -414,7 +519,7 @@ async function importDraft(e) {
     }
     draft = incoming;
     save();
-    renderReview();
+    render();
     notify(
       "Draft imported. Responses and notes are available in Gather responses.",
     );
@@ -443,10 +548,25 @@ function confirmAction(title, text, label) {
 }
 function renderAbout() {
   $("#view").innerHTML =
-    `<article class="about"><a class="back-link" href="#start">Back to getting oriented</a><h1>Source & adaptation notes</h1><p>This workspace is an independent educational adaptation of the <strong>CoSN K-12 Community Vendor Assessment Tool (CVAT) – Lite, Version 4.1</strong>. It is not affiliated with, endorsed by, or an official product of CoSN or EDUCAUSE.</p><div class="actions"><a class="button primary" href="${sourceURL}">Open original workbook</a><a href="https://www.cosn.org/edtech-topics/cybersecurity/">CoSN cybersecurity resources</a></div><h2>Use it to prepare a review</h2><p>The workbook is a starting point for assessing vendor-provided services in school procurement. Vendors supply the safeguards information. Educators can gather product context, identify gaps and prepare questions; the institution’s security analyst evaluates the responses in the district’s environment.</p><p>The original instructions say the security worksheet should be completed by the vendor, not the school system. GNRL-11 and GNRL-12 belong to district IT or the security office. This adaptation helps educators coordinate that work; it does not replace your district’s procurement, privacy, legal or security review.</p><h2>What is preserved</h2><ul><li>All 63 assessment prompts, 12 general-information fields and DATE-01, with their original IDs, wording and order. Source spelling and punctuation are retained.</li><li>The 16 workbook sections, the 60 Yes/No response fields and the three narrative assessment questions.</li><li>Available original guidance, analyst reference text and standards crosswalk mappings. These are historical source references, not current certification claims.</li></ul><h2>What this adaptation changes</h2><ul><li>Plain-language explanations, evidence references, response-source labels and follow-up markers are added and labelled separately from source text.</li><li>“Not yet known” is a workflow state, not a workbook Yes/No response. Neither an unknown nor an unanswered item receives a pass or fail.</li><li>All prompts remain visible. The workbook has 13 conditional-formatting blocks containing broken <code>#REF!</code> references, so their intended skip logic cannot be reliably reproduced.</li><li>No security score is calculated. The hidden scoring sheet has 62 assessment IDs, omits COMP-09, and contains a mix of formulas and fixed cached values. The workbook also requires institution-specific analyst judgments. Reproducing its displayed percentages would be misleading.</li><li>Exports are portable JSON drafts and CSV records, not a completed original Excel workbook. The print view is a preparation summary, not the workbook’s Analyst Report.</li></ul><details class="comparison"><summary>Our version vs. the original</summary><p>These findings describe the supplied workbook, not a claim about CoSN’s intended scoring. The downloadable original has not been modified.</p><div class="comparison-item"><h3>COMP-09 missing from the scoring table</h3><p><strong>Original:</strong> CoSN K-12CVAT!A38 contains COMP-09; hidden Questions!B2:B63 contains only 62 assessment IDs and omits it.</p><p><strong>Impact:</strong> A scoring-table-only conversion would lose a narrative question.</p><p><strong>Our handling:</strong> All 63 assessment questions are included. <strong>Fixed mechanically for this interface:</strong> completeness restored; source scoring remains unresolved.</p></div><div class="comparison-item"><h3>Final question excluded from named range</h3><p><strong>Original:</strong> Defined name Lite points to Questions!B2:R62; HLVU-03 is on row 63.</p><p><strong>Impact:</strong> Features relying on that range may omit the last question.</p><p><strong>Our handling:</strong> HLVU-03 is included in navigation, response counts and exports. <strong>Fixed mechanically for this interface.</strong></p></div><div class="comparison-item"><h3>Security-event answer has an ambiguous favorable value</h3><p><strong>Original:</strong> COMP-05 asks about a security event in the last five years. Questions!H12 lists Yes as its “Compliant Answer”.</p><p><strong>Impact:</strong> Treating the favorable value as a safety judgment could reward an incident disclosure without reviewing the explanation.</p><p><strong>Our handling:</strong> Yes and No are recorded without a score; district IT reviews the context. <strong>Unresolved interpretation:</strong> no replacement favorable answer is asserted.</p></div><div class="comparison-item"><h3>Skip-formatting rules contain broken references</h3><p><strong>Original:</strong> The assessment sheet’s 13 conditional-formatting blocks refer to #REF! rather than valid parent cells.</p><p><strong>Impact:</strong> The intended nested-question visibility cannot be established reliably.</p><p><strong>Our handling:</strong> All questions remain visible and accessible. <strong>Unresolved interpretation:</strong> no skip or automatic N/A rule is invented.</p></div><div class="comparison-item"><h3>Instructions refer to a missing Summary Report</h3><p><strong>Original:</strong> Instructions!A24 and Analyst Report!A4 mention a Summary Report tab; none is present among the 12 supplied sheets.</p><p><strong>Impact:</strong> The documented review path cannot be followed literally.</p><p><strong>Our handling:</strong> Review & export provides a clearly labelled preparation summary. <strong>Fixed mechanically for navigation:</strong> the original report and its scoring are not recreated.</p></div><div class="comparison-item"><h3>General-information header overstates the field range</h3><p><strong>Original:</strong> CoSN K-12CVAT!A6 says GNRL-01 through GNRL-15; actual IDs stop at GNRL-12. A17 assigns GNRL-11 and GNRL-12 to institution IT.</p><p><strong>Impact:</strong> Readers could look for nonexistent fields or assign institution-only fields to the vendor.</p><p><strong>Our handling:</strong> The actual 12 fields are preserved; vendor fields 01–10 and institution fields 11–12 are labelled. <strong>Fixed mechanically for this interface.</strong></p></div></details><h2>Privacy & storage</h2><p>The application has no backend, response uploads, analytics or third-party fonts. Draft saving is optional and uses local browser storage. Without it, closing or reloading this tab loses the draft. No student personal data, passwords, access tokens or confidential reports should be entered. Put document references here and keep the documents in your institution’s approved system.</p><p>Private Site access and local drafts are separate: the Site owner can access the hosted tool, but responses are only in the browser where they were entered. To move work between devices, export and import a JSON draft using an approved transfer method.</p><h2>Attribution & license</h2><p>CoSN’s Cybersecurity Advisory Team adapted the K–12 toolkit from EDUCAUSE’s Higher Education Community Vendor Assessment Tool – Lite (HECVAT-Lite), created by the Higher Education Information Security Council Shared Assessments Working Group, with EDUCAUSE’s permission.</p><p>The workbook states “(C) EDUCAUSE 2019” and licenses the work under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>. This independent adaptation, including its added explanations and interface, is provided under the same license. Changes include the interactive workflow, explanations and browser-local draft format.</p><h2>Source record</h2><dl><dt>Version</dt><dd>Lite 4.1; workbook change log release date March 1, 2024.</dd><dt>Retrieved</dt><dd>October 21, 2026, from the user-specified CoSN link.</dd><dt>Workbook inspection</dt><dd>12 sheets; hidden sheets: Crosswalk Detail, High Risk Non-Compliant, Questions, Values. Drawing text, cell comments, validation lists, formulas and conditional formatting were inspected.</dd><dt>Source SHA-256</dt><dd><code>${data.sha256}</code></dd></dl><p>Some source instructions mention a Summary Report tab that is not present in this file, and one section header mentions GNRL-15 although the actual general fields end at GNRL-12. This adaptation follows the actual fields. Ask district IT to verify current requirements and references.</p></article>`;
+    `<article class="about"><a class="back-link" href="#start">Back to getting oriented</a><h1>Source & adaptation notes</h1><p>This workspace is an independent educational adaptation of the <strong>CoSN K-12 Community Vendor Assessment Tool (CVAT) – Lite, Version 4.1</strong>. It is not affiliated with, endorsed by, or an official product of CoSN or EDUCAUSE.</p><div class="actions"><a class="button primary" href="${sourceURL}">Open original workbook</a><a href="https://www.cosn.org/edtech-topics/cybersecurity/">CoSN cybersecurity resources</a></div><h2>Use it to prepare a review</h2><p>The workbook is a starting point for assessing vendor-provided services in school procurement. Vendors supply the safeguards information. Educators can gather product context, identify gaps and prepare questions; the institution’s security analyst evaluates the responses in the district’s environment.</p><p>The original instructions say the security worksheet should be completed by the vendor, not the school system. GNRL-11 and GNRL-12 belong to district IT or the security office. This adaptation helps educators coordinate that work; it does not replace your district’s procurement, privacy, legal or security review.</p><h2>What is preserved</h2><ul><li>All 63 assessment prompts, 12 general-information fields and DATE-01, with their original IDs, wording and order. Source spelling and punctuation are retained.</li><li>The 16 workbook sections, the 60 Yes/No response fields and the three narrative assessment questions.</li><li>Available original guidance, analyst reference text and standards crosswalk mappings. These are historical source references, not current certification claims.</li></ul><h2>What this adaptation changes</h2><p>The short classroom intake is an added teacher workflow. Its notes are stored and exported separately from the original vendor responses; it never infers answers to the security questionnaire. Native device dictation can enter text into the labelled fields. This site does not request microphone access or record audio; the device’s dictation service applies its own privacy settings.</p><ul><li>Plain-language explanations, evidence references, response-source labels and follow-up markers are added and labelled separately from source text.</li><li>“Not yet known” is a workflow state, not a workbook Yes/No response. Neither an unknown nor an unanswered item receives a pass or fail.</li><li>All prompts remain visible. The workbook has 13 conditional-formatting blocks containing broken <code>#REF!</code> references, so their intended skip logic cannot be reliably reproduced.</li><li>No security score is calculated. The hidden scoring sheet has 62 assessment IDs, omits COMP-09, and contains a mix of formulas and fixed cached values. The workbook also requires institution-specific analyst judgments. Reproducing its displayed percentages would be misleading.</li><li>Exports are portable JSON drafts and CSV records, not a completed original Excel workbook. The print view is a preparation summary, not the workbook’s Analyst Report.</li></ul><details class="comparison"><summary>Our version vs. the original</summary><p>These findings describe the supplied workbook, not a claim about CoSN’s intended scoring. The downloadable original has not been modified.</p><div class="comparison-item"><h3>COMP-09 missing from the scoring table</h3><p><strong>Original:</strong> CoSN K-12CVAT!A38 contains COMP-09; hidden Questions!B2:B63 contains only 62 assessment IDs and omits it.</p><p><strong>Impact:</strong> A scoring-table-only conversion would lose a narrative question.</p><p><strong>Our handling:</strong> All 63 assessment questions are included. <strong>Fixed mechanically for this interface:</strong> completeness restored; source scoring remains unresolved.</p></div><div class="comparison-item"><h3>Final question excluded from named range</h3><p><strong>Original:</strong> Defined name Lite points to Questions!B2:R62; HLVU-03 is on row 63.</p><p><strong>Impact:</strong> Features relying on that range may omit the last question.</p><p><strong>Our handling:</strong> HLVU-03 is included in navigation, response counts and exports. <strong>Fixed mechanically for this interface.</strong></p></div><div class="comparison-item"><h3>Security-event answer has an ambiguous favorable value</h3><p><strong>Original:</strong> COMP-05 asks about a security event in the last five years. Questions!H12 lists Yes as its “Compliant Answer”.</p><p><strong>Impact:</strong> Treating the favorable value as a safety judgment could reward an incident disclosure without reviewing the explanation.</p><p><strong>Our handling:</strong> Yes and No are recorded without a score; district IT reviews the context. <strong>Unresolved interpretation:</strong> no replacement favorable answer is asserted.</p></div><div class="comparison-item"><h3>Skip-formatting rules contain broken references</h3><p><strong>Original:</strong> The assessment sheet’s 13 conditional-formatting blocks refer to #REF! rather than valid parent cells.</p><p><strong>Impact:</strong> The intended nested-question visibility cannot be established reliably.</p><p><strong>Our handling:</strong> All questions remain visible and accessible. <strong>Unresolved interpretation:</strong> no skip or automatic N/A rule is invented.</p></div><div class="comparison-item"><h3>Instructions refer to a missing Summary Report</h3><p><strong>Original:</strong> Instructions!A24 and Analyst Report!A4 mention a Summary Report tab; none is present among the 12 supplied sheets.</p><p><strong>Impact:</strong> The documented review path cannot be followed literally.</p><p><strong>Our handling:</strong> Review & export provides a clearly labelled preparation summary. <strong>Fixed mechanically for navigation:</strong> the original report and its scoring are not recreated.</p></div><div class="comparison-item"><h3>General-information header overstates the field range</h3><p><strong>Original:</strong> CoSN K-12CVAT!A6 says GNRL-01 through GNRL-15; actual IDs stop at GNRL-12. A17 assigns GNRL-11 and GNRL-12 to institution IT.</p><p><strong>Impact:</strong> Readers could look for nonexistent fields or assign institution-only fields to the vendor.</p><p><strong>Our handling:</strong> The actual 12 fields are preserved; vendor fields 01–10 and institution fields 11–12 are labelled. <strong>Fixed mechanically for this interface.</strong></p></div></details><h2>Privacy & storage</h2><p>The application has no backend, response uploads, analytics or third-party fonts. Draft saving is optional and uses local browser storage. Without it, closing or reloading this tab loses the draft. No student personal data, passwords, access tokens or confidential reports should be entered. Put document references here and keep the documents in your institution’s approved system.</p><p>Private Site access and local drafts are separate: the Site owner can access the hosted tool, but responses are only in the browser where they were entered. To move work between devices, export and import a JSON draft using an approved transfer method.</p><h2>Attribution & license</h2><p>CoSN’s Cybersecurity Advisory Team adapted the K–12 toolkit from EDUCAUSE’s Higher Education Community Vendor Assessment Tool – Lite (HECVAT-Lite), created by the Higher Education Information Security Council Shared Assessments Working Group, with EDUCAUSE’s permission.</p><p>The workbook states “(C) EDUCAUSE 2019” and licenses the work under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>. This independent adaptation, including its added explanations and interface, is provided under the same license. Changes include the interactive workflow, explanations and browser-local draft format.</p><h2>Source record</h2><dl><dt>Version</dt><dd>Lite 4.1; workbook change log release date March 1, 2024.</dd><dt>Retrieved</dt><dd>October 21, 2026, from the user-specified CoSN link.</dd><dt>Workbook inspection</dt><dd>12 sheets; hidden sheets: Crosswalk Detail, High Risk Non-Compliant, Questions, Values. Drawing text, cell comments, validation lists, formulas and conditional formatting were inspected.</dd><dt>Source SHA-256</dt><dd><code>${data.sha256}</code></dd></dl><p>Some source instructions mention a Summary Report tab that is not present in this file, and one section header mentions GNRL-15 although the actual general fields end at GNRL-12. This adaptation follows the actual fields. Ask district IT to verify current requirements and references.</p></article>`;
 }
+document.addEventListener(
+  "click",
+  (event) => {
+    if (event.target.closest('a[href^="#"]') && isComposing()) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      notify("Finish this text entry before changing pages.");
+    }
+  },
+  true,
+);
 window.addEventListener("hashchange", navigate);
+window.addEventListener("pagehide", () => {
+  if (persist) flushSave();
+});
 window.addEventListener("beforeunload", (e) => {
+  if (persist) flushSave();
   if (dirty && !persist) {
     e.preventDefault();
     e.returnValue = "";

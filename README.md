@@ -1,8 +1,7 @@
 # CoSN CVAT
 
 An independent, educator-friendly preparation workspace for **CoSN K-12CVAT Lite 4.1**.
-It helps teachers gather product context, record vendor responses, identify missing
-evidence and prepare a handoff to district IT. It does not approve products or assess
+Teachers start with three short classroom prompts and an optional question, then download a useful handoff to district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
 legal compliance. Vendor answers and institutional security review remain essential.
 
 ## Run locally
@@ -31,7 +30,7 @@ confirmation-dialog recipes. Responsive layouts share these same primitives.
 The kit uses shadcn-style semantic naming, but is deliberately buildless native HTML,
 CSS and JavaScript, not the React shadcn package. This avoids an installation/build
 requirement for an educator handoff; these tokens and variants can be ported to shadcn
-without changing the data model. Styling is provisional institutional navy/neutral,
+without changing the data model. Styling uses a restrained warm-paper, blue and sage palette,
 not a claimed official MSBA identity. All browser controls retain native semantics.
 
 ## Source and data
@@ -53,7 +52,7 @@ Source retrieved October 21, 2026. Workbook change log gives March 1, 2024 for v
 
 Responses are only in browser memory until the user opts into localStorage saving.
 No response requests, uploads, analytics, cookies or third-party fonts are added by
-this application. Host sign-in/infrastructure is separate from application behavior.
+this application. No microphone permission is requested and no audio is recorded. Native device dictation may use the device vendor’s own services and privacy settings. Host sign-in/infrastructure is separate from application behavior.
 Do not enter student personal data, passwords, secrets or confidential security reports.
 Use document references and store the documents in an approved district system.
 
@@ -84,3 +83,27 @@ phone sizes, original rendered prompts, response/unknown distinction, search/fil
 evidence notes, counts, JSON/CSV, import validation, local save/reload/erase, keyboard
 controls, responsive overflow and screenshot review. See the delivered QA summary for
 actual completed checks and limitations. Browser tests use isolated synthetic data.
+
+## Teacher intake and native dictation
+
+`dist/intake.js` owns the short teacher intake and readable handoff. Its `draft.intake`
+object is validated and exported separately from `draft.records`. Classroom notes never
+populate vendor security answers. Old v1 JSON drafts still import with an empty intake.
+TXT exports include context, explicit unknowns, related workbook IDs and next steps;
+CSV preserves all 76 original fields and contains only separately recorded vendor/IT
+responses. JSON keeps both sets of information.
+
+`dist/writing.js` binds labelled native textareas. It preserves their DOM identity,
+selection and focus while editing; no input handler rerenders the form. Saving is
+briefly debounced during normal input and deferred during composition; composition end,
+blur and navigation flush the current text. Local saving remains opt-in. Next-writing-
+field buttons move focus only after user action and are disabled during composition.
+An optional closed field opens when explicitly navigated to. Long text remains editable
+and is limited to20,000 characters per field, consistently with import validation.
+
+Use your iPad/phone keyboard’s dictation button rather than a site microphone. Instructions
+link to Apple’s guide and explain device-service privacy. Tests simulate composition,
+paste and long dictation-sized text using synthetic content. They verify stable focus
+and caret, storage/reload, separate context export, unknowns, vendor review and responsive
+overflow. Actual iPad speech recognition accuracy and OS keyboard behavior require a
+physical device and were not claimed tested on this Mac.
