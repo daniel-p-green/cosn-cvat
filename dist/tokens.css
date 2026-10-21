@@ -1,19 +1,21 @@
-/* Independent educator palette. No claim of official CoSN or MSBA branding. */
+/* Reference: Builder Bootcamp sites-agentsbootcampdemo/app/globals.css.
+   Independent adaptation; no OpenAI/CoSN/MSBA endorsement or font redistribution. */
 :root {
-  --background: #f7f4ee;
-  --foreground: #263b42;
-  --card: #fffefa;
-  --card-foreground: #263b42;
-  --primary: #244e5e;
-  --primary-foreground: #ffffff;
-  --secondary: #e9f0ed;
-  --secondary-foreground: #244e5e;
-  --muted-foreground: #586a6d;
-  --border: #dcded5;
-  --input: #a8b8b5;
-  --ring: #956b1f;
-  --destructive: #883822;
-  --radius: 8px;
+  --background: #fff;
+  --foreground: #202020;
+  --card: #fff;
+  --card-foreground: #202020;
+  --primary: #202020;
+  --primary-foreground: #fff;
+  --secondary: #f4f4f4;
+  --secondary-foreground: #202020;
+  --muted-foreground: #626262;
+  --border: #dedede;
+  --input: #858585;
+  --ring: #202020;
+  --destructive: #b42318;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --radius: 10px;
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;

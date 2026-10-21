@@ -30,8 +30,9 @@ confirmation-dialog recipes. Responsive layouts share these same primitives.
 The kit uses shadcn-style semantic naming, but is deliberately buildless native HTML,
 CSS and JavaScript, not the React shadcn package. This avoids an installation/build
 requirement for an educator handoff; these tokens and variants can be ported to shadcn
-without changing the data model. Styling uses a restrained warm-paper and blue palette,
-not a claimed official MSBA identity. All browser controls retain native semantics.
+without changing the data model. Styling follows the verified Builder Bootcamp Sites project reference: white/charcoal,
+Arial/Helvetica and restrained neutral controls. See `DESIGN-REFERENCE.md`; this is not
+a claim of an official OpenAI style guide or endorsement. All browser controls retain native semantics.
 
 ## Source and data
 

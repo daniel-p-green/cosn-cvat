@@ -2,18 +2,18 @@
 
 October 21, 2026. Synthetic data only. No real microphone was activated or permitted.
 
-| Requested improvement | Implemented and verified |
-| --- | --- |
-| 1. Copy request for IT | Editable subject/body, classroom purpose, expected data, unresolved questions and district review request. Clipboard success and denied/manual-copy fallback tested. No sending. |
-| 2. Selectable information | Logins, schoolwork, photos, audio, other, no student information planned; independent not-sure choice and optional narrative. Mutually exclusive “none” tested. |
-| 3. Worked example | Clearly fictional WordTrail classroom note and miniature request in an expandable intake example and onboarding. No real student data. |
-| 4. Partial uncertainty | Known choices/narrative preserve explicit uncertainty through autosave, reload and backup; teacher expectations and vendor confirmation remain distinct. |
-| 5. Meaningful status | Added, Needs a detail, Not sure yet; partial-request preflight never gates copying or implies approval. |
-| 6. Direct editing | All five summary sections open and focus their exact source field, expand optional fields, and return directly to request. Edited request preserved; changed-context notice and confirmed refresh tested. |
-| 7. Continue draft | Tool, actual saved time, device-only text, next incomplete step. Existing schema/key retained. Save a backup/Open a backup; JSON round-trip and UI import confirmed. |
-| 8. Compact name/website | One-row labelled textareas, expandable name, optional website, dictation controls. Compact text grows for longer values without replacing field. |
-| 9. Readable responsive controls | Phone helper/privacy/save text increased; five viewport paths, doubled text and reduced viewport heights pass without horizontal overflow. Next and Use transcript tested at doubled text/reduced height. |
-| 10. Coherent hierarchy | Shared native component kit, warm neutral canvas, blue actions, predictable step navigation and paper-like request editor. Source/backups secondary. Actual screenshots inspected, independent read-only review completed and findings fixed. |
+| Requested improvement           | Implemented and verified                                                                                                                                                                                                                                         |
+| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Copy request for IT          | Editable subject/body, classroom purpose, expected data, unresolved questions and district review request. Clipboard success and denied/manual-copy fallback tested. No sending.                                                                                 |
+| 2. Selectable information       | Logins, schoolwork, photos, audio, other, no student information planned; independent not-sure choice and optional narrative. Mutually exclusive “none” tested.                                                                                                  |
+| 3. Worked example               | Clearly fictional WordTrail classroom note and miniature request in an expandable intake example and onboarding. No real student data.                                                                                                                           |
+| 4. Partial uncertainty          | Known choices/narrative preserve explicit uncertainty through autosave, reload and backup; teacher expectations and vendor confirmation remain distinct.                                                                                                         |
+| 5. Meaningful status            | Added, Needs a detail, Not sure yet; partial-request preflight never gates copying or implies approval.                                                                                                                                                          |
+| 6. Direct editing               | All five summary sections open and focus their exact source field, expand optional fields, and return directly to request. Edited request preserved; changed-context notice and confirmed refresh tested.                                                        |
+| 7. Continue draft               | Tool, actual saved time, device-only text, next incomplete step. Existing schema/key retained. Save a backup/Open a backup; JSON round-trip and UI import confirmed.                                                                                             |
+| 8. Compact name/website         | One-row labelled textareas, expandable name, optional website, dictation controls. Compact text grows for longer values without replacing field.                                                                                                                 |
+| 9. Readable responsive controls | Phone helper/privacy/save text increased; five viewport paths, doubled text and reduced viewport heights pass without horizontal overflow. Next and Use transcript tested at doubled text/reduced height.                                                        |
+| 10. Coherent hierarchy          | Shared native component kit, white/charcoal canvas, restrained monochrome actions, predictable step navigation and paper-like request editor. Source/backups secondary. Actual screenshots inspected, independent read-only review completed and findings fixed. |
 
 ## Additional orientation requirement
 
@@ -31,3 +31,11 @@ Three short first-run dialog screens explain purpose, roles, workflow, dictation
 ## Limitations
 
 Viewport simulation is not an actual iPad keyboard test. Native iPad dictation and real browser microphone capture remain untested on the user's device. Browser support, mic permission and provider behavior vary. The app truthfully discloses possible remote speech processing. No score, certification or approval is produced. Clipboard may require manual copy. Local storage is optional and device/browser-specific. Deployment access is separate from application draft storage.
+
+## Minimalist typography refinement
+
+Applied the verified Builder Bootcamp Sites CSS reference recorded in `DESIGN-REFERENCE.md`.
+Natural heading wrapping replaces forced breaks. One teacher layout sheet and one shared
+writing/speech sheet replace competing historical styles. Neutral tokens, lighter headings,
+consistent action shapes and full-width phone primary actions were visually reviewed.
+The same five viewport suites and doubled-text/reduced-height checks were rerun.
