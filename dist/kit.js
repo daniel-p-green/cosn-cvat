@@ -19,8 +19,9 @@ export function TextAreaField({
   value = "",
   placeholder = "",
   maxLength = 20000,
+  description = "",
 }) {
-  return `<div class="writing-field"><label for="${escapeHTML(id)}"><span class="field-label">${escapeHTML(label)}</span></label><textarea data-writing-field id="${escapeHTML(id)}" name="${escapeHTML(id)}" rows="4" spellcheck="true" autocapitalize="sentences" enterkeyhint="next" maxlength="${maxLength}" autocomplete="off"${placeholder ? ` placeholder="${escapeHTML(placeholder)}"` : ""}>${escapeHTML(value)}</textarea><div class="field-foot"><span class="writing-state">Writing here</span><button type="button" class="field-next" data-next-field="${escapeHTML(id)}">Next writing field</button></div></div>`;
+  return `<div class="writing-field"><label for="${escapeHTML(id)}"><span class="field-label">${escapeHTML(label)}</span></label>${description ? `<p class="field-description" id="description-${escapeHTML(id)}">${escapeHTML(description)}</p>` : ""}<textarea ${description ? `aria-describedby="description-${escapeHTML(id)}"` : ""} data-writing-field id="${escapeHTML(id)}" name="${escapeHTML(id)}" rows="4" spellcheck="true" autocapitalize="sentences" enterkeyhint="next" maxlength="${maxLength}" autocomplete="off"${placeholder ? ` placeholder="${escapeHTML(placeholder)}"` : ""}>${escapeHTML(value)}</textarea><div class="field-foot"><span class="writing-state">Writing here</span><button type="button" class="field-next" data-next-field="${escapeHTML(id)}">Next writing field</button></div></div>`;
 }
 export function CheckField({ id, label, checked = false, disabled = false }) {
   return `<label class="check"><input id="${escapeHTML(id)}" type="checkbox"${checked ? " checked" : ""}${disabled ? " disabled" : ""}>${escapeHTML(label)}</label>`;

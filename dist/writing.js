@@ -1,4 +1,5 @@
-/** Native text input only. No microphone access, speech recognition or audio network calls. */
+import { bindDictation, dictationBusy } from "./dictation.js";
+/** Stable native text fields, plus separately controlled opt-in browser dictation. */
 export function bindWritingFields(root, { onInput, onCommit }) {
   const fields = [...root.querySelectorAll("textarea[data-writing-field]")];
   fields.forEach((field, index) => {
@@ -36,7 +37,7 @@ export function bindWritingFields(root, { onInput, onCommit }) {
           ? "First writing field"
           : "Next writing field";
       next.addEventListener("click", () => {
-        if (field.dataset.composing === "true") return;
+        if (field.dataset.composing === "true" || dictationBusy()) return;
         commit();
         const target = fields[(index + 1) % fields.length];
         const disclosure = target.closest("details");
@@ -47,9 +48,10 @@ export function bindWritingFields(root, { onInput, onCommit }) {
       });
     }
   });
+  bindDictation(root);
 }
 export const isComposing = () =>
   !!document.querySelector('textarea[data-composing="true"]');
 export function DictationHelp() {
-  return `<details class="dictation-help"><summary>Prefer to speak? Use keyboard dictation</summary><div><p>Tap a writing field, then use the dictation microphone on your iPad’s keyboard or Shortcuts bar. Review the text and stop dictation before moving to the next field.</p><p>If dictation is missing, check Settings → General → Keyboard → Enable Dictation. Availability varies by device and language. <a href="https://support.apple.com/guide/ipad/dictate-text-ipad55d35a41/ipados">Apple’s dictation guide</a></p><p>This site does not record audio. Your device’s dictation service handles speech under its own privacy settings. Do not dictate student personal information.</p></div></details>`;
+  return `<details class="dictation-help"><summary>About microphone & keyboard dictation</summary><div><p>Tap a writing field, then use the dictation microphone on your iPad’s keyboard or Shortcuts bar. Review the text and stop dictation before moving to the next field.</p><p>If dictation is missing, check Settings → General → Keyboard → Enable Dictation. Availability varies by device and language. <a href="https://support.apple.com/guide/ipad/dictate-text-ipad55d35a41/ipados">Apple’s dictation guide</a></p><p>The Dictate control uses your browser’s speech service when available; audio may be processed remotely. You review the transcript before adding it. Keyboard dictation uses your device’s own speech service and privacy settings. Do not dictate student personal information.</p></div></details>`;
 }

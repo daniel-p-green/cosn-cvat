@@ -1,3 +1,4 @@
+import { dictationBusy } from "./dictation.js";
 import { IntakeView, HandoffView, handoffText } from "./intake.js";
 import { bindWritingFields, isComposing, DictationHelp } from "./writing.js";
 import { Button, TextAreaField, CheckField, Stat, escapeHTML } from "./kit.js";
@@ -25,6 +26,7 @@ let data,
   filter = "all",
   query = "",
   showList = false,
+  intakeStep = 0,
   noticeTimer,
   saveTimer;
 try {
@@ -105,6 +107,12 @@ function updateProgress() {
     $("#sections").innerHTML = sectionsHTML;
 }
 function navigate() {
+  if (dictationBusy()) {
+    notify(
+      "Stop dictation and use or discard your transcript before changing pages.",
+    );
+    return;
+  }
   if (isComposing()) {
     notify("Finish this entry before changing pages.");
     return;
@@ -160,7 +168,7 @@ function bindIntakeWriting() {
       draft.intake[key] = value;
       if (key === "data" && value.trim()) {
         draft.intake.dataUnknown = false;
-        $("#data-unknown").checked = false;
+        if ($("#data-unknown")) $("#data-unknown").checked = false;
       }
       queueSave(composing);
     },
@@ -168,19 +176,33 @@ function bindIntakeWriting() {
   });
 }
 function renderStart() {
-  $("#view").innerHTML = IntakeView(draft, persist, storageAvailable);
-  document
-    .querySelectorAll("[data-writing-field]")
-    .forEach((field) =>
-      field.setAttribute(
-        "aria-describedby",
-        "hint-" + field.id.replace("intake-", ""),
-      ),
-    );
-  $("#data-unknown").onchange = (e) => {
-    draft.intake.dataUnknown = e.target.checked;
-    save();
-  };
+  $("#view").innerHTML = IntakeView(
+    draft,
+    persist,
+    storageAvailable,
+    intakeStep,
+  );
+  if ($("#data-unknown"))
+    $("#data-unknown").onchange = (e) => {
+      draft.intake.dataUnknown = e.target.checked;
+      save();
+    };
+  document.querySelectorAll("[data-intake-step]").forEach(
+    (button) =>
+      (button.onclick = () => {
+        if (isComposing() || dictationBusy()) {
+          notify(
+            "Stop dictation and use or discard the transcript before moving on.",
+          );
+          return;
+        }
+        flushSave();
+        intakeStep = Number(button.dataset.intakeStep);
+        renderStart();
+        window.scrollTo(0, 0);
+        $("#main").focus({ preventScroll: true });
+      }),
+  );
   bindIntakeWriting();
   bindPersist();
 }
@@ -407,7 +429,7 @@ ${q.guidance ? `<p class="help-line"><strong>Workbook guidance:</strong> ${escap
     pos === qs.length - 1 ? (location.hash = "review") : step(qs, pos + 1);
 }
 function step(qs, pos) {
-  if (isComposing()) return;
+  if (isComposing() || dictationBusy()) return;
   flushSave();
   active = questions.indexOf(qs[pos]);
   renderContent();
@@ -548,26 +570,40 @@ function confirmAction(title, text, label) {
 }
 function renderAbout() {
   $("#view").innerHTML =
-    `<article class="about"><a class="back-link" href="#start">Back to getting oriented</a><h1>Source & adaptation notes</h1><p>This workspace is an independent educational adaptation of the <strong>CoSN K-12 Community Vendor Assessment Tool (CVAT) – Lite, Version 4.1</strong>. It is not affiliated with, endorsed by, or an official product of CoSN or EDUCAUSE.</p><div class="actions"><a class="button primary" href="${sourceURL}">Open original workbook</a><a href="https://www.cosn.org/edtech-topics/cybersecurity/">CoSN cybersecurity resources</a></div><h2>Use it to prepare a review</h2><p>The workbook is a starting point for assessing vendor-provided services in school procurement. Vendors supply the safeguards information. Educators can gather product context, identify gaps and prepare questions; the institution’s security analyst evaluates the responses in the district’s environment.</p><p>The original instructions say the security worksheet should be completed by the vendor, not the school system. GNRL-11 and GNRL-12 belong to district IT or the security office. This adaptation helps educators coordinate that work; it does not replace your district’s procurement, privacy, legal or security review.</p><h2>What is preserved</h2><ul><li>All 63 assessment prompts, 12 general-information fields and DATE-01, with their original IDs, wording and order. Source spelling and punctuation are retained.</li><li>The 16 workbook sections, the 60 Yes/No response fields and the three narrative assessment questions.</li><li>Available original guidance, analyst reference text and standards crosswalk mappings. These are historical source references, not current certification claims.</li></ul><h2>What this adaptation changes</h2><p>The short classroom intake is an added teacher workflow. Its notes are stored and exported separately from the original vendor responses; it never infers answers to the security questionnaire. Native device dictation can enter text into the labelled fields. This site does not request microphone access or record audio; the device’s dictation service applies its own privacy settings.</p><ul><li>Plain-language explanations, evidence references, response-source labels and follow-up markers are added and labelled separately from source text.</li><li>“Not yet known” is a workflow state, not a workbook Yes/No response. Neither an unknown nor an unanswered item receives a pass or fail.</li><li>All prompts remain visible. The workbook has 13 conditional-formatting blocks containing broken <code>#REF!</code> references, so their intended skip logic cannot be reliably reproduced.</li><li>No security score is calculated. The hidden scoring sheet has 62 assessment IDs, omits COMP-09, and contains a mix of formulas and fixed cached values. The workbook also requires institution-specific analyst judgments. Reproducing its displayed percentages would be misleading.</li><li>Exports are portable JSON drafts and CSV records, not a completed original Excel workbook. The print view is a preparation summary, not the workbook’s Analyst Report.</li></ul><details class="comparison"><summary>Our version vs. the original</summary><p>These findings describe the supplied workbook, not a claim about CoSN’s intended scoring. The downloadable original has not been modified.</p><div class="comparison-item"><h3>COMP-09 missing from the scoring table</h3><p><strong>Original:</strong> CoSN K-12CVAT!A38 contains COMP-09; hidden Questions!B2:B63 contains only 62 assessment IDs and omits it.</p><p><strong>Impact:</strong> A scoring-table-only conversion would lose a narrative question.</p><p><strong>Our handling:</strong> All 63 assessment questions are included. <strong>Fixed mechanically for this interface:</strong> completeness restored; source scoring remains unresolved.</p></div><div class="comparison-item"><h3>Final question excluded from named range</h3><p><strong>Original:</strong> Defined name Lite points to Questions!B2:R62; HLVU-03 is on row 63.</p><p><strong>Impact:</strong> Features relying on that range may omit the last question.</p><p><strong>Our handling:</strong> HLVU-03 is included in navigation, response counts and exports. <strong>Fixed mechanically for this interface.</strong></p></div><div class="comparison-item"><h3>Security-event answer has an ambiguous favorable value</h3><p><strong>Original:</strong> COMP-05 asks about a security event in the last five years. Questions!H12 lists Yes as its “Compliant Answer”.</p><p><strong>Impact:</strong> Treating the favorable value as a safety judgment could reward an incident disclosure without reviewing the explanation.</p><p><strong>Our handling:</strong> Yes and No are recorded without a score; district IT reviews the context. <strong>Unresolved interpretation:</strong> no replacement favorable answer is asserted.</p></div><div class="comparison-item"><h3>Skip-formatting rules contain broken references</h3><p><strong>Original:</strong> The assessment sheet’s 13 conditional-formatting blocks refer to #REF! rather than valid parent cells.</p><p><strong>Impact:</strong> The intended nested-question visibility cannot be established reliably.</p><p><strong>Our handling:</strong> All questions remain visible and accessible. <strong>Unresolved interpretation:</strong> no skip or automatic N/A rule is invented.</p></div><div class="comparison-item"><h3>Instructions refer to a missing Summary Report</h3><p><strong>Original:</strong> Instructions!A24 and Analyst Report!A4 mention a Summary Report tab; none is present among the 12 supplied sheets.</p><p><strong>Impact:</strong> The documented review path cannot be followed literally.</p><p><strong>Our handling:</strong> Review & export provides a clearly labelled preparation summary. <strong>Fixed mechanically for navigation:</strong> the original report and its scoring are not recreated.</p></div><div class="comparison-item"><h3>General-information header overstates the field range</h3><p><strong>Original:</strong> CoSN K-12CVAT!A6 says GNRL-01 through GNRL-15; actual IDs stop at GNRL-12. A17 assigns GNRL-11 and GNRL-12 to institution IT.</p><p><strong>Impact:</strong> Readers could look for nonexistent fields or assign institution-only fields to the vendor.</p><p><strong>Our handling:</strong> The actual 12 fields are preserved; vendor fields 01–10 and institution fields 11–12 are labelled. <strong>Fixed mechanically for this interface.</strong></p></div></details><h2>Privacy & storage</h2><p>The application has no backend, response uploads, analytics or third-party fonts. Draft saving is optional and uses local browser storage. Without it, closing or reloading this tab loses the draft. No student personal data, passwords, access tokens or confidential reports should be entered. Put document references here and keep the documents in your institution’s approved system.</p><p>Private Site access and local drafts are separate: the Site owner can access the hosted tool, but responses are only in the browser where they were entered. To move work between devices, export and import a JSON draft using an approved transfer method.</p><h2>Attribution & license</h2><p>CoSN’s Cybersecurity Advisory Team adapted the K–12 toolkit from EDUCAUSE’s Higher Education Community Vendor Assessment Tool – Lite (HECVAT-Lite), created by the Higher Education Information Security Council Shared Assessments Working Group, with EDUCAUSE’s permission.</p><p>The workbook states “(C) EDUCAUSE 2019” and licenses the work under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>. This independent adaptation, including its added explanations and interface, is provided under the same license. Changes include the interactive workflow, explanations and browser-local draft format.</p><h2>Source record</h2><dl><dt>Version</dt><dd>Lite 4.1; workbook change log release date March 1, 2024.</dd><dt>Retrieved</dt><dd>October 21, 2026, from the user-specified CoSN link.</dd><dt>Workbook inspection</dt><dd>12 sheets; hidden sheets: Crosswalk Detail, High Risk Non-Compliant, Questions, Values. Drawing text, cell comments, validation lists, formulas and conditional formatting were inspected.</dd><dt>Source SHA-256</dt><dd><code>${data.sha256}</code></dd></dl><p>Some source instructions mention a Summary Report tab that is not present in this file, and one section header mentions GNRL-15 although the actual general fields end at GNRL-12. This adaptation follows the actual fields. Ask district IT to verify current requirements and references.</p></article>`;
+    `<article class="about"><a class="back-link" href="#start">Back to getting oriented</a><h1>Source & adaptation notes</h1><p>This workspace is an independent educational adaptation of the <strong>CoSN K-12 Community Vendor Assessment Tool (CVAT) – Lite, Version 4.1</strong>. It is not affiliated with, endorsed by, or an official product of CoSN or EDUCAUSE.</p><div class="actions"><a class="button primary" href="${sourceURL}">Open original workbook</a><a href="https://www.cosn.org/edtech-topics/cybersecurity/">CoSN cybersecurity resources</a></div><h2>Use it to prepare a review</h2><p>The workbook is a starting point for assessing vendor-provided services in school procurement. Vendors supply the safeguards information. Educators can gather product context, identify gaps and prepare questions; the institution’s security analyst evaluates the responses in the district’s environment.</p><p>The original instructions say the security worksheet should be completed by the vendor, not the school system. GNRL-11 and GNRL-12 belong to district IT or the security office. This adaptation helps educators coordinate that work; it does not replace your district’s procurement, privacy, legal or security review.</p><h2>What is preserved</h2><ul><li>All 63 assessment prompts, 12 general-information fields and DATE-01, with their original IDs, wording and order. Source spelling and punctuation are retained.</li><li>The 16 workbook sections, the 60 Yes/No response fields and the three narrative assessment questions.</li><li>Available original guidance, analyst reference text and standards crosswalk mappings. These are historical source references, not current certification claims.</li></ul><h2>What this adaptation changes</h2><p>The short classroom intake is an added teacher workflow. Its notes are stored and exported separately from the original vendor responses; it never infers answers to the security questionnaire. Native device dictation can enter text into the labelled fields. The optional Dictate controls use browser SpeechRecognition when supported. Starting requires your action and browser microphone permission. Your browser may send audio to its speech provider; local processing is not guaranteed. This application does not store audio. Final words enter the draft only when you choose to use the transcript. Keyboard dictation remains an alternative.</p><ul><li>Plain-language explanations, evidence references, response-source labels and follow-up markers are added and labelled separately from source text.</li><li>“Not yet known” is a workflow state, not a workbook Yes/No response. Neither an unknown nor an unanswered item receives a pass or fail.</li><li>All prompts remain visible. The workbook has 13 conditional-formatting blocks containing broken <code>#REF!</code> references, so their intended skip logic cannot be reliably reproduced.</li><li>No security score is calculated. The hidden scoring sheet has 62 assessment IDs, omits COMP-09, and contains a mix of formulas and fixed cached values. The workbook also requires institution-specific analyst judgments. Reproducing its displayed percentages would be misleading.</li><li>Exports are portable JSON drafts and CSV records, not a completed original Excel workbook. The print view is a preparation summary, not the workbook’s Analyst Report.</li></ul><details class="comparison"><summary>Our version vs. the original</summary><p>These findings describe the supplied workbook, not a claim about CoSN’s intended scoring. The downloadable original has not been modified.</p><div class="comparison-item"><h3>COMP-09 missing from the scoring table</h3><p><strong>Original:</strong> CoSN K-12CVAT!A38 contains COMP-09; hidden Questions!B2:B63 contains only 62 assessment IDs and omits it.</p><p><strong>Impact:</strong> A scoring-table-only conversion would lose a narrative question.</p><p><strong>Our handling:</strong> All 63 assessment questions are included. <strong>Fixed mechanically for this interface:</strong> completeness restored; source scoring remains unresolved.</p></div><div class="comparison-item"><h3>Final question excluded from named range</h3><p><strong>Original:</strong> Defined name Lite points to Questions!B2:R62; HLVU-03 is on row 63.</p><p><strong>Impact:</strong> Features relying on that range may omit the last question.</p><p><strong>Our handling:</strong> HLVU-03 is included in navigation, response counts and exports. <strong>Fixed mechanically for this interface.</strong></p></div><div class="comparison-item"><h3>Security-event answer has an ambiguous favorable value</h3><p><strong>Original:</strong> COMP-05 asks about a security event in the last five years. Questions!H12 lists Yes as its “Compliant Answer”.</p><p><strong>Impact:</strong> Treating the favorable value as a safety judgment could reward an incident disclosure without reviewing the explanation.</p><p><strong>Our handling:</strong> Yes and No are recorded without a score; district IT reviews the context. <strong>Unresolved interpretation:</strong> no replacement favorable answer is asserted.</p></div><div class="comparison-item"><h3>Skip-formatting rules contain broken references</h3><p><strong>Original:</strong> The assessment sheet’s 13 conditional-formatting blocks refer to #REF! rather than valid parent cells.</p><p><strong>Impact:</strong> The intended nested-question visibility cannot be established reliably.</p><p><strong>Our handling:</strong> All questions remain visible and accessible. <strong>Unresolved interpretation:</strong> no skip or automatic N/A rule is invented.</p></div><div class="comparison-item"><h3>Instructions refer to a missing Summary Report</h3><p><strong>Original:</strong> Instructions!A24 and Analyst Report!A4 mention a Summary Report tab; none is present among the 12 supplied sheets.</p><p><strong>Impact:</strong> The documented review path cannot be followed literally.</p><p><strong>Our handling:</strong> Review & export provides a clearly labelled preparation summary. <strong>Fixed mechanically for navigation:</strong> the original report and its scoring are not recreated.</p></div><div class="comparison-item"><h3>General-information header overstates the field range</h3><p><strong>Original:</strong> CoSN K-12CVAT!A6 says GNRL-01 through GNRL-15; actual IDs stop at GNRL-12. A17 assigns GNRL-11 and GNRL-12 to institution IT.</p><p><strong>Impact:</strong> Readers could look for nonexistent fields or assign institution-only fields to the vendor.</p><p><strong>Our handling:</strong> The actual 12 fields are preserved; vendor fields 01–10 and institution fields 11–12 are labelled. <strong>Fixed mechanically for this interface.</strong></p></div></details><h2>Privacy & storage</h2><p>The application has no backend, response uploads, analytics or third-party fonts. Draft saving is optional and uses local browser storage. Without it, closing or reloading this tab loses the draft. No student personal data, passwords, access tokens or confidential reports should be entered. Put document references here and keep the documents in your institution’s approved system.</p><p>Private Site access and local drafts are separate: the Site owner can access the hosted tool, but responses are only in the browser where they were entered. To move work between devices, export and import a JSON draft using an approved transfer method.</p><h2>Attribution & license</h2><p>CoSN’s Cybersecurity Advisory Team adapted the K–12 toolkit from EDUCAUSE’s Higher Education Community Vendor Assessment Tool – Lite (HECVAT-Lite), created by the Higher Education Information Security Council Shared Assessments Working Group, with EDUCAUSE’s permission.</p><p>The workbook states “(C) EDUCAUSE 2019” and licenses the work under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)</a>. This independent adaptation, including its added explanations and interface, is provided under the same license. Changes include the interactive workflow, explanations and browser-local draft format.</p><h2>Source record</h2><dl><dt>Version</dt><dd>Lite 4.1; workbook change log release date March 1, 2024.</dd><dt>Retrieved</dt><dd>October 21, 2026, from the user-specified CoSN link.</dd><dt>Workbook inspection</dt><dd>12 sheets; hidden sheets: Crosswalk Detail, High Risk Non-Compliant, Questions, Values. Drawing text, cell comments, validation lists, formulas and conditional formatting were inspected.</dd><dt>Source SHA-256</dt><dd><code>${data.sha256}</code></dd></dl><p>Some source instructions mention a Summary Report tab that is not present in this file, and one section header mentions GNRL-15 although the actual general fields end at GNRL-12. This adaptation follows the actual fields. Ask district IT to verify current requirements and references.</p></article>`;
 }
 document.addEventListener(
   "click",
   (event) => {
-    if (event.target.closest('a[href^="#"]') && isComposing()) {
+    if (
+      event.target.closest('a[href^="#"]') &&
+      (isComposing() || dictationBusy())
+    ) {
       event.preventDefault();
       event.stopImmediatePropagation();
-      notify("Finish this text entry before changing pages.");
+      notify(
+        dictationBusy()
+          ? "Stop dictation and use or discard your transcript before changing pages."
+          : "Finish this text entry before changing pages.",
+      );
     }
   },
   true,
 );
+window.addEventListener("dictationstatechange", () => {
+  if (!dictationBusy() && $("#notice").textContent.startsWith("Stop dictation"))
+    $("#notice").textContent = "";
+  document
+    .querySelectorAll("[data-intake-step],[data-next-field]")
+    .forEach((b) => (b.disabled = dictationBusy()));
+});
 window.addEventListener("hashchange", navigate);
 window.addEventListener("pagehide", () => {
   if (persist) flushSave();
 });
 window.addEventListener("beforeunload", (e) => {
   if (persist) flushSave();
-  if (dirty && !persist) {
+  if ((dirty && !persist) || dictationBusy()) {
     e.preventDefault();
     e.returnValue = "";
   }

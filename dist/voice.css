@@ -1,0 +1,828 @@
+/* Focused intake and an honest, native browser dictation control. */
+:root {
+  --background: #f3f6f5;
+  --foreground: #203e49;
+  --card: #fff;
+  --primary: #155467;
+  --primary-foreground: #fff;
+  --secondary: #e6f0ed;
+  --muted-foreground: #5b7077;
+  --border: #d7e2e1;
+  --ring: #92691d;
+  --radius: 9px;
+}
+.teacher-top-nav {
+  display: none;
+  align-items: center;
+  gap: 25px;
+  margin-inline: auto;
+  font-size: 13px;
+}
+.teacher-top-nav a {
+  text-decoration: none;
+  color: var(--muted);
+}
+.teacher-top-nav a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+}
+.teacher-mode .teacher-top-nav {
+  display: flex;
+}
+.teacher-mode .rail {
+  display: none;
+}
+.teacher-mode .shell {
+  display: block;
+  max-width: 1300px;
+}
+.teacher-mode main {
+  padding: 40px 44px 60px;
+}
+.teacher-mode #view {
+  max-width: 1120px;
+}
+.teacher-mode .top {
+  min-height: 86px;
+  padding-inline: 35px;
+  gap: 35px;
+}
+.teacher-mode .top-actions {
+  gap: 14px;
+}
+.teacher-mode .draft-status {
+  font-size: 12px;
+}
+.teacher-mode .top-actions a {
+  font-size: 13px;
+  min-height: 42px;
+}
+.task-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 30px;
+  margin: 0 0 30px;
+}
+.task-intro h1 {
+  font-size: 37px;
+  line-height: 1.14;
+  letter-spacing: -1.2px;
+  margin-bottom: 13px;
+}
+.task-intro p {
+  font-size: 16px;
+  color: var(--muted);
+  margin: 0;
+}
+.task-intro > a {
+  font-size: 13px;
+  padding-bottom: 4px;
+  white-space: nowrap;
+}
+.intake-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 30px;
+  max-width: 744px;
+}
+.intake-steps button {
+  justify-content: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 550;
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 12px 8px 18px;
+  color: var(--muted);
+  min-height: 58px;
+}
+.intake-steps button span {
+  border: 1px solid #bacdce;
+  color: var(--muted);
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  flex: none;
+}
+.intake-steps button[aria-current="step"] {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
+  font-weight: 650;
+}
+.intake-steps button[aria-current="step"] span {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.intake-steps button:hover {
+  background: #e8efec;
+}
+.focused-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 744px) minmax(210px, 1fr);
+  gap: 36px;
+  align-items: start;
+}
+.step-sheet {
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: #fff;
+  padding: 30px 33px 0;
+  box-shadow: 0 6px 22px #24465005;
+}
+.step-sheet > .writing-field > .field-foot {
+  display: none;
+}
+.step-sheet .writing-field > label .field-label {
+  font-size: 26px;
+  letter-spacing: -0.65px;
+  line-height: 1.3;
+  font-weight: 650;
+  margin-bottom: 12px;
+  max-width: 23ch;
+}
+.field-description {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.65;
+  margin-bottom: 22px;
+  max-width: 60ch;
+}
+.step-sheet .writing-field textarea {
+  font-size: 19px;
+  line-height: 1.65;
+  padding: 18px 19px;
+  border: 1px solid #a1babc;
+  min-height: 190px;
+  height: 190px;
+  background: #fbfdfc;
+  border-radius: 9px;
+  box-shadow: inset 0 1px 3px #21465004;
+}
+.step-sheet .writing-field textarea:focus {
+  background: #fff;
+  outline: 2px solid var(--primary);
+  box-shadow: 0 0 0 4px #e1eeea;
+}
+.step-sheet .optional-question .field-label {
+  font-size: 16px;
+  letter-spacing: 0;
+  margin-top: 10px;
+}
+.step-sheet .optional-question textarea {
+  height: 130px;
+  min-height: 130px;
+  font-size: 17px;
+}
+.step-sheet .optional-question .field-foot {
+  display: none;
+}
+.speech-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 12px;
+  min-width: 0;
+}
+.dictate-button {
+  display: inline-flex;
+  gap: 8px;
+  background: #eaf3f1;
+  border: 1px solid #b4cfca;
+  border-radius: 7px;
+  color: #1d5c59;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 9px 13px;
+  flex: none;
+}
+.dictate-button:hover {
+  background: #daeae5;
+}
+.dictate-button:disabled {
+  opacity: 0.6;
+}
+.speech-fallback {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.5;
+  max-width: 29ch;
+  text-align: right;
+}
+.step-sheet .speech-fallback {
+  font-size: 12px;
+}
+.speech-panel {
+  background: #edf5f2;
+  border: 1px solid #a9c8bc;
+  border-radius: 9px;
+  padding: 17px;
+  margin: 14px 0 18px;
+  font-size: 13px;
+}
+.speech-panel[hidden] {
+  display: none;
+}
+.speech-status {
+  font-weight: 600;
+  color: #275a48;
+  margin: 0 0 13px;
+  font-size: 13px;
+}
+.speech-preview {
+  background: #fff;
+  border-radius: 6px;
+  padding: 13px 15px;
+  margin-bottom: 14px;
+}
+.speech-preview strong {
+  font-size: 11px;
+  font-weight: 600;
+  color: #556f68;
+  display: block;
+}
+.speech-preview p {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 15px;
+  line-height: 1.65;
+  margin: 5px 0 12px;
+  max-height: 220px;
+  overflow: auto;
+}
+.speech-preview p:last-child {
+  margin-bottom: 0;
+}
+.speech-interim {
+  color: #697b76;
+  font-style: italic;
+}
+.speech-mode {
+  margin-bottom: 15px;
+}
+.speech-mode legend {
+  font-size: 12px;
+  font-weight: 600;
+}
+.speech-mode label {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  min-height: 44px;
+  margin-right: 16px;
+  cursor: pointer;
+}
+.speech-mode input {
+  width: 17px;
+  min-height: 17px;
+  accent-color: var(--primary);
+}
+.speech-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.speech-actions button {
+  font-size: 12px;
+  min-height: 44px;
+  padding: 9px 12px;
+}
+.speech-privacy {
+  font-size: 11px;
+  color: #576e64;
+  line-height: 1.6;
+  margin: 12px 0 0;
+}
+.writing-field textarea[data-voice-active="true"] {
+  border-color: #36775c;
+  background: #fbfefb;
+}
+.speech-panel .primary {
+  background: #245d49;
+  border-color: #245d49;
+}
+.step-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  margin: 25px 0;
+}
+.step-actions button,
+.step-actions .button {
+  font-size: 14px;
+  min-height: 48px;
+}
+.step-actions .primary {
+  gap: 14px;
+  padding-inline: 20px;
+}
+.step-skip {
+  font-size: 12px;
+  color: var(--muted);
+}
+.step-back {
+  background: transparent !important;
+  border: 0;
+  padding-left: 0;
+}
+.step-draft {
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 28px;
+  padding: 13px 0 16px;
+}
+.step-draft .check {
+  font-size: 12px;
+  min-height: 44px;
+}
+.step-draft #writing-status {
+  font-size: 11px;
+  margin: 0;
+  min-height: 0;
+  text-align: right;
+  color: var(--muted);
+}
+.step-draft input {
+  width: 17px;
+  min-height: 17px;
+}
+.intake-guide {
+  padding-top: 9px;
+}
+.intake-guide h2 {
+  font-size: 20px;
+  line-height: 1.45;
+  letter-spacing: -0.4px;
+  margin: 0 0 12px;
+  max-width: 20ch;
+}
+.intake-guide > p {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.responsibility-list {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0;
+  border-top: 1px solid var(--border);
+}
+.responsibility-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.responsibility-list strong {
+  font-size: 13px;
+  font-weight: 650;
+  color: #3a665b;
+}
+.responsibility-list span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.intake-guide .workflow-origin {
+  font-size: 11px;
+  line-height: 1.7;
+  margin-top: 20px;
+}
+.native-dictation-tip {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.native-dictation-tip summary {
+  cursor: pointer;
+  min-height: 44px;
+  padding-block: 11px;
+  font-weight: 600;
+}
+.native-dictation-tip p {
+  font-size: 11px;
+}
+.teacher-mode .handoff-heading h1 {
+  font-size: 34px;
+  max-width: 26ch;
+  line-height: 1.18;
+}
+.teacher-mode .handoff-paper {
+  box-shadow: 0 6px 22px #24465005;
+  background: #fff;
+}
+.teacher-mode .handoff-files {
+  border-top: 0;
+  background: #e5efeb;
+  border-radius: 10px;
+  padding: 22px;
+}
+.teacher-mode .teacher-layout {
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 30px;
+}
+.teacher-mode .handoff-files button {
+  min-height: 47px;
+}
+.teacher-mode .handoff-files h2 {
+  font-size: 19px;
+}
+.teacher-mode .handoff-files p {
+  font-size: 13px;
+}
+.teacher-mode .handoff-next {
+  margin-top: 32px;
+}
+.teacher-mode .handoff-next h2 {
+  font-size: 22px;
+}
+.teacher-mode .next-steps {
+  border: 0;
+  padding-top: 6px;
+}
+.question-sheet .speech-toolbar {
+  margin-top: 5px;
+}
+.question-sheet .speech-fallback {
+  font-size: 10px;
+  max-width: 24ch;
+}
+.question-sheet .dictate-button {
+  font-size: 12px;
+  padding: 8px 10px;
+}
+.question-sheet .speech-panel {
+  font-size: 12px;
+}
+.question-sheet .evidence .writing-field {
+  min-width: 0;
+}
+.teacher-top-nav a,
+.task-intro a {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+@media (max-width: 1050px) {
+  .teacher-mode main {
+    padding: 32px 28px 50px;
+  }
+  .focused-layout {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 27px;
+  }
+  .task-intro h1 {
+    font-size: 34px;
+  }
+  .teacher-mode .top {
+    gap: 25px;
+    padding-inline: 25px;
+  }
+  .teacher-top-nav {
+    gap: 18px;
+    font-size: 12px;
+  }
+  .teacher-mode .draft-status {
+    display: none;
+  }
+  .step-sheet {
+    padding: 27px 25px 0;
+  }
+  .step-sheet .writing-field > label .field-label {
+    font-size: 24px;
+  }
+  .intake-steps {
+    max-width: 100%;
+  }
+  .teacher-mode .teacher-layout {
+    grid-template-columns: minmax(0, 1fr) 240px;
+  }
+}
+@media (max-width: 800px) {
+  .focused-layout {
+    grid-template-columns: 1fr;
+  }
+  .intake-guide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 28px;
+    padding-top: 0;
+  }
+  .intake-guide > h2,
+  .intake-guide > p {
+    grid-column: 1;
+  }
+  .intake-guide .responsibility-list {
+    grid-column: 2;
+    grid-row: 1/5;
+    margin: 0;
+  }
+  .intake-guide .workflow-origin {
+    margin-top: 5px;
+  }
+  .native-dictation-tip {
+    grid-column: 1;
+  }
+  .teacher-mode .teacher-layout {
+    grid-template-columns: 1fr;
+  }
+  .teacher-mode .teacher-companion {
+    display: block;
+  }
+  .teacher-mode .teacher-top-nav {
+    gap: 14px;
+  }
+  .teacher-mode .top {
+    gap: 20px;
+  }
+  .task-intro > a {
+    display: none;
+  }
+  .intake-steps button {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .intake-steps button span {
+    width: 24px;
+    height: 24px;
+  }
+  .teacher-mode .teacher-companion > h2,
+  .teacher-mode .teacher-companion > p {
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  .teacher-mode .top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 14px 19px 0;
+    gap: 0 15px;
+  }
+  .teacher-mode .brand {
+    font-size: 23px;
+  }
+  .teacher-mode .brand span {
+    font-size: 10px;
+  }
+  .teacher-mode .teacher-top-nav {
+    grid-column: 1/-1;
+    grid-row: 2;
+    justify-content: flex-start;
+    gap: 24px;
+    font-size: 11px;
+    margin-top: 10px;
+    width: 100%;
+    border-top: 1px solid var(--border);
+  }
+  .teacher-mode .top-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .teacher-mode .top-actions a {
+    font-size: 11px;
+    min-height: 40px;
+    padding: 8px 10px;
+  }
+  .teacher-mode main {
+    padding: 26px 18px 40px;
+  }
+  .task-intro {
+    margin-bottom: 23px;
+  }
+  .task-intro h1 {
+    font-size: 29px;
+    letter-spacing: -0.8px;
+    line-height: 1.17;
+    margin-bottom: 12px;
+  }
+  .task-intro p {
+    font-size: 14px;
+    line-height: 1.65;
+    max-width: 33ch;
+  }
+  .intake-steps {
+    margin-bottom: 22px;
+  }
+  .intake-steps button {
+    padding: 9px 3px 14px;
+    font-size: 10px;
+    line-height: 1.4;
+    gap: 6px;
+    align-items: center;
+  }
+  .intake-steps button span {
+    width: 21px;
+    height: 21px;
+    font-size: 10px;
+  }
+  .step-sheet {
+    padding: 24px 18px 0;
+    border-radius: 11px;
+  }
+  .step-sheet .writing-field > label .field-label {
+    font-size: 23px;
+    letter-spacing: -0.5px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .field-description {
+    font-size: 13px;
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+  .step-sheet .writing-field textarea {
+    font-size: 18px;
+    min-height: 165px;
+    height: 165px;
+    padding: 14px;
+    line-height: 1.65;
+  }
+  .speech-toolbar {
+    align-items: center;
+    gap: 10px;
+  }
+  .speech-fallback,
+  .step-sheet .speech-fallback {
+    font-size: 10px;
+    max-width: 18ch;
+  }
+  .dictate-button {
+    font-size: 12px;
+    min-height: 44px;
+    padding: 9px 11px;
+    gap: 7px;
+  }
+  .dictate-button svg {
+    width: 16px;
+    height: 16px;
+  }
+  .step-actions {
+    gap: 14px;
+    margin-top: 22px;
+    align-items: center;
+  }
+  .step-actions .primary {
+    font-size: 12px;
+    padding-inline: 13px;
+    gap: 9px;
+    line-height: 1.4;
+  }
+  .step-skip {
+    font-size: 11px;
+  }
+  .step-draft {
+    display: block;
+    padding: 13px 0;
+    margin-top: 23px;
+  }
+  .step-draft .check {
+    font-size: 11px;
+    min-height: 36px;
+    padding-block: 4px;
+  }
+  .step-draft #writing-status {
+    text-align: left;
+    padding-left: 27px;
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+  .intake-guide {
+    display: block;
+    padding: 0 2px;
+  }
+  .intake-guide h2 {
+    font-size: 18px;
+    max-width: 25ch;
+  }
+  .intake-guide > p {
+    font-size: 13px;
+    max-width: 38ch;
+  }
+  .responsibility-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 0;
+    gap: 12px;
+    margin: 18px 0 !important;
+  }
+  .responsibility-list li {
+    border: 0;
+    border-top: 2px solid #a8c2b8;
+    padding: 12px 0 0;
+  }
+  .responsibility-list strong {
+    font-size: 12px;
+  }
+  .responsibility-list span {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .intake-guide .workflow-origin {
+    font-size: 10px;
+  }
+  .speech-panel {
+    padding: 13px;
+    margin-block: 12px;
+  }
+  .speech-status {
+    font-size: 12px;
+  }
+  .speech-preview {
+    padding: 11px;
+  }
+  .speech-preview p {
+    font-size: 14px;
+  }
+  .speech-mode label {
+    font-size: 11px;
+    display: flex;
+    margin-right: 0;
+    min-height: 40px;
+  }
+  .speech-actions {
+    gap: 7px;
+  }
+  .speech-actions button {
+    font-size: 11px;
+    padding-inline: 10px;
+  }
+  .speech-privacy {
+    font-size: 10px;
+  }
+  .teacher-mode .handoff-heading h1 {
+    font-size: 28px;
+  }
+  .teacher-mode .handoff-files {
+    padding: 21px;
+  }
+  .teacher-mode .handoff-paper {
+    padding: 22px 19px;
+  }
+  .teacher-mode .handoff-paper > h2 {
+    font-size: 24px;
+  }
+  .question-sheet .speech-toolbar {
+    gap: 9px;
+  }
+  .question-sheet .speech-fallback {
+    font-size: 10px;
+    max-width: 18ch;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .writing-field textarea {
+    transition: none;
+  }
+}
+@media print {
+  .teacher-top-nav,
+  .speech-toolbar,
+  .speech-panel {
+    display: none !important;
+  }
+  .teacher-mode main {
+    padding: 0;
+  }
+  .teacher-mode .teacher-layout {
+    display: block;
+  }
+  .teacher-mode .handoff-heading h1 {
+    font-size: 23pt;
+  }
+  .teacher-mode .handoff-paper {
+    box-shadow: none;
+  }
+  .teacher-mode .top {
+    display: none;
+  }
+}
+@media (min-width: 601px) {
+  .step-sheet .writing-field > label .field-label {
+    max-width: none;
+  }
+}
+.speech-listening-actions {
+  margin-bottom: 13px;
+}
+.speech-listening-actions button {
+  min-height: 44px;
+}
+.speech-panel .speech-actions:last-of-type {
+  margin-top: 4px;
+}

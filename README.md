@@ -1,7 +1,7 @@
 # CoSN CVAT
 
 An independent, educator-friendly preparation workspace for **CoSN K-12CVAT Lite 4.1**.
-Teachers start with three short classroom prompts and an optional question, then download a useful handoff to district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
+Teachers start with a focused three-step intake (tool, classroom use, data) and an optional concern, then download a useful handoff to district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
 legal compliance. Vendor answers and institutional security review remain essential.
 
 ## Run locally
@@ -52,7 +52,7 @@ Source retrieved October 21, 2026. Workbook change log gives March 1, 2024 for v
 
 Responses are only in browser memory until the user opts into localStorage saving.
 No response requests, uploads, analytics, cookies or third-party fonts are added by
-this application. No microphone permission is requested and no audio is recorded. Native device dictation may use the device vendor’s own services and privacy settings. Host sign-in/infrastructure is separate from application behavior.
+this application. The optional Dictate controls request browser microphone access only after user activation. The browser may send audio to its recognition provider. Local processing is not guaranteed. This application does not store audio; only a final transcript the user chooses to use enters the draft. Native keyboard dictation is also available under device-service privacy settings. Host sign-in/infrastructure is separate from application behavior.
 Do not enter student personal data, passwords, secrets or confidential security reports.
 Use document references and store the documents in an approved district system.
 
@@ -101,9 +101,31 @@ field buttons move focus only after user action and are disabled during composit
 An optional closed field opens when explicitly navigated to. Long text remains editable
 and is limited to20,000 characters per field, consistently with import validation.
 
-Use your iPad/phone keyboard’s dictation button rather than a site microphone. Instructions
-link to Apple’s guide and explain device-service privacy. Tests simulate composition,
+Use the field’s Dictate control when browser recognition is supported, or your device keyboard’s dictation button as a fallback. Instructions explain browser/provider and device-service privacy. Tests simulate composition,
 paste and long dictation-sized text using synthetic content. They verify stable focus
 and caret, storage/reload, separate context export, unknowns, vendor review and responsive
 overflow. Actual iPad speech recognition accuracy and OS keyboard behavior require a
 physical device and were not claimed tested on this Mac.
+
+## Browser microphone dictation
+
+`dictation.js` feature-detects SpeechRecognition / webkitSpeechRecognition in a secure
+context. Every appropriate writing field has a genuine Dictate control. The first
+activation explains remote-processing possibilities before the user starts. The user
+must grant the browser permission themselves. No microphone permission was granted
+during automated tests, and no real audio was captured in testing.
+
+`speech-controller.js` owns the start / listening / stopping / review / error / cancel
+state machine. Only one field can have an active session or transcript preview. Final
+and interim results are separate; interim text is never exported. The user stops and
+reviews, then explicitly appends to the field's current edited value or chooses to
+replace all text. Cancel discards the transcript while preserving the field. Leaving
+an active session is blocked until it is used or discarded; pagehide aborts recording.
+There is no automatic restart and no paid transcription service or API credential.
+
+API presence does not guarantee working recognition: browser, OS, language, privacy
+policy and network support can differ. Errors and denied permission leave text intact.
+Unsupported browsers show a disabled Dictate control and a typing / keyboard-dictation
+fallback. Actual microphone capture and iPad browser speech accuracy require user
+validation on the device. Tests cover state logic with mocks and real capability
+detection without activating the real microphone.
