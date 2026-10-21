@@ -3,6 +3,14 @@ import { bindDictation, dictationBusy } from "./dictation.js";
 export function bindWritingFields(root, { onInput, onCommit }) {
   const fields = [...root.querySelectorAll("textarea[data-writing-field]")];
   fields.forEach((field, index) => {
+    const fitCompact = () => {
+      if (field.closest(".compact-field") && field.rows === 1) {
+        field.style.height = "auto";
+        field.style.height = Math.max(58, field.scrollHeight + 2) + "px";
+      }
+    };
+    fitCompact();
+    field.addEventListener("input", fitCompact);
     const next = root.querySelector(`[data-next-field="${field.id}"]`);
     let lastCommitted = field.value;
     const commit = () => {

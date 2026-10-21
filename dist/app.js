@@ -1,5 +1,15 @@
+import { bindOrientation } from "./orientation.js";
 import { dictationBusy } from "./dictation.js";
-import { IntakeView, HandoffView, handoffText } from "./intake.js";
+import {
+  IntakeView,
+  HandoffView,
+  handoffText,
+  stepStatuses,
+  generateRequest,
+  currentRequest,
+  requestContext,
+  savedTime,
+} from "./intake.js";
 import { bindWritingFields, isComposing, DictationHelp } from "./writing.js";
 import { Button, TextAreaField, CheckField, Stat, escapeHTML } from "./kit.js";
 import { explanations } from "./explanations.js";
@@ -27,6 +37,7 @@ let data,
   query = "",
   showList = false,
   intakeStep = 0,
+  editingIntake = false,
   noticeTimer,
   saveTimer;
 try {
@@ -64,15 +75,23 @@ function save() {
       persist = false;
       storageAvailable = false;
       notify(
-        "Device storage is unavailable. Export a JSON draft before closing this tab.",
+        "Device storage is unavailable. Save a backup before closing this tab.",
       );
     }
   } else $("#draft-status").textContent = "Draft in this tab";
   const writingStatus = $("#writing-status");
   if (writingStatus)
     writingStatus.textContent = persist
-      ? "Saved on this device"
-      : "Kept in this tab · export before closing";
+      ? "Saved " + savedTime(draft.updatedAt) + " · on this device"
+      : "In this tab only · save a backup before closing";
+  document
+    .querySelectorAll("[data-step-status]")
+    .forEach(
+      (el) =>
+        (el.textContent = stepStatuses(draft.intake)[
+          Number(el.dataset.stepStatus)
+        ]),
+    );
   updateProgress();
 }
 function queueSave(composing = false) {
@@ -120,7 +139,21 @@ function navigate() {
   flushSave();
   const hash = location.hash.slice(1);
   const oldMode = mode;
-  if (hash.startsWith("question/")) {
+  let editField = null;
+  editingIntake = false;
+  if (
+    hash.startsWith("edit/") &&
+    ["tool", "website", "use", "data", "help"].includes(hash.split("/")[1])
+  ) {
+    editField = hash.split("/")[1];
+    intakeStep = ["tool", "website"].includes(editField)
+      ? 0
+      : editField === "use"
+        ? 1
+        : 2;
+    mode = "start";
+    editingIntake = true;
+  } else if (hash.startsWith("question/")) {
     mode = "questions";
     const idx = questions.findIndex((q) => q.id === hash.split("/")[1]);
     active = idx < 0 ? 0 : idx;
@@ -144,6 +177,15 @@ function navigate() {
     $("#main").focus({ preventScroll: true });
     window.scrollTo(0, 0);
   }
+  if (editField) {
+    const target = $("#intake-" + editField);
+    if (target) {
+      const details = target.closest("details");
+      if (details) details.open = true;
+      target.focus({ preventScroll: true });
+      target.scrollIntoView({ block: "center" });
+    }
+  }
 }
 function render() {
   const teacher = mode === "start" || mode === "handoff";
@@ -166,10 +208,6 @@ function bindIntakeWriting() {
     onInput: (field, value, composing) => {
       const key = field.id.replace("intake-", "");
       draft.intake[key] = value;
-      if (key === "data" && value.trim()) {
-        draft.intake.dataUnknown = false;
-        if ($("#data-unknown")) $("#data-unknown").checked = false;
-      }
       queueSave(composing);
     },
     onCommit: () => save(),
@@ -181,12 +219,45 @@ function renderStart() {
     persist,
     storageAvailable,
     intakeStep,
+    editingIntake,
   );
   if ($("#data-unknown"))
     $("#data-unknown").onchange = (e) => {
       draft.intake.dataUnknown = e.target.checked;
       save();
     };
+  document.querySelectorAll("[data-data-choice]").forEach(
+    (el) =>
+      (el.onchange = () => {
+        const id = el.dataset.dataChoice;
+        let selected = draft.intake.expectedData.filter((v) => v !== id);
+        if (el.checked)
+          selected =
+            id === "none"
+              ? [id]
+              : [...selected.filter((v) => v !== "none"), id];
+        draft.intake.expectedData = selected;
+        document
+          .querySelectorAll("[data-data-choice]")
+          .forEach(
+            (c) => (c.checked = selected.includes(c.dataset.dataChoice)),
+          );
+        save();
+      }),
+  );
+  document.querySelectorAll("[data-expand]").forEach(
+    (el) =>
+      (el.onclick = () => {
+        const target = document.getElementById(el.dataset.expand),
+          expanded = el.getAttribute("aria-expanded") === "true";
+        target.rows = expanded ? 1 : 3;
+        el.setAttribute("aria-expanded", String(!expanded));
+        el.textContent = expanded
+          ? "More room for the name"
+          : "Compact name field";
+        target.focus();
+      }),
+  );
   document.querySelectorAll("[data-intake-step]").forEach(
     (button) =>
       (button.onclick = () => {
@@ -236,6 +307,73 @@ function renderHandoff() {
       "Handoff downloaded. Share it through your district’s usual process. Nothing was sent automatically.",
     );
   };
+  bindWritingFields($("#view"), {
+    onInput: (field, value, composing) => {
+      if (!draft.request.edited)
+        draft.request = {
+          ...generateRequest(draft.intake),
+          edited: true,
+          context: requestContext(draft.intake),
+        };
+      draft.request[field.id.replace("request-", "")] = value;
+      queueSave(composing);
+      const print = $("#print-request");
+      if (print) {
+        print.querySelector("h3").textContent = draft.request.subject;
+        print.querySelector("p").textContent = draft.request.body;
+      }
+    },
+    onCommit: () => save(),
+  });
+  $("#copy-request").onclick = async () => {
+    if (dictationBusy() || isComposing()) {
+      notify("Finish dictation or text entry before copying the request.");
+      return;
+    }
+    flushSave();
+    const r = currentRequest(draft),
+      text = `Subject: ${r.subject}\n\n${r.body}`;
+    try {
+      if (!navigator.clipboard?.writeText) throw Error("Clipboard unavailable");
+      await navigator.clipboard.writeText(text);
+      $("#copy-status").textContent =
+        "Copied subject and request. Paste it into your district’s usual process. Nothing was sent.";
+    } catch {
+      const fallback = document.createElement("textarea");
+      fallback.id = "manual-copy";
+      fallback.value = text;
+      fallback.setAttribute(
+        "aria-label",
+        "Subject and request for manual copying",
+      );
+      const status = $("#copy-status");
+      status.textContent =
+        "Clipboard access is unavailable. Copy the selected text below using your device’s Copy command.";
+      $("#manual-copy")?.remove();
+      status.after(fallback);
+      fallback.focus();
+      fallback.select();
+    }
+  };
+  $("#refresh-request").onclick = async () => {
+    if (dictationBusy() || isComposing()) {
+      notify("Finish dictation or text entry first.");
+      return;
+    }
+    if (
+      draft.request.edited &&
+      !(await confirmAction(
+        "Refresh this request?",
+        "This replaces your edited subject and request with a fresh version of your classroom notes.",
+        "Refresh request",
+      ))
+    )
+      return;
+    draft.request = { subject: "", body: "", edited: false, context: "" };
+    save();
+    renderHandoff();
+    $("#request-body").focus();
+  };
   $("#teacher-json").onclick = exportJSON;
   $("#teacher-print").onclick = () => window.print();
   $("#import").onchange = importDraft;
@@ -253,6 +391,9 @@ function bindPersist() {
         localStorage.removeItem(KEY);
       } catch {}
       $("#draft-status").textContent = "Draft in this tab";
+      if ($("#writing-status"))
+        $("#writing-status").textContent =
+          "In this tab only · save a backup before closing";
       notify(
         "Device copy removed. Your current draft is still open in this tab.",
       );
@@ -594,7 +735,9 @@ window.addEventListener("dictationstatechange", () => {
   if (!dictationBusy() && $("#notice").textContent.startsWith("Stop dictation"))
     $("#notice").textContent = "";
   document
-    .querySelectorAll("[data-intake-step],[data-next-field]")
+    .querySelectorAll(
+      "[data-intake-step],[data-next-field],#copy-request,#refresh-request",
+    )
     .forEach((b) => (b.disabled = dictationBusy()));
 });
 window.addEventListener("hashchange", navigate);
@@ -623,6 +766,7 @@ try {
   dirty = false;
   if (innerWidth < 768) $(".section-menu").open = false;
   navigate();
+  bindOrientation({ hasSavedDraft: persist });
 } catch (err) {
   $("#view").innerHTML =
     '<h1>The assessment could not load</h1><p>Reload this page. If the problem continues, use the <a href="' +

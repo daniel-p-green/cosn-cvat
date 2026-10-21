@@ -4,7 +4,16 @@ export const blank = () => ({
   schemaVersion: 1,
   workbookVersion: "4.1",
   records: {},
-  intake: { tool: "", use: "", data: "", help: "", dataUnknown: true },
+  intake: {
+    tool: "",
+    website: "",
+    use: "",
+    data: "",
+    help: "",
+    expectedData: [],
+    dataUnknown: true,
+  },
+  request: { subject: "", body: "", edited: false, context: "" },
   updatedAt: null,
 });
 export const responseState = (r) =>
@@ -87,7 +96,7 @@ export function validateDraft(input, questions) {
       Array.isArray(input.intake)
     )
       throw Error("The classroom intake is invalid. Nothing was imported.");
-    for (const key of ["tool", "use", "data", "help"]) {
+    for (const key of ["tool", "website", "use", "data", "help"]) {
       const value = input.intake[key];
       if (
         value !== undefined &&
@@ -106,7 +115,50 @@ export function validateDraft(input, questions) {
     draft.intake.dataUnknown =
       input.intake.dataUnknown ?? !draft.intake.data.trim();
   }
-  draft.updatedAt = new Date().toISOString();
+  const choices = input.intake?.expectedData ?? [];
+  if (
+    !Array.isArray(choices) ||
+    choices.some(
+      (v) =>
+        !["logins", "schoolwork", "photos", "audio", "other", "none"].includes(
+          v,
+        ),
+    ) ||
+    new Set(choices).size !== choices.length ||
+    (choices.includes("none") && choices.length > 1)
+  )
+    throw Error(
+      "The classroom data choices are invalid. Nothing was imported.",
+    );
+  draft.intake.expectedData = choices;
+  if (input.request !== undefined) {
+    if (
+      !input.request ||
+      typeof input.request !== "object" ||
+      Array.isArray(input.request)
+    )
+      throw Error("The editable request is invalid.");
+    for (const key of ["subject", "body", "context"]) {
+      if (
+        input.request[key] !== undefined &&
+        (typeof input.request[key] !== "string" ||
+          input.request[key].length > 20000)
+      )
+        throw Error("The editable request is invalid or too long.");
+      draft.request[key] = input.request[key] || "";
+    }
+    if (
+      input.request.edited !== undefined &&
+      typeof input.request.edited !== "boolean"
+    )
+      throw Error("The editable request state is invalid.");
+    draft.request.edited = !!input.request.edited;
+  }
+  draft.updatedAt =
+    typeof input.updatedAt === "string" &&
+    Number.isFinite(Date.parse(input.updatedAt))
+      ? input.updatedAt
+      : null;
   return draft;
 }
 export function exportCSV(questions, draft) {

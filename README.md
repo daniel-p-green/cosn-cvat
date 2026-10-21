@@ -1,7 +1,7 @@
 # CoSN CVAT
 
 An independent, educator-friendly preparation workspace for **CoSN K-12CVAT Lite 4.1**.
-Teachers start with a focused three-step intake (tool, classroom use, data) and an optional concern, then download a useful handoff to district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
+Teachers start with a focused three-step intake (tool, classroom use, data) and an optional concern, then review and copy an editable request for district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
 legal compliance. Vendor answers and institutional security review remain essential.
 
 ## Run locally
@@ -30,7 +30,7 @@ confirmation-dialog recipes. Responsive layouts share these same primitives.
 The kit uses shadcn-style semantic naming, but is deliberately buildless native HTML,
 CSS and JavaScript, not the React shadcn package. This avoids an installation/build
 requirement for an educator handoff; these tokens and variants can be ported to shadcn
-without changing the data model. Styling uses a restrained warm-paper, blue and sage palette,
+without changing the data model. Styling uses a restrained warm-paper and blue palette,
 not a claimed official MSBA identity. All browser controls retain native semantics.
 
 ## Source and data
@@ -129,3 +129,36 @@ Unsupported browsers show a disabled Dictate control and a typing / keyboard-dic
 fallback. Actual microphone capture and iPad browser speech accuracy require user
 validation on the device. Tests cover state logic with mocks and real capability
 detection without activating the real microphone.
+
+## Teacher request workflow (October 21 redesign)
+
+The first-run three-screen orientation is skippable, reopenable through **How it works**,
+and uses session-only seen state. An existing opted-in local draft bypasses it.
+No account or remote record storage is added. The optional saved draft keeps the same
+storage key and schema; previous classroom and vendor drafts migrate without loss.
+
+Teachers can select expected information types while independently keeping uncertainty,
+see a fictional worked example, and prepare a useful partial request. The handoff has
+an editable subject/body and **Copy request for IT** action. Clipboard denial provides
+selected text for manual copying. Nothing is sent. Each classroom section links directly
+to its originating field and returns to the request. Edited requests survive context
+changes; refreshing them requires confirmation. Long context is summarized in the
+request and retained in full in the notes/backup.
+
+**Keep a draft on this device** is opt-in. **Save a backup** and **Open a backup** use
+portable JSON including classroom context, request edits and separately recorded
+vendor answers. `workflow.css` owns the teacher-facing layout, spacing/type and shared
+request/intake components; this remains a native component kit, not actual shadcn.
+
+Additional regression checks:
+
+```sh
+npm run check
+# In another terminal, run npm start first. Install Playwright in your test environment.
+npm run test:browser
+```
+
+Browser tests accept `PLAYWRIGHT_MODULE`, `BROWSER_CHANNEL`, `TEST_URL` and `TEST_OUTPUT`
+for an existing test environment. They mock speech recognition, clipboard and permission
+failure; they never request or grant a real microphone. Desktop viewport simulation
+cannot verify an actual iPad keyboard or its native speech capture.
