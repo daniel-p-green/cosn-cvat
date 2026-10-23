@@ -89,6 +89,12 @@ async function noOverflow(p, label) {
       errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
     await p.goto(base);
+    await p.waitForSelector("#intake-tool");
+    assert.equal(await p.locator("#orientation[open]").count(), 0);
+    assert.equal(await p.locator(".intake-guide").count(), 0);
+    assert(await p.locator("#intake-website").isVisible());
+    assert((await p.locator(".step-icon .ui-icon").count()) === 3);
+    if(await p.locator("#menu-toggle").isVisible()){await p.click("#menu-toggle");await p.click("#mobile-help");}else await p.click("#open-orientation");
     await p.waitForSelector("#orientation[open]");
     assert.equal(await p.evaluate(() => window.__starts), 0);
     await p.keyboard.press("Tab");
@@ -99,7 +105,7 @@ async function noOverflow(p, label) {
     );
     await p.keyboard.press("Escape");
     assert.equal(await p.locator("#orientation[open]").count(), 0);
-    await p.click("#open-orientation");
+    if(await p.locator("#menu-toggle").isVisible()){await p.click("#menu-toggle");await p.click("#mobile-help");}else await p.click("#open-orientation");
     for (let i = 0; i < 2; i++) await p.click("#orientation-next");
     assert(
       (await p.locator("#orientation").innerText()).includes(
@@ -221,6 +227,9 @@ async function noOverflow(p, label) {
       "Information: not sure yet",
     );
     // Editable subject/body copy uses current edits; clipboard mocked, no external delivery.
+    assert(await p.locator("#preview-body").isVisible());
+    assert.equal(await p.locator("#request-body").isVisible(), false);
+    await p.locator("#request-editor summary").click();
     await p.fill("#request-subject", "Please review our reading idea");
     await p.fill("#request-body", "A concise edited request.");
     await p.evaluate(() =>
@@ -229,12 +238,19 @@ async function noOverflow(p, label) {
         value: { writeText: async (text) => (window.__copied = text) },
       }),
     );
+    await p.click("#finish-editing");
+    assert.equal(
+      await p.locator("#preview-body").innerText(),
+      "A concise edited request.",
+    );
+    assert.equal(await p.locator("#request-body").isVisible(), false);
     await p.click("#copy-request");
     assert.equal(
       await p.evaluate(() => window.__copied),
       "Subject: Please review our reading idea\n\nA concise edited request.",
     );
     for (const key of ["tool", "website", "use", "data", "help"]) {
+      await p.locator(".classroom-notes summary").click();
       await p.click(`.context-section a[href="#edit/${key}"]`);
       await p.waitForFunction(
         (id) => document.activeElement.id === id,
@@ -314,7 +330,7 @@ async function noOverflow(p, label) {
     await p.setViewportSize({ width: w, height: h });
     await p.reload();
     await p.waitForSelector("#copy-request");
-    await p.click('a[href="#questions"]');
+    if(await p.locator("#menu-toggle").isVisible()){await p.click("#menu-toggle");await p.click('#mobile-menu a[href="#questions"]');}else await p.locator('a[href="#questions"]:visible').first().click();
     await p.waitForSelector("#answer");
     await p
       .getByRole("button", { name: "Browse questions", exact: true })
@@ -327,7 +343,7 @@ async function noOverflow(p, label) {
     await p.locator("#search").fill("DOCU-01");
     await p.locator(".question-row").click();
     await p.getByRole("radio", { name: "Not yet known", exact: true }).check();
-    await p.getByRole("link", { name: "Review & export", exact: true }).click();
+    if(await p.locator("#menu-toggle").isVisible()){await p.click("#menu-toggle");await p.click('#mobile-menu a[href="#review"]');}else await p.getByRole("link", { name: "Review & export", exact: true }).click();
     await p.waitForSelector("#export-csv");
     event = p.waitForEvent("download");
     await p.click("#export-csv");

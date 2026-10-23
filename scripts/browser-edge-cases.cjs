@@ -30,26 +30,26 @@ const base = process.env.TEST_URL || "http://127.0.0.1:4173",
   });
   const p = await ctx.newPage();
   await p.goto(base);
-  await p.waitForSelector("#orientation[open]");
+  await p.waitForSelector("#intake-tool");
+  assert.equal(await p.locator("#orientation[open]").count(), 0);
+  if(await p.locator("#menu-toggle").isVisible()){await p.click("#menu-toggle");await p.click("#mobile-help");}else await p.click("#open-orientation");
   await p.click("#orientation-skip");
   assert.equal(
     await p.evaluate(() => document.activeElement.id),
-    "intake-tool",
+    await p.locator("#menu-toggle").isVisible() ? "menu-toggle" : "open-orientation",
   );
   await p.click('[data-intake-step="1"]');
   await p.fill("#intake-use", "Known classroom idea");
   await p.click('[data-dictate="intake-use"]');
   await p.click("[data-start-dictation]");
   await p.evaluate(() =>
-    window.__instances
-      .at(-1)
-      .onresult({
-        results: [
-          Object.assign([{ transcript: "Dictated addition." }], {
-            isFinal: true,
-          }),
-        ],
-      }),
+    window.__instances.at(-1).onresult({
+      results: [
+        Object.assign([{ transcript: "Dictated addition." }], {
+          isFinal: true,
+        }),
+      ],
+    }),
   );
   await p.click("[data-speech-stop]");
   await p.evaluate(() => {
@@ -91,7 +91,14 @@ const base = process.env.TEST_URL || "http://127.0.0.1:4173",
       "Dictated addition.",
     ),
   );
+  await p.locator("#request-editor summary").click();
   await p.fill("#request-body", "Edited copy");
+  await p.click('[data-dictate="request-body"]');
+  await p.locator("#request-editor summary").click();
+  assert.equal(await p.locator("#request-editor").getAttribute("open"), "");
+  assert(await p.locator("#copy-request").isDisabled());
+  await p.click(".speech-panel:not([hidden]) [data-speech-cancel]");
+  assert.equal(await p.locator("#request-body").inputValue(), "Edited copy");
   await p.click("#refresh-request");
   await p.waitForSelector("#confirm[open]");
   await p.click("#confirm [value=cancel]");

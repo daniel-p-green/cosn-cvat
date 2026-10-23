@@ -1,4 +1,16 @@
+import {MAX_CELL_CHARACTERS} from './limits.js';
+export {MAX_BACKUP_BYTES} from './limits.js';
 export const KEY = "cosn-cvat-lite-4.1-draft-v1";
+export const blankReview = () => ({
+  framework: "NIST Cybersecurity Framework",
+  calculationMode: "source",
+  qualitative: Object.fromEntries(["COMP-01", "COMP-02", "COMP-09"].map(id => [id, {compliant:"", score:null, notes:""}])),
+  applicability: {},
+  categoryApplicability: {},
+  favorableOverrides: {},
+  preparedDate: "",
+  analystNotes: "",
+});
 export const blank = () => ({
   schema: "cosn-cvat-local-draft",
   schemaVersion: 1,
@@ -14,6 +26,7 @@ export const blank = () => ({
     dataUnknown: true,
   },
   request: { subject: "", body: "", edited: false, context: "" },
+  review: blankReview(),
   updatedAt: null,
 });
 export const responseState = (r) =>
@@ -62,9 +75,9 @@ export function validateDraft(input, questions) {
           "A response has an invalid text field. Nothing was imported.",
         );
       clean[key] = r[key] || "";
-      if (clean[key].length > 20000)
+      if (clean[key].length > MAX_CELL_CHARACTERS)
         throw Error(
-          "A response is too long. Keep each field under 20,000 characters.",
+          "A response is too long. Each field allows up to 32,767 characters. Nothing was imported.",
         );
     }
     if (
@@ -100,10 +113,10 @@ export function validateDraft(input, questions) {
       const value = input.intake[key];
       if (
         value !== undefined &&
-        (typeof value !== "string" || value.length > 20000)
+        (typeof value !== "string" || value.length > MAX_CELL_CHARACTERS)
       )
         throw Error(
-          "A classroom intake field is invalid or too long. Nothing was imported.",
+          "A classroom intake field is invalid or too long (maximum 32,767 characters). Nothing was imported.",
         );
       draft.intake[key] = value || "";
     }
@@ -142,9 +155,9 @@ export function validateDraft(input, questions) {
       if (
         input.request[key] !== undefined &&
         (typeof input.request[key] !== "string" ||
-          input.request[key].length > 20000)
+          input.request[key].length > MAX_CELL_CHARACTERS)
       )
-        throw Error("The editable request is invalid or too long.");
+        throw Error("The editable request is invalid or too long (maximum 32,767 characters). Nothing was imported.");
       draft.request[key] = input.request[key] || "";
     }
     if (
@@ -159,6 +172,46 @@ export function validateDraft(input, questions) {
     Number.isFinite(Date.parse(input.updatedAt))
       ? input.updatedAt
       : null;
+  if (input.review !== undefined) {
+    const review = input.review;
+    if (!review || typeof review !== "object" || Array.isArray(review)) throw Error("The district review is invalid.");
+    const text = (v, max=MAX_CELL_CHARACTERS) => {
+      if (typeof v !== "string" || v.length>max) throw Error("A district review field is invalid or too long (maximum 32,767 characters). Nothing was imported.");
+      return v;
+    };
+    if (review.framework !== undefined) {
+      draft.review.framework = text(review.framework);
+    }
+    if (review.preparedDate !== undefined) draft.review.preparedDate=text(review.preparedDate);
+    if (review.calculationMode !== undefined) {
+      if (!["source","corrected"].includes(review.calculationMode)) throw Error("The calculation method is invalid.");
+      draft.review.calculationMode=review.calculationMode;
+    }
+    if (review.analystNotes !== undefined) draft.review.analystNotes=text(review.analystNotes);
+    for (const key of ["qualitative","applicability","categoryApplicability","favorableOverrides"]) {
+      if (review[key] === undefined) continue;
+      if (!review[key] || typeof review[key] !== "object" || Array.isArray(review[key])) throw Error("The district review entries are invalid.");
+      for (const [id, entry] of Object.entries(review[key])) {
+        if (!entry || typeof entry !== "object" || Array.isArray(entry)) throw Error("A district review entry is invalid.");
+        if (key === "qualitative") {
+          if (!["COMP-01","COMP-02","COMP-09"].includes(id)) throw Error("The qualitative question ID is invalid.");
+          if (!["","Yes","No"].includes(entry.compliant ?? "")) throw Error("The qualitative judgment is invalid.");
+          const score=entry.score ?? null;
+          if (score!==null && (typeof score!=="number" || !Number.isFinite(score) || score<0 || score>10)) throw Error("Qualitative scores must be from 0 to 10.");
+          draft.review.qualitative[id]={compliant:entry.compliant ?? "",score,notes:text(entry.notes ?? "")};
+        } else if (key === "favorableOverrides") {
+          if (!known.has(id) || known.get(id).kind!=="choice" || !["","Yes","No"].includes(entry.answer)) throw Error("The answer interpretation is invalid.");
+          const reason=text(entry.reason ?? "");
+          draft.review.favorableOverrides[id]={answer:entry.answer,reason};
+        } else {
+          const valid=key==="applicability"?known.has(id):questions.some(q=>q.section===id);
+          if (!valid || !["applicable","not-applicable","unreviewed"].includes(entry.state)) throw Error("The applicability decision is invalid.");
+          const reason=text(entry.reason ?? "");
+          draft.review[key][id]={state:entry.state,reason};
+        }
+      }
+    }
+  }
   return draft;
 }
 export function exportCSV(questions, draft) {

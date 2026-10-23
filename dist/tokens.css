@@ -1,19 +1,24 @@
-/* Reference: Builder Bootcamp sites-agentsbootcampdemo/app/globals.css.
-   Independent adaptation; no OpenAI/CoSN/MSBA endorsement or font redistribution. */
+/* Screenshot-based MSBA visual reference: user-supplied IMG_1642.jpeg.
+   Sampled pixels, not extracted CSS or an official style guide.
+   Independent adaptation; no CoSN/MSBA endorsement or font redistribution. */
 :root {
   --background: #fff;
-  --foreground: #202020;
+  --foreground: #252333;
   --card: #fff;
-  --card-foreground: #202020;
-  --primary: #202020;
+  --card-foreground: #252333;
+  --primary: #1e105f;
   --primary-foreground: #fff;
-  --secondary: #f4f4f4;
-  --secondary-foreground: #202020;
-  --muted-foreground: #626262;
-  --border: #dedede;
-  --input: #858585;
-  --ring: #202020;
+  --secondary: #f4f2f8;
+  --secondary-foreground: #1e105f;
+  --muted-foreground: #625e70;
+  --border: #dddbe5;
+  --input: #8a8499;
+  --ring: #1e105f;
   --destructive: #b42318;
+  --primary-hover: #352577;
+  --section-rule: #6189b7;
+  --plum: #720944;
+  --soft-violet: #4c407e;
   --font-sans: Arial, Helvetica, sans-serif;
   --radius: 10px;
   --space-1: 4px;

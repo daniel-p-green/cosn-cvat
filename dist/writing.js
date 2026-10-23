@@ -1,6 +1,27 @@
 import { bindDictation, dictationBusy } from "./dictation.js";
 /** Stable native text fields, plus separately controlled opt-in browser dictation. */
 export function bindWritingFields(root, { onInput, onCommit }) {
+  // Apply the same non-truncating paste guard to narrative text and the
+  // original Analyst Report's framework/date text inputs.
+  root.querySelectorAll('textarea[data-writing-field],input[maxlength]').forEach(field => {
+    // Native maxlength may silently shorten a paste. Reject an oversized paste
+    // before insertion so existing text and the clipboard content are preserved.
+    let limitMessage;
+    field.addEventListener('paste', event => {
+      if (!event.clipboardData || field.maxLength < 0) return;
+      const text = event.clipboardData.getData('text/plain').replace(/\r\n?/g, '\n');
+      const nextLength = field.value.length - (field.selectionEnd - field.selectionStart) + text.length;
+      if (nextLength <= field.maxLength) return;
+      event.preventDefault();
+      if (!limitMessage) {
+        limitMessage = document.createElement('p');
+        limitMessage.setAttribute('role', 'alert');
+        field.insertAdjacentElement('afterend', limitMessage);
+      }
+      limitMessage.textContent = `Paste not added. This field allows up to ${field.maxLength.toLocaleString('en-US')} characters. Your existing text is unchanged.`;
+    });
+    field.addEventListener('input', () => { if (limitMessage) limitMessage.textContent = ''; });
+  });
   const fields = [...root.querySelectorAll("textarea[data-writing-field]")];
   fields.forEach((field, index) => {
     const fitCompact = () => {

@@ -58,7 +58,8 @@ export function bindOrientation({ hasSavedDraft = false } = {}) {
   };
   const open = (event) => {
     if (dialog.open) return;
-    opener = event?.currentTarget || document.activeElement;
+    const trigger = event?.currentTarget || document.activeElement;
+    opener = trigger?.getClientRects().length ? trigger : document.getElementById('menu-toggle');
     step = 0;
     render();
     dialog.showModal();
@@ -77,9 +78,5 @@ export function bindOrientation({ hasSavedDraft = false } = {}) {
       )?.focus();
   });
   document.querySelector("#open-orientation")?.addEventListener("click", open);
-  let seen = false;
-  try {
-    seen = sessionStorage.getItem(SESSION_KEY) === "yes";
-  } catch {}
-  if (!hasSavedDraft && !seen && ["", "#start"].includes(location.hash)) open();
+  // Orientation is intentionally user-opened; it never blocks the first task.
 }

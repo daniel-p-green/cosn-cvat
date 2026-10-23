@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#1e105f" />
     <meta
       name="description"
       content="An independent educator-friendly guide to CoSN K-12CVAT Lite 4.1. Gather vendor responses, track evidence and prepare a district IT review."
@@ -13,13 +13,18 @@
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="voice.css" />
     <link rel="stylesheet" href="workflow.css" />
+    <link rel="stylesheet" href="analyst.css" />
+    <link rel="stylesheet" href="navigation.css" />
     <link rel="icon" href="data:," />
   </head>
   <body>
     <a class="skip" href="#main">Skip to main content</a>
     <header class="top">
       <a class="brand" href="#start"
-        >CoSN <strong>CVAT</strong><span>Independent adaptation</span></a
+        ><span class="brand-mark" aria-hidden="true"></span
+        ><span class="brand-name"
+          >CoSN <strong>CVAT</strong><small>Independent adaptation</small></span
+        ></a
       >
       <nav class="teacher-top-nav" aria-label="Workspace">
         <a href="#start">Teacher intake</a
@@ -32,7 +37,10 @@
         <span class="draft-status" id="draft-status">Draft in this tab</span
         ><a class="button small" href="#review">Review & export</a>
       </div>
+      <button id="menu-toggle" class="menu-toggle" type="button" aria-controls="mobile-menu" aria-expanded="false" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg><span>Menu</span></button>
     </header>
+    <p id="mobile-location" class="mobile-location">Teacher intake</p>
+    <dialog id="mobile-menu" aria-labelledby="menu-title"><div class="menu-panel"><header class="menu-heading"><h2 id="menu-title">Menu</h2><button id="menu-close" type="button"><span aria-hidden="true">×</span> Close</button></header><div class="menu-content"><nav aria-label="Mobile assessment navigation"><a href="#start" data-menu-page="start">Teacher intake</a><a href="#handoff" data-menu-page="handoff">Your handoff</a><a href="#questions" data-menu-page="questions">Vendor responses</a><a href="#analyst" data-menu-page="analyst">District analyst review</a><a href="#review" data-menu-page="review">Review & export</a></nav><details><summary>Workbook sections</summary><nav id="mobile-sections" aria-label="Mobile workbook sections"></nav></details><nav class="menu-utilities" aria-label="Mobile help and sources"><button id="mobile-help" type="button">How it works</button><a href="#about" data-menu-page="about">Source & attribution</a><a href="#changes" data-menu-page="changes">Changelog</a></nav><p id="mobile-save-status">Draft in this tab</p></div></div></dialog>
     <div class="shell">
       <aside class="rail">
         <nav aria-label="Assessment navigation">
@@ -40,9 +48,8 @@
             ><span>1</span> Your classroom idea</a
           >
           <a class="nav-step" href="#handoff"><span>2</span> Your handoff</a>
-          <a class="nav-step specialist-nav" href="#questions"
-            ><span aria-hidden="true">+</span> Vendor & IT review</a
-          >
+          <a class="nav-step specialist-nav" href="#questions"><span aria-hidden="true">3</span> Vendor responses</a>
+          <a class="nav-step specialist-nav" href="#analyst"><span aria-hidden="true">4</span> District analyst review</a>
         </nav>
         <div class="rail-teacher-note">
           <h2>Start with what you know.</h2>
@@ -78,7 +85,8 @@
         <div id="view"><p>Loading the assessment…</p></div>
       </main>
     </div>
-    <div class="notice" id="notice" role="status" aria-live="polite"></div>
+    <footer class="site-footer"><a href="#about">Source & attribution</a><a href="#changes">Changelog</a><span>Source workbook: CoSN K-12CVAT Lite 4.1</span></footer>
+    <div class="notice" id="notice" tabindex="0" role="status" aria-live="polite"></div>
     <dialog id="confirm">
       <form method="dialog">
         <h2 id="confirm-title">Replace this draft?</h2>

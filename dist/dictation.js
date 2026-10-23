@@ -50,7 +50,7 @@ export function bindDictation(root) {
     const fallback = document.createElement("span");
     fallback.className = "speech-fallback";
     fallback.textContent = cap.supported
-      ? "Microphone dictation · review before adding"
+      ? "Review speech before adding."
       : "Browser dictation unavailable. Use keyboard dictation or type.";
     if (!cap.supported) {
       button.disabled = true;
@@ -171,7 +171,7 @@ export function bindDictation(root) {
       const next = mergeTranscript(field.value, snapshot.transcript, mode);
       if (next.length > field.maxLength) {
         status.textContent =
-          "This would exceed the field’s 20,000-character limit. Shorten the existing text or try a shorter dictation.";
+          `This would exceed the field’s ${field.maxLength.toLocaleString('en-US')}-character limit. Nothing was added. Shorten the existing text or try a shorter dictation.`;
         return;
       }
       active.controller.cancel();

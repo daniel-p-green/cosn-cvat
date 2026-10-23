@@ -102,3 +102,30 @@ assert(handoff.includes("Your classroom notes changed"));
 console.log(
   "PASS: ten-improvement intake model, editable request, data choices, independent uncertainty, statuses, resume timestamp, five edit routes, backup labels, source separation and old-draft migration.",
 );
+
+const { usageGuideURL, SourcesAndAdaptations } = await import(
+  "../dist/sources.js"
+);
+assert(generateRequest(blank().intake).body.includes(usageGuideURL));
+assert(SourcesAndAdaptations().includes("76 fields"));
+assert(
+  SourcesAndAdaptations().includes("manual review outside the aggregate score"),
+);
+assert(handoffTextForTest());
+function handoffTextForTest() {
+  return (
+    HandoffView(blank(), q).includes("Sources and adaptations") &&
+    HandoffView(blank(), q).includes(usageGuideURL)
+  );
+}
+console.log(
+  "PASS: official CoSN usage guidance linked, source categories distinguished and narrative manual-review clarification preserved.",
+);
+
+assert(!IntakeView(blank(), false, true, 0).includes("intake-guide"));
+assert(IntakeView(blank(), false, true, 0).includes("intake-website"));
+assert(HandoffView(blank(), q).includes('id="preview-body"'));
+assert(HandoffView(blank(), q).includes('id="request-editor"'));
+console.log(
+  "PASS: task-first intake without role sidebar; visible optional website; readable preview with optional wording editor.",
+);

@@ -6,3 +6,9 @@ node_modules/
 *.key
 *.log
 output/
+# Local deployment identity, drafts, audit output and test artifacts
+.openai/
+artifacts/
+audit/
+*.backup.json
+*.assessment.json

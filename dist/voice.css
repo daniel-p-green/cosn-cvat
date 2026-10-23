@@ -7,7 +7,7 @@
 }
 .writing-field .field-label {
   display: block;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.45;
   margin: 0 0 8px;
@@ -18,7 +18,7 @@
   border: 1px solid var(--input);
   min-height: 132px;
   line-height: 1.6;
-  font-size: 16px;
+  font-size: 1rem;
   padding: 14px 16px;
   scroll-margin-block: 32px;
   caret-color: var(--primary);
@@ -39,7 +39,7 @@
   min-height: 44px;
 }
 .writing-state {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
   visibility: hidden;
 }
@@ -47,7 +47,7 @@
   visibility: visible;
 }
 button.field-next {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   padding: 8px 0;
   min-height: 44px;
@@ -77,7 +77,7 @@ button.field-next:hover {
   border: 1px solid var(--border);
   border-radius: 20px;
   color: var(--foreground);
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   min-height: 44px;
   padding: 10px 14px;
@@ -95,7 +95,7 @@ button.field-next:hover {
   flex: none;
 }
 .speech-fallback {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
   line-height: 1.5;
   max-width: 30ch;
@@ -107,7 +107,7 @@ button.field-next:hover {
   border-radius: 12px;
   padding: 20px;
   margin: 16px 0 24px;
-  font-size: 14px;
+  font-size: 1rem;
 }
 .speech-panel[hidden] {
   display: none;
@@ -116,7 +116,7 @@ button.field-next:hover {
   font-weight: 600;
   color: var(--foreground);
   margin: 0 0 16px;
-  font-size: 15px;
+  font-size: 1rem;
 }
 .speech-preview {
   background: var(--background);
@@ -126,7 +126,7 @@ button.field-next:hover {
   margin-bottom: 16px;
 }
 .speech-preview strong {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--muted-foreground);
   display: block;
@@ -134,7 +134,7 @@ button.field-next:hover {
 .speech-preview p {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   margin: 8px 0 16px;
   max-height: 240px;
@@ -154,7 +154,7 @@ button.field-next:hover {
   min-width: 0;
 }
 .speech-mode legend {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 4px;
 }
@@ -162,7 +162,7 @@ button.field-next:hover {
   display: inline-flex;
   gap: 8px;
   align-items: center;
-  font-size: 14px;
+  font-size: 1rem;
   min-height: 44px;
   margin-right: 16px;
   cursor: pointer;
@@ -178,14 +178,14 @@ button.field-next:hover {
   gap: 8px;
 }
 .speech-actions button {
-  font-size: 14px;
+  font-size: 1rem;
   min-height: 44px;
   padding: 10px 14px;
   max-width: 100%;
   white-space: normal;
 }
 .speech-privacy {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
   line-height: 1.6;
   margin: 16px 0 0;
@@ -207,7 +207,7 @@ button.field-next:hover {
   max-width: none;
 }
 .dictation-help summary {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   min-height: 44px;
@@ -218,7 +218,7 @@ button.field-next:hover {
   padding: 0 16px 16px;
 }
 .dictation-help p {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 #dictation-consent {
@@ -231,14 +231,14 @@ button.field-next:hover {
   overflow: auto;
 }
 #dictation-consent h2 {
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 500;
   line-height: 1.25;
   letter-spacing: -0.4px;
   margin: 0 0 20px;
 }
 #dictation-consent p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   margin-bottom: 16px;
 }

@@ -1,165 +1,123 @@
 # CoSN CVAT
 
-An independent, educator-friendly preparation workspace for **CoSN K-12CVAT Lite 4.1**.
-Teachers start with a focused three-step intake (tool, classroom use, data) and an optional concern, then review and copy an editable request for district IT. The full vendor/IT questionnaire remains a separate workspace for recording vendor responses and evidence. It does not approve products or assess
-legal compliance. Vendor answers and institutional security review remain essential.
+An independent browser workspace for **CoSN K-12CVAT Lite 4.1**. Teachers prepare a useful request for district IT; vendors and analysts complete the original assessment, review evidence and exchange editable Excel files.
+
+**[Open the application](https://cosn-cvat.daniel-green.chatgpt.site)** · [Run locally](#run-locally) · [Verification](VERIFICATION.md) · [Changelog](CHANGELOG.md) · [License](LICENSE.md)
+
+This is not an official CoSN, EDUCAUSE or MSBA product. It does not certify vendors, establish legal compliance or grant district approval. Teacher expectations never become vendor attestations automatically.
+
+![Teacher handoff showing an editable request for IT, using a clearly fictional classroom tool.](docs/images/teacher-request.png)
+
+<details>
+<summary>See the analyst workspace and mobile navigation</summary>
+
+![District analyst workspace with original-compatible calculation selected and no vendor responses entered.](docs/images/analyst-review.png)
+
+<img src="docs/images/mobile-navigation.png" width="320" alt="Phone navigation drawer with teacher intake, handoff, vendor responses, analyst review, exports, source notes and changelog.">
+
+</details>
+
+Screenshots use fictional classroom context and no student records or asserted vendor controls.
+
+## Use by role
+
+1. **Teacher:** describe the tool, classroom purpose and expected information types. Keep uncertainty explicit. Review the handoff, edit its wording if needed and choose **Copy request for IT**. Nothing is sent automatically.
+2. **Vendor:** complete the original questions and provide supporting references. GNRL-01–10 belong to the vendor; GNRL-11–12 belong to institution IT/security.
+3. **District analyst:** evaluate answers and evidence, choose the institution's framework, complete the three manual narrative judgments, and review calculations and applicability. Export a record for the district's process.
+
+**How it works** provides optional orientation and a fictional example. **Menu** contains every destination on phones and portrait tablets. The teacher intake is preparation, not a substitute for vendor completion or institutional review.
 
 ## Run locally
 
-No installation, API key, paid service, database, framework or account is required.
-Use Python 3:
+The app is buildless HTML, CSS and JavaScript. It needs no application account, API key, database, paid service or package installation to run. With Python 3:
 
 ```sh
 python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
 ```
 
-Open http://127.0.0.1:4173. Serve over HTTP rather than opening index.html directly,
-because the interface fetches its question data. Any ordinary static web host can serve
-the contents of `dist/`. The personal Sites identity in `.openai/hosting.json` is only
-for the original private deployment; omit that file when deploying elsewhere or
-creating a new Sites project. Do not reuse another owner's project ID.
+Open <http://127.0.0.1:4173>. Use a server rather than opening `index.html` directly: the app fetches bundled data and its workbook template.
 
-## Portable component kit
+Any static host can serve `dist/`; no build command is required. Use HTTPS for browser microphone/clipboard features. Configure your own hosting destination—the original owner's credentials and Sites identity are excluded. Host access controls are separate from this application.
 
-`dist/tokens.css` defines one semantic token set (background, foreground, primary,
-secondary, border, input, ring, destructive, radius and spacing). `dist/kit.js` owns
-reusable Button variants, labelled text areas, checkboxes and summary statistics.
-Shared styles provide the remaining native field, navigation, disclosure, table and
-confirmation-dialog recipes. Responsive layouts share these same primitives.
+## Assessment coverage and calculation modes
 
-The kit uses shadcn-style semantic naming, but is deliberately buildless native HTML,
-CSS and JavaScript, not the React shadcn package. This avoids an installation/build
-requirement for an educator handoff; these tokens and variants can be ported to shadcn
-without changing the data model. Styling follows the verified Builder Bootcamp Sites project reference: white/charcoal,
-Arial/Helvetica and restrained neutral controls. See `DESIGN-REFERENCE.md`; this is not
-a claim of an official OpenAI style guide or endorsement. All browser controls retain native semantics.
+The workspace preserves **76 original fields**: 63 assessment prompts, 12 general-information fields and DATE-01, with original IDs, wording and order. It includes all 59 answer-dependent guidance formulas, analyst reference text, 15 scoring categories, the six historical framework crosswalks and all 662 control descriptions. Added explanations, teacher notes and evidence references are labeled separately.
 
-## Source and data
+**Original-compatible** is the default calculation mode. It retains the supplied workbook's arithmetic, favorable answers, denominators and documented defects. Unknown is never converted to No; missing answers can still lower the preliminary source calculation because its denominators remain. Completion, evidence quality and the numeric score are distinct.
 
-- `source/CoSN-K-12CVAT-Lite-V4.1-2.xlsx`: original, unchanged source.
-- `scripts/extract-source.py`: reproducible standard-library OOXML extractor.
-- `dist/questions.json`: all 76 official fields, original wording/IDs, source guidance,
-  analyst references and crosswalk. 63 assessment prompts, 12 general fields, 1 date.
-- `dist/explanations.js`: separately authored plain-language explanations.
-- `dist/model.js`: draft validation, progress counts and CSV export.
-- `dist/app.js`: guided navigation, review, local draft lifecycle and source comparison.
+**Independent corrections** repairs documented lookup/range omissions and supports reasoned analyst exclusions and favorable-answer interpretations. It is not an official CoSN revision. Neither mode changes recorded vendor answers. Manual COMP-01/02/09 scores contribute to the separate adjusted company value, not the aggregate percentage.
 
-Run `python3 scripts/extract-source.py` to regenerate canonical question data.
-The source SHA-256 is
-`1aad4422dc8ba231f4c8ba499311be8a7b8f55ed37081053dd54a535caa94f7d`.
-Source retrieved October 21, 2026. Workbook change log gives March 1, 2024 for v4.1.
+Known source issues include missing COMP-07/08 lookups, HLVU-03's exclusion from the original pivot range, ambiguous favorable Yes for the COMP-05 incident question, broken `#REF!` skip formatting and references to an absent Summary Report. All prompts remain accessible; no skip policy or automatic N/A answer is invented. See **Our version vs. the original** in the app and [source inspection notes](source/WORKBOOK-NOTES.md). Framework references are historical mappings, not current certification claims.
 
-## Privacy and limits
+## Save and exchange
 
-Responses are only in browser memory until the user opts into localStorage saving.
-No response requests, uploads, analytics, cookies or third-party fonts are added by
-this application. The optional Dictate controls request browser microphone access only after user activation. The browser may send audio to its recognition provider. Local processing is not guaranteed. This application does not store audio; only a final transcript the user chooses to use enters the draft. Native keyboard dictation is also available under device-service privacy settings. Host sign-in/infrastructure is separate from application behavior.
-Do not enter student personal data, passwords, secrets or confidential security reports.
-Use document references and store the documents in an approved district system.
+| Format | Use |
+| --- | --- |
+| **JSON — Save/Open a backup** | Complete draft: classroom context, request edits, responses and analyst work. Replacement requires confirmation. |
+| **Editable XLSX** | Retains all 12 original tabs and adds labeled review/context/state sheets. Supported answer, manual-review and added context cells can be edited and reimported; conflicting duplicate-view edits are reported. |
+| **CSV** | Flat original-field/notes export with formula-injection escaping; not a complete round-trip backup. |
+| **Text / print** | Readable teacher request or complete analyst record, depending on the action; not an editable backup. |
 
-JSON export/import moves a draft between browsers. Import replaces the current draft
-only after confirmation. CSV exports every source field and notes, with spreadsheet
-formula-injection escaping. CSV is not an Excel round-trip. There is no cloud sync,
-collaborative editing, automated vendor validation or risk/compliance score.
-The print view is a preparation summary. Public source code contains no user drafts.
+Text values accept **32,767 UTF-16 code units**; supplementary characters count as two. Longer imports, pastes and transcripts are rejected without silently truncating existing work. JSON/XLSX input is limited to 64 MiB; expanded XLSX packages to 256 MiB. Macros do not run in the app. Editable input cells must contain values rather than formulas. Exchange supports the supplied Lite 4.1 layout, not arbitrary workbook restructuring.
 
-The expandable **Our version vs. the original** section documents omitted COMP-09,
-the short Lite named range, COMP-05 scoring ambiguity, broken skip-format references,
-the absent Summary Report and GNRL header mismatch. All questions stay visible.
-These are source observations; the original workbook and CoSN's intent are not changed.
+After editing Excel answers, refresh the original pivot in Excel or reimport/reexport in the app. The added high-risk review sheet is a labeled export snapshot. Hidden app-state sheets contain the draft; hiding is not privacy protection.
 
-## Attribution and sharing
+## Privacy and dictation
 
-See `LICENSE.md`. The source and this adaptation are **CC BY-NC-SA 4.0**, not MIT.
-Credit CoSN and EDUCAUSE, identify changes, preserve the license and noncommercial /
-share-alike conditions. This is an independent adaptation, with no claimed affiliation
-or endorsement from CoSN, EDUCAUSE or MSBA. Do not contact any recipient automatically.
+There is no assessment-data backend, cloud sync, analytics or third-party font loading. Responses stay in browser memory unless **Keep a draft on this device** is enabled. That uses local browser storage, not encrypted account storage; clearing browser data can erase it. Export a backup for approved transfer between devices.
 
-## Verification
+Do not enter student personal data, passwords, credentials or confidential security reports. Keep documents in an approved district system and use appropriate references here. A public app/source repository does not publish visitors' local drafts. Exported files do contain entered information: share them through approved channels.
 
-Syntax checks: `npm run check` (Node.js required only for this optional check).
-Canonical IDs and wording were compared to the original workbook's OOXML, including
-whitespace and source typos. Browser QA covers desktop, iPad portrait/landscape and
-phone sizes, original rendered prompts, response/unknown distinction, search/filters,
-evidence notes, counts, JSON/CSV, import validation, local save/reload/erase, keyboard
-controls, responsive overflow and screenshot review. See the delivered QA summary for
-actual completed checks and limitations. Browser tests use isolated synthetic data.
+**Dictate** uses feature-detected browser speech recognition, initiated by the user with microphone permission. The browser/provider may process audio remotely; local processing is not guaranteed. The app stores no audio. Stop, review and explicitly append or replace; cancel preserves the field. Unsupported browsers provide typing/native keyboard-dictation guidance. Recognition depends on device, language, policy and network. No paid transcription API is used.
 
-## Teacher intake and native dictation
+## Source, attribution and license
 
-`dist/intake.js` owns the short teacher intake and readable handoff. Its `draft.intake`
-object is validated and exported separately from `draft.records`. Classroom notes never
-populate vendor security answers. Old v1 JSON drafts still import with an empty intake.
-TXT exports include context, explicit unknowns, related workbook IDs and next steps;
-CSV preserves all 76 original fields and contains only separately recorded vendor/IT
-responses. JSON keeps both sets of information.
+- [Original CoSN K-12CVAT Lite 4.1 workbook](https://www.cosn.org/wp-content/uploads/2022/11/CoSN-K-12CVAT-Lite-V4.1-2.xlsx)
+- [CoSN's official “Using the K-12CVAT” guidance](https://www.cosn.org/wp-content/uploads/2024/03/Using-the-K-12CVAT.pdf)
+- Original ChangeLog date: March 1, 2024; retrieved October 21, 2026.
+- Unchanged source SHA-256: `1aad4422dc8ba231f4c8ba499311be8a7b8f55ed37081053dd54a535caa94f7d`.
 
-`dist/writing.js` binds labelled native textareas. It preserves their DOM identity,
-selection and focus while editing; no input handler rerenders the form. Saving is
-briefly debounced during normal input and deferred during composition; composition end,
-blur and navigation flush the current text. Local saving remains opt-in. Next-writing-
-field buttons move focus only after user action and are disabled during composition.
-An optional closed field opens when explicitly navigated to. Long text remains editable
-and is limited to20,000 characters per field, consistently with import validation.
+The workbook credits **CoSN's Cybersecurity Advisory Team** for adapting **EDUCAUSE HECVAT-Lite** with permission. The original toolkit was created by the **Higher Education Information Security Council Shared Assessments Working Group**. Its Introduction drawing states **“(C) EDUCAUSE 2019”** and **CC BY-NC-SA 4.0**. Those notices and the untouched workbook are retained.
 
-Use the field’s Dictate control when browser recognition is supported, or your device keyboard’s dictation button as a fallback. Instructions explain browser/provider and device-service privacy. Tests simulate composition,
-paste and long dictation-sized text using synthetic content. They verify stable focus
-and caret, storage/reload, separate context export, unknowns, vendor review and responsive
-overflow. Actual iPad speech recognition accuracy and OS keyboard behavior require a
-physical device and were not claimed tested on this Mac.
+This adaptation and its added interface/explanations use [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). Retain credits, source/license links and change notices; preserve noncommercial and share-alike conditions; do not imply endorsement. See [LICENSE.md](LICENSE.md) and the [legal code](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en). Public source does not mean unrestricted commercial use or MIT licensing.
 
-## Browser microphone dictation
+Changes include the browser/teacher workflow, explanations, evidence/unknown states, local drafts, analyst review, separately labeled corrections, dictation and file exchange. Bundled JSZip uses its MIT option; [original notice](dist/vendor/JSZIP-LICENSE.md) and [helper-library notices](dist/vendor/DEPENDENCY-NOTICES.md) are retained separately.
 
-`dictation.js` feature-detects SpeechRecognition / webkitSpeechRecognition in a secure
-context. Every appropriate writing field has a genuine Dictate control. The first
-activation explains remote-processing possibilities before the user starts. The user
-must grant the browser permission themselves. No microphone permission was granted
-during automated tests, and no real audio was captured in testing.
+The visual reference was a user-supplied MSBA homepage screenshot, with original education pictograms. No MSBA logo, screenshot or proprietary font is redistributed, and official brand-guide compliance is not claimed. See [design provenance](DESIGN-REFERENCE.md).
 
-`speech-controller.js` owns the start / listening / stopping / review / error / cancel
-state machine. Only one field can have an active session or transcript preview. Final
-and interim results are separate; interim text is never exported. The user stops and
-reviews, then explicitly appends to the field's current edited value or chooses to
-replace all text. Cancel discards the transcript while preserving the field. Leaving
-an active session is blocked until it is used or discarded; pagehide aborts recording.
-There is no automatic restart and no paid transcription service or API credential.
+## Tests and verified limits
 
-API presence does not guarantee working recognition: browser, OS, language, privacy
-policy and network support can differ. Errors and denied permission leave text intact.
-Unsupported browsers show a disabled Dictate control and a typing / keyboard-dictation
-fallback. Actual microphone capture and iPad browser speech accuracy require user
-validation on the device. Tests cover state logic with mocks and real capability
-detection without activating the real microphone.
-
-## Teacher request workflow (October 21 redesign)
-
-The first-run three-screen orientation is skippable, reopenable through **How it works**,
-and uses session-only seen state. An existing opted-in local draft bypasses it.
-No account or remote record storage is added. The optional saved draft keeps the same
-storage key and schema; previous classroom and vendor drafts migrate without loss.
-
-Teachers can select expected information types while independently keeping uncertainty,
-see a fictional worked example, and prepare a useful partial request. The handoff has
-an editable subject/body and **Copy request for IT** action. Clipboard denial provides
-selected text for manual copying. Nothing is sent. Each classroom section links directly
-to its originating field and returns to the request. Edited requests survive context
-changes; refreshing them requires confirmation. Long context is summarized in the
-request and retained in full in the notes/backup.
-
-**Keep a draft on this device** is opt-in. **Save a backup** and **Open a backup** use
-portable JSON including classroom context, request edits and separately recorded
-vendor answers. `workflow.css` owns the teacher-facing layout, spacing/type and shared
-request/intake components; this remains a native component kit, not actual shadcn.
-
-Additional regression checks:
+Node.js is required for checks, not for serving the application:
 
 ```sh
 npm run check
-# In another terminal, run npm start first. Install Playwright in your test environment.
-npm run test:browser
 ```
 
-Browser tests accept `PLAYWRIGHT_MODULE`, `BROWSER_CHANNEL`, `TEST_URL` and `TEST_OUTPUT`
-for an existing test environment. They mock speech recognition, clipboard and permission
-failure; they never request or grant a real microphone. Desktop viewport simulation
-cannot verify an actual iPad keyboard or its native speech capture.
+Browser suites need [Playwright and a browser](https://playwright.dev/docs/intro) installed in the test environment. From this checkout:
+
+```sh
+npm install --no-save --package-lock=false playwright
+npx playwright install chromium
+```
+
+The mobile, edge-case and several analyst suites also require Google Chrome installed on the machine. Start the local server, then:
+
+```sh
+npm run test:browser
+npm run test:mobile
+npm run test:text-capacity
+npm run test:changelog
+npm run test:analyst
+```
+
+`PLAYWRIGHT_MODULE` can reference an existing installation. Most suites accept `TEST_URL` and `TEST_OUTPUT`; use port 4173 for suites that explicitly target the default. Some use installed Chrome. Native fixture-verification scripts require their documented synthetic inputs; they do not replace an actual Excel session.
+
+The **October 23, 2026 independent audit** passed **20/20 groups—100/100 on its fixed, equally weighted CVAT capability rubric**. Fresh Excel 16.114 recalculation, pivot refresh, save/reopen and actual app import passed across seven synthetic workbooks. All 76 answer cells were checked per file. See [the complete denominator, scenarios and qualifications](VERIFICATION.md) and [audited asset hashes](AUDITED-APP-MANIFEST.json).
+
+This is not universal Excel/browser compatibility or vendor approval. Excel re-encodes the shared CoSN logo during native saving while retaining its picture objects/readable content; bitwise native round-trip identity is not claimed. Real Safari/iPad/phone hardware, screen-reader sessions, actual microphone capture and native print-dialog behavior remain unverified. Desktop viewport simulation and speech mocks do not establish device behavior.
+
+## Maintain and contribute
+
+`dist/` is deployable; `source/` retains the original workbook and provenance; `scripts/` contains extraction and regression checks. `assessment-engine.js` owns calculations, `workbook-exchange.js` handles XLSX, and `model.js`/`limits.js` validate drafts. The native component kit uses semantic tokens; it is not React/shadcn.
+
+Run checks relevant to changes. Preserve exact source IDs/wording, separate explanations, both calculation modes and license notices. Use synthetic test data. Do not commit drafts, assessment exports, credentials, hosting identities, reference screenshots or private audit notes. Contributions must retain this adaptation's attribution and license.

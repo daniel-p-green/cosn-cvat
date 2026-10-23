@@ -1,4 +1,4 @@
-/* Teacher workflow: reference-grounded monochrome, one 4px rhythm, native controls. */
+/* Teacher workflow: screenshot-grounded institutional palette, 4px rhythm, native controls. */
 :root {
   font-family: var(--font-sans);
   --blue: var(--primary);
@@ -26,8 +26,8 @@ button.primary,
 }
 button.primary:hover,
 .button.primary:hover {
-  background: #383838;
-  border-color: #383838;
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 h1,
 h2,
@@ -82,7 +82,7 @@ textarea:focus {
   border-bottom: 1px solid var(--border);
 }
 .teacher-mode .brand {
-  font-size: 22px;
+  font-size: 1.375rem;
   font-weight: 400;
   line-height: 1.2;
   letter-spacing: -0.5px;
@@ -92,7 +92,7 @@ textarea:focus {
   font-weight: 600;
 }
 .teacher-mode .brand span {
-  font-size: 13px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   letter-spacing: 0;
@@ -105,7 +105,7 @@ textarea:focus {
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px 24px;
-  font-size: 14px;
+  font-size: 1rem;
   margin: 0;
 }
 .teacher-top-nav a,
@@ -137,12 +137,12 @@ textarea:focus {
   margin: 0;
 }
 .teacher-mode .draft-status {
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--muted-foreground);
 }
 .teacher-mode .top-actions a {
-  font-size: 14px;
+  font-size: 1rem;
   min-height: 44px;
   padding: 10px 16px;
   white-space: normal;
@@ -154,12 +154,12 @@ textarea:focus {
 }
 .teacher-mode button,
 .teacher-mode .button {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.4;
   padding: 12px 18px;
 }
 .teacher-mode h1 {
-  font-size: 36px;
+  font-size: 2.25rem;
   line-height: 1.18;
   font-weight: 500;
   letter-spacing: -1px;
@@ -177,14 +177,14 @@ textarea:focus {
   min-width: 0;
 }
 .task-intro p {
-  font-size: 17px;
+  font-size: 1.0625rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   max-width: 58ch;
   margin: 0;
 }
 .task-intro > a {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   min-height: 44px;
   display: inline-flex;
@@ -223,7 +223,7 @@ textarea:focus {
   color: var(--foreground);
 }
 .step-number {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   font-variant-numeric: tabular-nums;
   flex: none;
@@ -232,13 +232,13 @@ textarea:focus {
   line-height: 1.45;
 }
 .intake-steps button > span:not(.step-number) {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.4;
   font-weight: 500;
 }
 .intake-steps small {
   display: block;
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 400;
   color: var(--muted-foreground);
@@ -258,13 +258,13 @@ textarea:focus {
   min-width: 0;
 }
 .step-position {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--muted-foreground);
   margin: 0 0 24px;
 }
 .teacher-mode .field-label {
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 500;
   line-height: 1.35;
   letter-spacing: -0.3px;
@@ -273,7 +273,7 @@ textarea:focus {
   max-width: none;
 }
 .teacher-mode .field-description {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 0 0 16px;
@@ -281,7 +281,7 @@ textarea:focus {
 }
 .teacher-mode textarea {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--foreground);
   border: 1px solid var(--input);
@@ -314,7 +314,7 @@ textarea:focus {
   text-underline-offset: 3px;
   color: var(--muted-foreground);
   padding: 8px 0 !important;
-  font-size: 14px !important;
+  font-size: 1rem !important;
   min-height: 44px;
 }
 .optional-question {
@@ -323,7 +323,7 @@ textarea:focus {
   border-top: 1px solid var(--border);
 }
 .optional-question summary {
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--foreground);
   padding: 12px 0;
@@ -335,7 +335,7 @@ textarea:focus {
   margin: 12px 0 20px;
 }
 .optional-question .field-label {
-  font-size: 17px;
+  font-size: 1.0625rem;
   letter-spacing: 0;
 }
 .step-actions {
@@ -350,7 +350,7 @@ textarea:focus {
 }
 .step-actions .step-skip,
 .step-actions .step-back {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   min-height: 44px;
   display: inline-flex;
@@ -377,21 +377,21 @@ textarea:focus {
   background: transparent;
 }
 .step-draft .check {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
   min-height: 44px;
   margin: 0;
 }
 .step-draft #writing-status {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--muted-foreground);
   margin: 0;
   min-height: 0;
 }
 .step-draft p {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 4px 0 0;
@@ -402,7 +402,7 @@ textarea:focus {
   min-width: 0;
 }
 .intake-guide h2 {
-  font-size: 22px;
+  font-size: 1.375rem;
   line-height: 1.35;
   font-weight: 500;
   letter-spacing: -0.4px;
@@ -423,12 +423,12 @@ textarea:focus {
   gap: 4px;
 }
 .responsibility-list strong {
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--foreground);
 }
 .responsibility-list span {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -440,7 +440,7 @@ textarea:focus {
 }
 .worked-example summary {
   padding: 12px 16px;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   font-weight: 500;
   cursor: pointer;
@@ -449,33 +449,33 @@ textarea:focus {
   padding: 4px 16px 16px;
 }
 .example-label {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }
 .example-content h3 {
-  font-size: 17px;
+  font-size: 1.0625rem;
   font-weight: 500;
   line-height: 1.4;
   margin: 12px 0;
 }
 .example-content h4 {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
   margin: 20px 0 8px;
 }
 .example-content p {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
   margin: 0 0 12px;
 }
 .workflow-origin,
 .native-dictation-tip p {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
 }
 .native-dictation-tip summary {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 400;
   padding: 12px 0;
   cursor: pointer;
@@ -487,7 +487,7 @@ textarea:focus {
   min-width: 0;
 }
 .data-choices legend {
-  font-size: 20px;
+  font-size: 1.25rem;
   line-height: 1.35;
   letter-spacing: -0.3px;
   font-weight: 500;
@@ -495,7 +495,7 @@ textarea:focus {
   padding: 0;
 }
 .data-choices > p {
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 12px 0 20px;
@@ -513,7 +513,7 @@ textarea:focus {
   border-radius: 10px;
   background: var(--background);
   padding: 14px 16px;
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.5;
   min-height: 56px;
   cursor: pointer;
@@ -545,18 +545,18 @@ textarea:focus {
   margin-bottom: 28px;
 }
 .resume-draft strong {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
 }
 .resume-draft p {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.5;
   margin: 4px 0 0;
   color: var(--muted-foreground);
 }
 .resume-draft button {
   background: var(--background);
-  font-size: 14px;
+  font-size: 1rem;
 }
 .request-layout {
   display: grid;
@@ -578,14 +578,14 @@ textarea:focus {
 }
 .paper-heading h2,
 .context-paper > h2 {
-  font-size: 22px;
+  font-size: 1.375rem;
   line-height: 1.35;
   font-weight: 500;
   letter-spacing: -0.4px;
   margin: 0 0 8px;
 }
 .paper-heading span {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }
 .preflight {
@@ -595,16 +595,16 @@ textarea:focus {
   margin: 0 0 24px;
 }
 .preflight strong {
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 500;
 }
 .preflight p {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   margin: 8px 0 0;
 }
 .request-paper .field-label {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0;
 }
@@ -613,7 +613,7 @@ textarea:focus {
 }
 .request-paper #request-body {
   min-height: 400px;
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 .request-actions {
@@ -624,7 +624,7 @@ textarea:focus {
   margin-top: 24px;
 }
 .request-actions #copy-request {
-  font-size: 16px;
+  font-size: 1rem;
   min-height: 48px;
   padding: 12px 20px;
 }
@@ -633,11 +633,11 @@ textarea:focus {
   border: 0;
   color: var(--muted-foreground);
   text-decoration: underline;
-  font-size: 14px;
+  font-size: 1rem;
   padding-inline: 0;
 }
 #copy-status {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 16px 0 0;
@@ -647,7 +647,7 @@ textarea:focus {
   min-width: 0;
 }
 .context-intro {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 0 0 20px;
@@ -663,19 +663,19 @@ textarea:focus {
   align-items: center;
 }
 .context-section h3 {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.5;
   margin: 0;
 }
 .context-section a {
-  font-size: 14px;
+  font-size: 1rem;
   min-height: 44px;
   display: flex;
   align-items: center;
 }
 .context-section p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
@@ -683,7 +683,7 @@ textarea:focus {
 }
 .context-note,
 .uncertainty-note {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -694,7 +694,7 @@ textarea:focus {
   margin: 0 0 16px;
 }
 .request-stale {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   border: 1px solid var(--input);
   background: var(--secondary);
@@ -711,7 +711,7 @@ textarea:focus {
 .handoff-utilities > summary,
 .teacher-source-questions > summary {
   padding: 16px 20px;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1.5;
   cursor: pointer;
@@ -729,13 +729,13 @@ textarea:focus {
   max-width: 100%;
 }
 .utility-actions small {
-  font-size: 13px;
+  font-size: 1rem;
   color: var(--muted-foreground);
   margin-left: 8px;
 }
 .utility-content p,
 .utility-content .check {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 .utility-content .check {
@@ -745,7 +745,7 @@ textarea:focus {
 .teacher-source-questions > ul,
 .teacher-source-questions > a {
   margin: 12px 20px 20px;
-  font-size: 15px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 .teacher-source-questions a,
@@ -754,7 +754,7 @@ textarea:focus {
   overflow-wrap: anywhere;
 }
 .handoff-bottom {
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
   margin: 24px 0;
@@ -788,12 +788,12 @@ textarea:focus {
   background: var(--background);
 }
 .orientation-top span {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }
 .orientation-top button {
   min-height: 44px;
-  font-size: 14px;
+  font-size: 1rem;
   padding: 8px 0;
   background: none;
   border: 0;
@@ -804,7 +804,7 @@ textarea:focus {
   padding: 28px;
 }
 .orientation-content h2 {
-  font-size: 28px;
+  font-size: 1.75rem;
   line-height: 1.2;
   font-weight: 500;
   letter-spacing: -0.6px;
@@ -812,7 +812,7 @@ textarea:focus {
   max-width: 26ch;
 }
 .orientation-content p {
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
   margin: 0 0 16px;
 }
@@ -823,7 +823,7 @@ textarea:focus {
   padding: 16px 20px;
   border-radius: 10px;
   background: var(--secondary);
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 500;
   margin-top: 24px;
 }
@@ -838,7 +838,7 @@ textarea:focus {
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid var(--border);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.5;
 }
 .orientation-roles strong {
@@ -851,18 +851,18 @@ textarea:focus {
   margin-bottom: 24px;
 }
 .orientation-example > span {
-  font-size: 14px;
+  font-size: 1rem;
   color: var(--muted-foreground);
 }
 .orientation-example p {
-  font-size: 15px;
+  font-size: 1rem;
   margin: 12px 0 20px;
 }
 .orientation-example p:last-child {
   margin-bottom: 0;
 }
 .orientation-example strong {
-  font-size: 14px;
+  font-size: 1rem;
   font-weight: 600;
 }
 .orientation-actions {
@@ -875,14 +875,14 @@ textarea:focus {
   gap: 16px;
 }
 .orientation-actions span {
-  font-size: 13px;
+  font-size: 1rem;
   line-height: 1.5;
   color: var(--muted-foreground);
   max-width: 200px;
 }
 .orientation-actions button {
   min-height: 48px;
-  font-size: 15px;
+  font-size: 1rem;
   padding: 12px 20px;
 }
 @media (max-width: 1100px) {
@@ -926,7 +926,7 @@ textarea:focus {
     margin-top: 16px;
   }
   .teacher-mode h1 {
-    font-size: 32px;
+    font-size: 2rem;
   }
   .intake-guide {
     border-top: 1px solid var(--border);
@@ -952,7 +952,7 @@ textarea:focus {
     gap: 8px;
   }
   .intake-steps button > span:not(.step-number) {
-    font-size: 14px;
+    font-size: 1rem;
   }
 }
 @media (max-width: 550px) {
@@ -962,14 +962,14 @@ textarea:focus {
     position: static;
   }
   .teacher-mode .brand {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
   .teacher-mode .brand span {
-    font-size: 12px;
+    font-size: 1rem;
     max-width: 19ch;
   }
   .teacher-mode .top-actions a {
-    font-size: 14px;
+    font-size: 1rem;
     padding: 10px 14px;
   }
   .teacher-mode .teacher-top-nav {
@@ -977,17 +977,17 @@ textarea:focus {
     padding-top: 8px;
     gap: 4px 16px;
     justify-content: space-between;
-    font-size: 13px;
+    font-size: 1rem;
   }
   .teacher-top-nav a,
   .teacher-top-nav .nav-help {
-    font-size: 13px;
+    font-size: 1rem;
   }
   .teacher-mode main {
     padding: 28px 20px 48px;
   }
   .teacher-mode h1 {
-    font-size: 28px;
+    font-size: 1.75rem;
     line-height: 1.2;
     letter-spacing: -0.6px;
     max-width: 22ch;
@@ -996,7 +996,7 @@ textarea:focus {
     margin-bottom: 24px;
   }
   .task-intro p {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.6;
   }
   .intake-steps {
@@ -1011,7 +1011,7 @@ textarea:focus {
     gap: 8px;
   }
   .intake-steps small {
-    font-size: 13px;
+    font-size: 1rem;
     line-height: 1.4;
     margin-top: 6px;
   }
@@ -1024,7 +1024,7 @@ textarea:focus {
   }
   .teacher-mode .field-label,
   .data-choices legend {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
   .step-actions {
     align-items: stretch;
@@ -1045,7 +1045,7 @@ textarea:focus {
     grid-template-columns: 1fr;
   }
   .data-choice {
-    font-size: 16px;
+    font-size: 1rem;
   }
   .responsibility-list {
     grid-template-columns: 1fr;
@@ -1093,7 +1093,7 @@ textarea:focus {
     padding: 24px 20px;
   }
   .orientation-content h2 {
-    font-size: 25px;
+    font-size: 1.5625rem;
     line-height: 1.25;
   }
   .orientation-roles li {
@@ -1105,7 +1105,7 @@ textarea:focus {
     gap: 12px;
   }
   .orientation-actions > span {
-    font-size: 14px;
+    font-size: 1rem;
     max-width: none;
   }
   .orientation-actions .primary {
@@ -1170,7 +1170,7 @@ textarea:focus {
   border-bottom: 1px solid var(--border);
   padding: 0 0 20px;
   margin: 0 0 24px;
-  font-size: 14px;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--muted-foreground);
 }
@@ -1217,4 +1217,883 @@ summary,
 select,
 textarea {
   -webkit-tap-highlight-color: #00000010;
+}
+.sources-adaptations {
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+  padding-top: 4px;
+}
+.sources-adaptations summary {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 12px 0;
+  min-height: 44px;
+  cursor: pointer;
+}
+.sources-adaptations > div {
+  max-width: 76ch;
+  padding: 8px 0 0;
+}
+.sources-adaptations p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+  margin: 0 0 16px;
+}
+.sources-adaptations strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+/* Simplified workflow. Visual reference and sampled palette: DESIGN-REFERENCE.md. */
+.ui-icon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  vertical-align: middle;
+}
+.teacher-mode .top {
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  color: var(--foreground);
+  min-height: 80px;
+  padding: 12px 28px;
+}
+.teacher-mode .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--foreground);
+  text-decoration: none;
+}
+.teacher-mode .brand .brand-mark {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  width: 34px;
+  height: 34px;
+  color: var(--foreground);
+  flex: none;
+}
+.teacher-mode .brand-mark .ui-icon {
+  width: 32px;
+  height: 32px;
+}
+.teacher-mode .brand .brand-name {
+  display: block;
+  font-size: 1.3125rem;
+  line-height: 1.2;
+  color: var(--foreground);
+  margin: 0;
+  letter-spacing: -0.4px;
+}
+.teacher-mode .brand strong {
+  color: var(--foreground);
+}
+.teacher-mode .brand small {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted-foreground);
+  margin-top: 3px;
+}
+.teacher-mode .teacher-top-nav a,
+.teacher-mode .teacher-top-nav .nav-help {
+  color: var(--muted-foreground);
+}
+.teacher-mode .teacher-top-nav a:hover,
+.teacher-mode .teacher-top-nav .nav-help:hover {
+  color: var(--foreground);
+}
+.teacher-mode .draft-status {
+  color: var(--muted-foreground);
+}
+.teacher-mode .top-actions a {
+  background: #fff;
+  color: var(--primary);
+  border-color: var(--foreground);
+  border-radius: 20px;
+  font-weight: 600;
+}
+.teacher-mode .top-actions a:hover {
+  background: var(--secondary);
+}
+.teacher-mode .top :focus-visible {
+  outline-color: var(--foreground);
+}
+.teacher-mode main {
+  padding-top: 32px;
+}
+.simplified-intake,
+.simplified-handoff {
+  max-width: 760px;
+  margin-inline: auto;
+}
+.simplified-intake .task-intro,
+.simplified-handoff .task-intro {
+  margin-bottom: 24px;
+}
+.teacher-mode .simplified-intake h1,
+.teacher-mode .simplified-handoff h1 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.6px;
+  max-width: none;
+  margin: 0;
+}
+.simplified-handoff .task-intro p {
+  margin-top: 12px;
+  font-size: 1rem;
+}
+.simplified-intake .intake-steps {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.simplified-intake .intake-steps button {
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+}
+.simplified-intake .intake-steps button[aria-current="step"] {
+  border-color: var(--primary);
+  background: var(--secondary);
+}
+.step-icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 7px;
+  background: var(--primary);
+  color: #fff;
+}
+.simplified-intake .intake-steps button > span:not(.step-icon) {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.simplified-intake .intake-steps small {
+  font-size: 1rem;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.simplified-intake .step-sheet {
+  padding: 24px 28px;
+  border-radius: 12px;
+}
+.simplified-intake .field-label {
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.simplified-intake .website-field {
+  margin-top: 16px;
+}
+.simplified-intake .website-field .field-label {
+  font-size: 1rem;
+}
+.simplified-intake .website-field .field-description {
+  display: none;
+}
+.simplified-intake .expand-field {
+  min-height: 36px;
+}
+.simplified-intake .speech-toolbar {
+  margin-top: 8px;
+}
+.simplified-intake .step-actions {
+  margin-top: 24px;
+  margin-bottom: 20px;
+}
+.simplified-intake .step-draft {
+  padding-top: 16px;
+}
+.simplified-intake .step-draft p {
+  margin-top: 0;
+}
+.intake-reference {
+  margin-top: 20px;
+}
+.intake-reference .worked-example {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  margin: 0;
+}
+.intake-reference .worked-example summary {
+  padding: 12px 0;
+  font-weight: 400;
+}
+.intake-reference .sources-adaptations {
+  margin-top: 4px;
+}
+.resume-draft p .ui-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}
+.simplified-handoff .request-paper {
+  padding: 28px;
+}
+.simplified-handoff .request-actions {
+  margin: 0 0 4px;
+  justify-content: space-between;
+  gap: 12px;
+}
+.request-actions > span {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--muted-foreground);
+}
+.simplified-handoff #copy-status:empty {
+  display: none;
+}
+.simplified-handoff .preflight {
+  background: none;
+  border: 0;
+  padding: 8px 0 16px;
+  margin: 0 0 20px;
+  border-bottom: 1px solid var(--border);
+}
+.simplified-handoff .preflight p {
+  margin: 0;
+  font-size: 1rem;
+}
+.request-preview {
+  margin: 0;
+}
+.request-preview h2 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.2px;
+  margin: 0 0 20px;
+  text-wrap: pretty;
+}
+#preview-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-width: 66ch;
+}
+.request-editor {
+  margin-top: 24px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.request-editor > summary {
+  font-size: 1rem;
+  font-weight: 500;
+  min-height: 44px;
+  padding: 12px 0;
+  cursor: pointer;
+  color: var(--primary);
+}
+.request-editor[open] > .writing-field,
+.request-editor[open] > .compact-field {
+  margin-top: 20px;
+}
+.editor-actions {
+  display: flex;
+  gap: 12px 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.editor-actions .quiet-button {
+  background: transparent;
+  border: 0;
+  padding-inline: 0;
+  font-size: 1rem;
+  text-decoration: underline;
+  color: var(--muted-foreground);
+}
+.classroom-notes,
+.simplified-handoff .handoff-utilities,
+.simplified-handoff .teacher-source-questions {
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: #fff;
+  margin-top: 20px;
+}
+.classroom-notes > summary,
+.simplified-handoff .handoff-utilities > summary,
+.simplified-handoff .teacher-source-questions > summary {
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  min-height: 48px;
+  cursor: pointer;
+}
+.classroom-notes > summary .ui-icon,
+.simplified-handoff summary .ui-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: var(--primary);
+}
+.classroom-notes .context-paper {
+  padding-top: 8px;
+  border: 0;
+}
+.classroom-notes .context-section {
+  padding: 8px 0;
+}
+.simplified-handoff .utility-content {
+  padding-inline: 0;
+}
+.simplified-handoff .sources-adaptations {
+  margin-top: 20px;
+}
+button.primary:hover,
+.button.primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+@media (max-width: 1100px) {
+  .teacher-mode .top {
+    grid-template-columns: 1fr auto;
+    padding: 12px 24px;
+    gap: 8px 20px;
+  }
+  .teacher-mode .teacher-top-nav {
+    padding-top: 4px;
+  }
+  .teacher-mode main {
+    padding-top: 28px;
+  }
+}
+@media (max-width: 550px) {
+  .teacher-mode .top {
+    padding: 12px 20px;
+    gap: 8px 16px;
+  }
+  .teacher-mode .brand .brand-name {
+    font-size: 1.1875rem;
+  }
+  .teacher-mode .brand small {
+    font-size: 1rem;
+  }
+  .teacher-mode .teacher-top-nav {
+    padding-top: 4px;
+    border: 0;
+    font-size: 1rem;
+  }
+  .teacher-mode .top-actions a {
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+  .teacher-mode main {
+    padding: 24px 20px 40px;
+  }
+  .teacher-mode .simplified-intake h1,
+  .teacher-mode .simplified-handoff h1 {
+    font-size: 1.625rem;
+  }
+  .simplified-intake .task-intro,
+  .simplified-handoff .task-intro {
+    margin-bottom: 20px;
+  }
+  .simplified-intake .intake-steps {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .simplified-intake .intake-steps button {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 8px;
+    gap: 8px;
+  }
+  .step-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 5px;
+  }
+  .step-icon .ui-icon {
+    width: 19px;
+    height: 19px;
+  }
+  .simplified-intake .intake-steps small {
+    font-size: 1rem;
+  }
+  .simplified-intake .intake-steps button > span:not(.step-icon) {
+    font-size: 1rem;
+  }
+  .simplified-intake .step-sheet,
+  .simplified-handoff .request-paper {
+    padding: 20px;
+  }
+  .simplified-intake .field-label {
+    font-size: 1.125rem;
+  }
+  .simplified-intake .step-draft {
+    gap: 6px;
+  }
+  .simplified-handoff .request-actions {
+    align-items: stretch;
+  }
+  .simplified-handoff .request-actions > span {
+    text-align: center;
+  }
+  .simplified-handoff .request-actions #copy-request {
+    width: 100%;
+  }
+  .request-preview h2 {
+    font-size: 1.1875rem;
+  }
+  .editor-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .editor-actions > button {
+    width: 100%;
+  }
+  .classroom-notes .context-paper {
+    padding-top: 8px;
+  }
+}
+/* The supplied MSBA screenshot establishes the frame and section accents.
+   Keep the task itself quiet; no marketing imagery or copied identity assets. */
+.top,
+.teacher-mode .top {
+  background: var(--primary);
+  border-bottom: 4px solid var(--section-rule);
+  color: #fff;
+}
+.top .brand,
+.top .brand strong,
+.top .brand .brand-name,
+.top .brand .brand-mark,
+.teacher-mode .brand,
+.teacher-mode .brand strong,
+.teacher-mode .brand .brand-name,
+.teacher-mode .brand .brand-mark {
+  color: #fff;
+}
+.teacher-mode .brand small,
+.teacher-mode .draft-status,
+.teacher-mode .teacher-top-nav a,
+.teacher-mode .teacher-top-nav .nav-help {
+  color: #eeebfa;
+}
+.teacher-mode .teacher-top-nav a:hover,
+.teacher-mode .teacher-top-nav .nav-help:hover {
+  color: #fff;
+}
+.teacher-mode .top-actions a {
+  border-color: #fff;
+  border-radius: 6px;
+}
+.top :focus-visible,
+.teacher-mode .top :focus-visible {
+  outline-color: #fff;
+}
+button,
+.button {
+  border-radius: 6px;
+}
+.teacher-mode .simplified-intake h1,
+.teacher-mode .simplified-handoff h1,
+.orientation-content h2 {
+  color: var(--primary);
+  font-weight: 600;
+  letter-spacing: -0.55px;
+}
+.task-intro h1::after {
+  content: "";
+  display: block;
+  width: 84px;
+  height: 3px;
+  margin-top: 16px;
+  background: var(--section-rule);
+}
+.simplified-intake .intake-steps {
+  gap: 1px;
+  background: var(--soft-violet);
+  border: 1px solid var(--primary);
+  border-radius: 8px;
+  overflow: visible;
+}
+.simplified-intake .intake-steps button {
+  border: 0;
+  border-bottom: 4px solid transparent;
+  border-radius: 0;
+  color: #fff;
+  background: var(--primary);
+  padding: 14px 16px 10px;
+}
+.simplified-intake .intake-steps button:first-child {
+  border-radius: 7px 0 0 7px;
+}
+.simplified-intake .intake-steps button:last-child {
+  border-radius: 0 7px 7px 0;
+}
+.simplified-intake .intake-steps button:hover {
+  background: var(--primary-hover);
+}
+.simplified-intake .intake-steps button[aria-current="step"] {
+  background: var(--primary-hover);
+  border-bottom-color: var(--section-rule);
+}
+.simplified-intake .intake-steps small {
+  color: #eeebfa;
+}
+.simplified-intake .intake-steps .step-icon {
+  color: #fff;
+  background: transparent;
+  border-radius: 0;
+}
+.simplified-intake .step-sheet,
+.simplified-handoff .request-paper {
+  border-radius: 8px;
+  border-top: 3px solid var(--soft-violet);
+}
+.simplified-handoff .request-paper {
+  border-top-color: var(--plum);
+}
+.request-preview h2,
+.request-editor > summary,
+.context-section h3 {
+  color: var(--primary);
+}
+.orientation-top {
+  border-bottom: 3px solid var(--section-rule);
+}
+.orientation-callout {
+  border-left: 3px solid var(--soft-violet);
+  border-radius: 0 6px 6px 0;
+}
+@media (max-width: 550px) {
+  .simplified-intake .intake-steps {
+    gap: 1px;
+  }
+  .simplified-intake .intake-steps button {
+    padding: 12px 10px 8px;
+  }
+  .simplified-intake .intake-steps button > span:not(.step-icon),
+  .simplified-intake .intake-steps small {
+    font-size: 1rem;
+  }
+  .teacher-mode .teacher-top-nav {
+    font-size: 1rem;
+    gap: 4px 12px;
+  }
+}
+/* Readability and contrast apply equally to teacher and vendor routes. */
+.top .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.top .brand .brand-name {
+  font-size: 1.3125rem;
+  line-height: 1.3;
+  margin: 0;
+  font-weight: 400;
+}
+.top .brand .brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  margin: 0;
+}
+.top .brand-mark .ui-icon {
+  width: 32px;
+  height: 32px;
+}
+.top .brand small {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0;
+  margin-top: 3px;
+  color: #eeebfa;
+}
+.top .draft-status {
+  color: #eeebfa;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.top .top-actions a {
+  background: #fff;
+  color: var(--primary);
+  border-color: #fff;
+  border-radius: 6px;
+  font-size: 1rem;
+  min-height: 44px;
+}
+button,
+.button,
+.dictate-button {
+  border-color: var(--input);
+}
+button:disabled,
+button:disabled:hover,
+.dictate-button:disabled,
+.dictate-button:disabled:hover {
+  opacity: 1;
+  color: var(--muted-foreground);
+  background: var(--secondary);
+  border-color: var(--input);
+  cursor: not-allowed;
+}
+.intake-steps button:disabled,
+.intake-steps button:disabled:hover,
+.intake-steps button[aria-current="step"]:disabled {
+  background: var(--primary);
+  color: #eeebfa;
+  border-bottom-color: transparent;
+}
+.intake-steps button[aria-current="step"]:disabled {
+  border-bottom-color: var(--section-rule);
+}
+.intake-steps button:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+}
+input,
+select,
+textarea {
+  border-color: var(--input);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted-foreground);
+  opacity: 1;
+}
+.data-choice,
+.data-choice.uncertain,
+.response {
+  border-color: var(--input);
+}
+.rail,
+.question-sheet,
+.question-footer,
+.question-tools,
+.review,
+.about {
+  line-height: 1.6;
+}
+main {
+  overflow-wrap: anywhere;
+}
+.rail a,
+.rail summary,
+.rail small,
+.rail-progress,
+.rail-progress > div,
+.rail-progress strong,
+.rail-progress p,
+.rail-foot,
+.field-label,
+.question-sheet .who,
+.question-sheet .help-line,
+.question-meta,
+.question-id,
+.question-count,
+.source-badge,
+#response-status {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rail > nav {
+  gap: 8px;
+}
+.nav-step,
+#sections a,
+.section-menu summary {
+  min-height: 44px;
+  height: auto;
+  padding-block: 10px;
+}
+.nav-step span {
+  min-width: 26px;
+  min-height: 26px;
+  font-size: 0.875rem;
+}
+.question-meta {
+  flex-wrap: wrap;
+}
+.question-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.question-tools > label {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+.question-tools > button {
+  flex: 0 1 auto;
+  max-width: 100%;
+  white-space: normal;
+}
+.question-footer .actions {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+  min-width: 0;
+}
+.question-footer .actions > button {
+  flex: 1 1 9rem;
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+.review-layout > * {
+  min-width: 0;
+}
+.table-wrap {
+  max-width: 100%;
+}
+.table-wrap table {
+  table-layout: fixed;
+}
+.table-wrap th,
+.table-wrap td {
+  overflow-wrap: anywhere;
+}
+.question-row {
+  grid-template-columns: 6rem minmax(0, 1fr) 8rem;
+}
+.question-row > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 900px) {
+  .question-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+#sections a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  overflow-wrap: anywhere;
+}
+#sections a > span {
+  min-width: 0;
+}
+.simplified-intake .intake-steps button > span:not(.step-icon) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.check {
+  min-height: 44px;
+  padding-block: 8px;
+}
+.question-sheet .help-line,
+.question-sheet .who,
+.reference-body p,
+.about p {
+  max-width: 68ch;
+}
+.field-label {
+  color: var(--foreground);
+}
+.top a:focus-visible,
+.top button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+@media (max-width: 550px) {
+  .simplified-intake .intake-steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .simplified-intake .intake-steps button {
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 16px 6px;
+    gap: 12px;
+  }
+  .simplified-intake .intake-steps button:first-child {
+    border-radius: 7px 7px 0 0;
+  }
+  .simplified-intake .intake-steps button:last-child {
+    border-radius: 0 0 7px 7px;
+  }
+  .top,
+  .teacher-mode .top {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .top .brand .brand-name {
+    font-size: 1.25rem;
+  }
+  .top .brand small {
+    max-width: none;
+  }
+  .teacher-mode .top {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .teacher-mode .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .teacher-mode .top-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .teacher-mode .teacher-top-nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+  .teacher-mode .top-actions {
+    justify-content: flex-start;
+  }
+  .teacher-mode .teacher-top-nav {
+    justify-content: flex-start;
+    column-gap: 20px;
+    row-gap: 0;
+  }
+  .rail > nav {
+    grid-template-columns: 1fr;
+  }
+  .question-meta {
+    gap: 8px 16px;
+  }
+  .speech-fallback {
+    text-align: left;
+    max-width: none;
+  }
+  .speech-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+@media (max-width: 360px) {
+  .teacher-mode .top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .teacher-mode .brand,
+  .teacher-mode .top-actions,
+  .teacher-mode .teacher-top-nav {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+@media print {
+  .request-editor,
+  .request-preview,
+  .classroom-notes,
+  .request-actions {
+    display: none !important;
+  }
 }

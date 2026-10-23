@@ -9,7 +9,7 @@ CoSN K-12CVAT; Standards Crosswalk; Analyst Report; Analyst Reference; Crosswalk
 (hidden); High Risk Non-Compliant (hidden); Questions (hidden); Values (hidden); ChangeLog.
 Inspection included OOXML cell text, drawing text, cell comments, validations, defined
 names, cached formula results, formulas, conditional formatting and sheet visibility.
-No hidden rows or columns were identified in the inspected worksheets. Introduction
+No hidden rows were identified. Standards Crosswalk column E is hidden in the source; its ISO 27002:2013 mapping remains included in this interface and crosswalk exports. Introduction
 text and the license are in drawing objects, not ordinary worksheet cells.
 
 There are 76 canonical IDs: DATE-01; GNRL-01–12; 63 assessment questions across 15
@@ -31,12 +31,26 @@ Verified inconsistencies:
 
 The scoring support mixes formulas and fixed cached values. It uses favorable-answer
 matching, weights, category summaries, high-risk flags, standards crosswalk lookups
-and manual analyst conversion of narrative responses. The application intentionally
-provides no score, certification, purchase approval or compliance judgment. Every
+and manual analyst conversion of narrative responses. The district review reproduces source-compatible calculations and separates documented independent corrections; neither produces certification, purchase approval or an official compliance judgment. Every
 question remains visible because intended skip logic cannot be recovered reliably.
-The original workbook file is unchanged.
+The original source file is unchanged. Editable exports start from it and clearly label added review/state sheets and calculation mode.
+
+Additional source defects verified during the frozen v9 audit: Questions!I14/I15 lack the COMP-07/08 answer lookups, so their weights cannot earn automatic credit in source-compatible mode. The High Risk pivot excludes final HLVU-03 even though category SUMIFS includes it; Analyst Report high-risk formulas also reference rows beyond its populated source pivot. Independent corrections repair missing lookups and complete the attention list without silently changing COMP-05. Instructions also place framework selection at B7, while the actual Analyst Report field is B10. There are 1,475 formula elements, including shared-formula followers, and 1,223 nonempty formula strings.
+
+All 59 conditional guidance formulas are now evaluated, alongside three static narrative guidance cells. The two-argument HLAP-03 No branch returns Boolean FALSE in the original; it is shown explicitly, with no invented written guidance. Source arithmetic was independently evaluated and tested; desktop Excel recalculation is separately recorded in QA evidence.
 
 The workbook's introduction credits CoSN's adaptation of EDUCAUSE HECVAT-Lite with
 permission, the Higher Education Information Security Council Shared Assessments
 Working Group, EDUCAUSE2019 and CC BY-NC-SA4.0. See LICENSE.md and drawing-text.json.
 No source placeholder contact values are treated as completed answers in the site.
+
+## Official usage guidance (reviewed October 21, 2026)
+
+CoSN’s four-page “Using the K-12CVAT” guide is linked at
+https://www.cosn.org/wp-content/uploads/2024/03/Using-the-K-12CVAT.pdf .
+It recommends vendor completion before purchase/renewal and careful district analyst
+review. Page 3 explicitly says company questions 01, 02 and 09 are outside aggregate
+scoring and require manual analyst review. Thus COMP-09’s absence from the hidden
+scoring table is a conversion-completeness risk, not evidence that narrative exclusion
+from aggregate scoring is an error. All three narrative prompts stay available.
+The guide is marked CC BY-NC; it is linked and briefly paraphrased, not republished.
