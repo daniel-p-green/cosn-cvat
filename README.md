@@ -37,7 +37,7 @@ python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
 
 Open <http://127.0.0.1:4173>. Use a server rather than opening `index.html` directly: the app fetches bundled data and its workbook template.
 
-Any static host can serve `dist/`; no build command is required. Use HTTPS for browser microphone/clipboard features. Configure your own hosting destination—the original owner's credentials and Sites identity are excluded. Host access controls are separate from this application.
+Any static host can serve `dist/`; no build command is required. Use HTTPS for browser microphone/clipboard features. Configure your own hosting destination—the original owner's credentials and Sites identity are excluded. Host access controls are separate from this application. **ChatGPT and Sites are optional demo infrastructure, not runtime requirements.** See [standalone hosting and migration](HOSTING.md) for MSBA/district servers, static hosts and backup transfer.
 
 ## Assessment coverage and calculation modes
 
